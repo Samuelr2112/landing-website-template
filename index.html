@@ -848,6 +848,32 @@
       .hero-headline { font-size: 2.4rem; }
       .hero-form-card { padding: 28px 20px; }
     }
+    /* ─── TEMPLATE NOTICE BAR ───────────────────────────────────────── */
+    .template-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(90deg, #ff6b35, #ff8c5a);
+      color: #fff;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      z-index: 2000;
+      letter-spacing: 0.03em;
+    }
+    
+    .template-bar a {
+      color: #fff;
+      text-decoration: underline;
+      font-weight: 700;
+    }
+    
+    /* Move navbar down so it doesn't overlap */
+    #navbar {
+      top: 36px;
+    }
   </style>
 
   <script type="application/ld+json">
@@ -892,7 +918,14 @@
   </script>
 
 </head>
-<body>
+
+  <body>
+    <div class="template-bar">
+    Demo template by <strong>Samuel Rincón</strong> —
+    Inquiries:
+    <a href="mailto:samuelrinconm@yahoo.com">Samuel</a> |
+    <a href="mailto:danieldebo18@gmail.com">Daniel (Sales)</a>
+  </div>
 
   <!-- ── MOBILE MENU ─────────────────────────────────────────────────────── -->
 
