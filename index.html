@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>BUSINESS_NAME | Expert Home Services in CITY, STATE — Free Estimates</title>
-  <meta name="description" content="BUSINESS_NAME offers professional SERVICES in CITY. Licensed, insured, 5-star rated. Same-day service available. Get your free quote in minutes." />
-  <meta name="keywords" content="SERVICES, CITY, STATE, home services, licensed, insured" />
-  <meta property="og:title" content="BUSINESS_NAME | Premium Home Services in CITY" />
-  <meta property="og:description" content="Expert SERVICES in CITY. 15+ years experience. Free estimates." />
+  <title>BUSINESS_NAME | SERVICE_TYPE in CITY, ST</title>
+  <meta name="description" content="BUSINESS_NAME provides SERVICE_TYPE in CITY, ST. Short description here." />
+  <meta name="keywords" content="SERVICE_TYPE, CITY, ST" />
+  <meta property="og:title" content="BUSINESS_NAME | SERVICE_TYPE in CITY, ST" />
+  <meta property="og:description" content="Short description here." />
   <meta property="og:type" content="website" />
   <link rel="canonical" href="https://YOURDOMAIN.com" />
 
@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
 
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <!-- Minimal template: remove EmailJS dependency (mailto fallback used) -->
 
   <style>
     :root {
@@ -42,7 +42,7 @@
       --shadow-lg:    0 20px 60px rgba(0,0,0,0.5);
       --transition:   0.22s cubic-bezier(0.4,0,0.2,1);
       --max-w:        1200px;
-      --section-pad:  120px;
+      --section-pad:  90px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -66,7 +66,7 @@
     .nav-cta,
     .btn-primary,
     .btn-submit,
-    .float-call { cursor: pointer; }
+    .btn-outline { cursor: pointer; }
 
     .container {
       width: 100%;
@@ -218,31 +218,6 @@
       padding: 140px 0 80px;
       overflow: hidden; background: var(--black);
     }
-    .hero-grid-bg {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(200,169,110,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(200,169,110,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-    }
-    .hero-glow {
-      position: absolute; top: -200px; left: -200px;
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-glow-2 {
-      position: absolute; bottom: -100px; right: -100px;
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(200,169,110,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-line {
-      position: absolute; right: 0; top: 0; bottom: 0; width: 1px;
-      background: linear-gradient(to bottom, transparent, rgba(200,169,110,0.2), transparent);
-      pointer-events: none;
-    }
     .hero-inner {
       position: relative; z-index: 1;
       display: grid;
@@ -262,26 +237,8 @@
     .hero-subheadline {
       font-size: 1.05rem; color: var(--text-light);
       line-height: 1.82; font-weight: 300;
-      max-width: 520px; margin-bottom: 40px;
+      max-width: 520px; margin-bottom: 28px;
     }
-
-    .hero-trust-line {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 0.8rem; color: var(--text-muted);
-      margin-bottom: 32px; font-weight: 400;
-    }
-    .hero-trust-line svg   { color: var(--accent); flex-shrink: 0; }
-    .hero-trust-line span  { color: var(--text-light); }
-
-    .trust-bar { display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 44px; }
-    .trust-item { display: flex; flex-direction: column; gap: 2px; }
-    .trust-number {
-      font-family: var(--font-display);
-      font-size: 1.9rem; font-weight: 700; line-height: 1; color: var(--white);
-    }
-    .trust-number span { color: var(--accent); }
-    .trust-label  { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; }
-    .trust-divider { width: 1px; background: var(--border-gray); align-self: stretch; }
 
     .hero-cta-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
 
@@ -301,14 +258,6 @@
     }
     .btn-primary:active { transform: translateY(0); transition-duration: 0.08s; }
 
-    .btn-secondary {
-      display: inline-flex; align-items: center; gap: 8px;
-      color: var(--text-light); font-size: 0.875rem; font-weight: 500;
-      transition: color var(--transition);
-    }
-    .btn-secondary:hover { color: var(--white); }
-    .btn-secondary svg   { color: var(--accent); }
-
     .btn-outline {
       display: inline-flex; align-items: center; gap: 8px;
       border: 1px solid var(--border-gray); color: var(--text-light);
@@ -317,19 +266,6 @@
       transition: border-color var(--transition), color var(--transition);
     }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-
-    .btn-microcopy {
-      display: block; text-align: center;
-      font-size: 0.7rem; color: var(--text-muted);
-      margin-top: 8px; letter-spacing: 0.03em;
-    }
-
-    @keyframes ctaGlowPulse {
-      0%   { box-shadow: 0 10px 30px rgba(200,169,110,0.40); }
-      40%  { box-shadow: 0 10px 40px rgba(200,169,110,0.70), 0 0 0 6px rgba(200,169,110,0.12); }
-      100% { box-shadow: 0 10px 30px rgba(200,169,110,0.40); }
-    }
-    .btn-primary.cta-glow-once { animation: ctaGlowPulse 1.1s ease forwards; }
 
     .hero-form-card {
       background: var(--off-black);
@@ -345,24 +281,7 @@
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
     }
     .hero-form-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
-    .hero-form-sub   { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
-
-    .form-social-proof {
-      display: flex; align-items: center; gap: 7px;
-      font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em;
-      margin-bottom: 14px; padding-bottom: 14px;
-      border-bottom: 1px solid var(--border-gray);
-    }
-    .form-social-proof .fsp-avatars { display: flex; align-items: center; }
-    .form-social-proof .fsp-avatar {
-      width: 22px; height: 22px; border-radius: 50%;
-      background: var(--mid-gray); border: 2px solid var(--off-black);
-      font-size: 9px; display: flex; align-items: center; justify-content: center;
-      margin-left: -6px; flex-shrink: 0;
-    }
-    .form-social-proof .fsp-avatar:first-child { margin-left: 0; }
-    .form-social-proof .fsp-stars { color: var(--accent); font-size: 9px; letter-spacing: 1px; }
-    .form-social-proof strong     { color: var(--text-light); }
+    .hero-form-sub   { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5; }
 
     .form-group { margin-bottom: 14px; position: relative; }
     .form-group label {
@@ -428,34 +347,6 @@
     }
     .form-group.valid.no-check::after { display: none; }
 
-    .field-helper {
-      font-size: 0.7rem; margin-top: 5px;
-      display: none; line-height: 1.4;
-      transition: opacity 0.2s ease;
-    }
-    .field-helper.phone-ok { color: #4caf78; }
-    .field-helper.email-ok { color: #4caf78; }
-
-    .form-progress {
-      display: flex; align-items: center; gap: 8px;
-      margin-bottom: 18px;
-      font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--text-muted); transition: color 0.3s ease;
-    }
-    .form-progress-bar {
-      flex: 1; height: 3px;
-      background: var(--border-gray); border-radius: 2px; overflow: hidden;
-    }
-    .form-progress-fill {
-      height: 100%;
-      background: var(--accent); border-radius: 2px; width: 50%;
-      transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
-    }
-    .form-progress.step2             { color: var(--accent); }
-    .form-progress.step2 .form-progress-fill { width: 100%; }
-    .form-progress-label             { white-space: nowrap; }
-
     .btn-submit {
       width: 100%;
       background: var(--accent); color: var(--black);
@@ -491,19 +382,6 @@
     .btn-submit.loading .btn-text { display: none; }
 
     .submit-wrap { position: relative; }
-    .submit-hover-tip {
-      position: absolute;
-      bottom: calc(100% + 8px); left: 50%;
-      transform: translateX(-50%) translateY(4px);
-      background: var(--dark-gray); border: 1px solid var(--border-gray);
-      color: var(--text-muted);
-      font-size: 0.68rem; padding: 5px 12px; border-radius: 50px;
-      white-space: nowrap; pointer-events: none;
-      opacity: 0; transition: opacity 0.18s ease, transform 0.18s ease;
-      z-index: 10;
-    }
-    .submit-wrap:hover .submit-hover-tip { opacity: 1; transform: translateX(-50%) translateY(0); }
-
     .form-inline-error {
       display: none;
       background: rgba(224,85,85,0.07);
@@ -555,32 +433,6 @@
     .form-success h3 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 8px; }
     .form-success p  { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
 
-    .form-trust-row {
-      display: flex; align-items: center; justify-content: center;
-      gap: 14px; flex-wrap: wrap;
-      margin-top: 14px; padding-top: 14px;
-      border-top: 1px solid var(--border-gray);
-    }
-    .form-trust-item {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 0.68rem; color: var(--text-muted);
-      font-weight: 500; letter-spacing: 0.02em;
-    }
-    .form-trust-item svg { color: var(--accent); flex-shrink: 0; }
-
-    .no-spam-line {
-      text-align: center; font-size: 0.68rem; color: var(--text-muted);
-      margin-top: 10px; letter-spacing: 0.02em; line-height: 1.55;
-    }
-    .no-spam-line strong { color: var(--text-light); font-weight: 500; }
-
-    .form-guarantee {
-      display: flex; align-items: center; gap: 6px;
-      margin-top: 12px; font-size: 0.72rem; color: var(--text-muted);
-      justify-content: center;
-    }
-    .form-guarantee svg { color: var(--accent); flex-shrink: 0; }
-
     #about {
       padding: var(--section-pad) 0;
       background: var(--off-black);
@@ -618,7 +470,7 @@
     }
     .about-content p {
       font-size: 0.95rem; color: var(--text-light);
-      line-height: 1.82; margin-bottom: 16px; font-weight: 300;
+      line-height: 1.82; margin-bottom: 12px; font-weight: 300;
     }
     .about-bullets { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
     .about-bullet  { display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; color: var(--text-light); line-height: 1.65; }
@@ -632,7 +484,7 @@
 
     #services { padding: var(--section-pad) 0; background: var(--black); }
 
-    .section-header { text-align: center; max-width: 620px; margin: 0 auto 64px; }
+    .section-header { text-align: center; max-width: 620px; margin: 0 auto 48px; }
     .section-header .section-label          { justify-content: center; }
     .section-header .section-label::before  { display: none; }
     .section-header .section-label::after   { content: ''; display: block; width: 30px; height: 1px; background: var(--accent); }
@@ -746,21 +598,6 @@
       font-size: 12px; font-weight: 700; color: #4285F4;
     }
 
-    #cta-mid { padding: 100px 0; background: var(--black); position: relative; overflow: hidden; }
-    #cta-mid::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(200,169,110,0.07) 0%, transparent 70%);
-    }
-    .cta-mid-inner { text-align: center; position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
-    .cta-mid-inner h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 20px;
-    }
-    .cta-mid-inner p { font-size: 1rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 40px; font-weight: 300; }
-    .cta-mid-actions { display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
-
     #contact { padding: var(--section-pad) 0; background: var(--off-black); position: relative; }
     .contact-simple { text-align: center; max-width: 700px; margin: 0 auto; }
     .contact-simple h2 {
@@ -768,9 +605,9 @@
       font-size: clamp(2rem, 3.5vw, 2.8rem);
       font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px;
     }
-    .contact-simple p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.82; font-weight: 300; margin-bottom: 36px; }
+    .contact-simple p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.82; font-weight: 300; margin-bottom: 24px; }
 
-    .contact-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; max-width: 640px; margin-left: auto; margin-right: auto; }
+    .contact-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 32px; max-width: 640px; margin-left: auto; margin-right: auto; }
     .contact-card {
       background: var(--dark-gray); border: 1px solid var(--border-gray);
       border-radius: var(--radius-lg); padding: 28px 32px; min-width: 200px; text-align: center;
@@ -789,77 +626,26 @@
     .contact-card-value a   { color: inherit; transition: color var(--transition); }
     .contact-card-value a:hover { color: var(--accent); }
 
-    footer { background: var(--black); border-top: 1px solid var(--border-gray); padding: 60px 0 30px; }
+    footer { background: var(--black); border-top: 1px solid var(--border-gray); padding: 40px 0 20px; }
     .footer-top {
       display: grid;
       grid-template-columns: 1.4fr 1fr 1fr;
-      gap: 48px;
-      padding-bottom: 48px;
+      gap: 28px;
+      padding-bottom: 28px;
       border-bottom: 1px solid var(--border-gray);
     }
-    .footer-brand p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; font-weight: 300; margin-top: 16px; max-width: 260px; }
-    .footer-col h4  { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); margin-bottom: 18px; }
-    .footer-col ul  { display: flex; flex-direction: column; gap: 10px; }
+    .footer-brand p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; font-weight: 300; margin-top: 12px; max-width: 260px; }
+    .footer-col h4  { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); margin-bottom: 12px; }
+    .footer-col ul  { display: flex; flex-direction: column; gap: 6px; }
     .footer-col ul li a { font-size: 0.875rem; color: var(--text-muted); transition: color var(--transition); font-weight: 300; }
     .footer-col ul li a:hover { color: var(--accent); }
     .footer-bottom {
       display: flex; align-items: center; justify-content: space-between;
-      padding-top: 28px; font-size: 0.78rem; color: var(--text-muted);
+      padding-top: 20px; font-size: 0.78rem; color: var(--text-muted);
       flex-wrap: wrap; gap: 10px;
     }
     .footer-bottom a { color: var(--accent); transition: opacity var(--transition); }
     .footer-bottom a:hover { opacity: 0.7; }
-
-    .float-call {
-      display: none; position: fixed; bottom: 24px; right: 24px; z-index: 900;
-      background: var(--accent); color: var(--black);
-      width: 62px; height: 62px; border-radius: 50%;
-      align-items: center; justify-content: center;
-      box-shadow: 0 6px 28px rgba(200,169,110,0.55), 0 0 0 0 rgba(200,169,110,0.35);
-      transition: transform var(--transition), box-shadow var(--transition);
-      text-decoration: none;
-      animation: floatPulse 3s ease-in-out infinite;
-    }
-    .float-call:hover { transform: scale(1.1); box-shadow: 0 12px 36px rgba(200,169,110,0.7); animation: none; }
-    @keyframes floatPulse {
-      0%, 100% { box-shadow: 0 6px 28px rgba(200,169,110,0.55), 0 0 0 0 rgba(200,169,110,0.35); }
-      50%       { box-shadow: 0 6px 28px rgba(200,169,110,0.55), 0 0 0 10px rgba(200,169,110,0); }
-    }
-
-    .float-call-label {
-      position: fixed; bottom: 100px; right: 18px; z-index: 899;
-      background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      border: 1px solid var(--border-gray); color: var(--accent);
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 5px 10px; border-radius: 50px;
-      display: none; opacity: 0; transform: translateY(6px);
-      transition: opacity 0.22s ease, transform 0.22s ease;
-      pointer-events: none; white-space: nowrap;
-    }
-    .float-call-label.visible { opacity: 1; transform: translateY(0); }
-
-    .sticky-mini-cta {
-      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 850;
-      background: rgba(255,255,255,0.95);
-      border-top: 1px solid var(--border-gray);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      padding: 12px 20px;
-      transform: translateY(100%);
-      transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
-    }
-    .sticky-mini-cta.show { transform: translateY(0); }
-    .sticky-mini-cta-inner {
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      max-width: var(--max-w); margin: 0 auto;
-    }
-    .sticky-mini-cta-text       { font-size: 0.82rem; color: var(--text-light); font-weight: 500; }
-    .sticky-mini-cta-text strong { color: var(--white); }
-    .sticky-mini-cta .btn-primary { padding: 11px 22px; font-size: 0.82rem; flex-shrink: 0; }
-    .sticky-mini-cta-dismiss {
-      background: none; border: none; color: var(--text-muted);
-      font-size: 1.1rem; cursor: pointer; padding: 2px 4px;
-      flex-shrink: 0; line-height: 1; font-family: var(--font-body);
-    }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -871,7 +657,7 @@
     }
 
     @media (max-width: 1024px) {
-      :root { --section-pad: 90px; }
+      :root { --section-pad: 72px; }
       .hero-inner { grid-template-columns: 1fr; gap: 56px; }
       .hero-form-card { max-width: 540px; }
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -881,24 +667,20 @@
     }
 
     @media (max-width: 768px) {
-      :root { --section-pad: 70px; }
+      :root { --section-pad: 56px; }
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
-      .trust-bar  { gap: 20px; }
-      .trust-divider { display: none; }
       .services-grid, .testimonials-grid { grid-template-columns: 1fr; }
       .testimonial-card:first-child { grid-column: auto; }
       .footer-top {
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-        padding-bottom: 32px;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding-bottom: 20px;
       }
       .footer-bottom { flex-direction: column; align-items: flex-start; }
-      .float-call { display: flex; }
       .contact-cards { grid-template-columns: 1fr; max-width: 320px; }
       .contact-card  { width: 100%; }
       .hero-form-card { padding: 32px 24px; }
-      .form-trust-row { gap: 10px; }
       .btn-primary, .btn-submit { min-height: 52px; }
       .form-group input,
       .form-group select,
@@ -916,7 +698,7 @@
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "BUSINESS_NAME",
-    "description": "Professional SERVICES serving CITY, STATE. Licensed, insured, 15+ years experience.",
+    "description": "Home services in CITY, ST. Add a short description here.",
     "url": "https://YOURDOMAIN.com",
     "telephone": "PHONE_NUMBER",
     "email": "EMAIL@DOMAIN.COM",
@@ -925,7 +707,7 @@
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "CITY",
-      "addressRegion": "STATE",
+      "addressRegion": "ST",
       "postalCode": "ZIP",
       "addressCountry": "US"
     },
@@ -937,9 +719,7 @@
       "itemListElement": [
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SERVICE 1" } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SERVICE 2" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SERVICE 3" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SERVICE 4" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SERVICE 5" } }
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SERVICE 3" } }
       ]
     },
     "aggregateRating": {
@@ -949,37 +729,14 @@
       "bestRating": "5"
     },
     "openingHoursSpecification": [
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "19:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "17:00" }
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "17:00" }
     ]
   }
   </script>
 </head>
 <body>
 
-  <div class="float-call-label" id="floatCallLabel" aria-hidden="true">Call Now</div>
-  <a href="tel:PHONE_NUMBER" class="float-call" id="floatCallBtn"
-     aria-label="Call us now" onclick="safeTrack('phone_click')">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13 19.79 19.79 0 01.43 4.49 2 2 0 012.4 2.28h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.06 6.06l1.79-1.79a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2z"/>
-    </svg>
-  </a>
-
-  <div class="sticky-mini-cta" id="stickyMiniCta" aria-label="Get free quote bar">
-    <div class="sticky-mini-cta-inner">
-      <p class="sticky-mini-cta-text"><strong>Free quote</strong> — takes 60 seconds</p>
-      <button class="btn-primary" onclick="smoothScrollTo('hero'); safeTrack('cta_click');"
-              aria-label="Scroll to quote form">
-        Get Free Quote
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </button>
-      <button class="sticky-mini-cta-dismiss" onclick="dismissStickyMini()" aria-label="Dismiss">×</button>
-    </div>
-  </div>
+  <!-- Minimal template: removed floating call + sticky CTA bar -->
 
   <nav class="mobile-menu" id="mobileMenu"
        role="navigation" aria-label="Mobile navigation">
@@ -987,19 +744,12 @@
     <a href="#services"     onclick="closeMobile()">Services</a>
     <a href="#testimonials" onclick="closeMobile()">Reviews</a>
     <a href="#contact"      onclick="closeMobile()">Contact</a>
-    <a href="tel:PHONE_NUMBER" class="nav-cta">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13 19.79 19.79 0 01.43 4.49 2 2 0 012.4 2.28h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.06 6.06l1.79-1.79a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2z"/>
-      </svg>
-      PHONE_NUMBER
-    </a>
+    <a href="tel:PHONE_NUMBER" class="nav-cta">Call: PHONE_NUMBER</a>
   </nav>
 
   <header id="navbar" role="banner">
     <div class="container">
       <div class="nav-inner">
-        <!-- Fix 3: logo link changed from #hero to # -->
         <a href="#" class="nav-logo" onclick="smoothScrollTo('hero'); return false;" aria-label="BUSINESS_NAME home">
           <div class="nav-logo-icon">B</div>
           <span>BUSINESS_NAME</span>
@@ -1010,13 +760,7 @@
           <a href="#testimonials">Reviews</a>
           <a href="#contact">Contact</a>
         </nav>
-        <a href="tel:PHONE_NUMBER" class="nav-cta">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13 19.79 19.79 0 01.43 4.49 2 2 0 012.4 2.28h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.06 6.06l1.79-1.79a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2z"/>
-          </svg>
-          PHONE_NUMBER
-        </a>
+        <a href="tel:PHONE_NUMBER" class="nav-cta" aria-label="Call BUSINESS_NAME">Call: PHONE_NUMBER</a>
         <button class="hamburger" id="hamburger"
                 aria-label="Open menu" aria-expanded="false">
           <span></span><span></span><span></span>
@@ -1026,96 +770,38 @@
   </header>
 
   <section id="hero" aria-labelledby="hero-headline">
-    <div class="hero-grid-bg" aria-hidden="true"></div>
-    <div class="hero-glow"    aria-hidden="true"></div>
-    <div class="hero-glow-2"  aria-hidden="true"></div>
-    <div class="hero-line"    aria-hidden="true"></div>
-
     <div class="container">
       <div class="hero-inner">
 
         <div class="hero-content">
           <h1 class="hero-headline reveal delay-1" id="hero-headline">
-            Expert <em>SERVICE_TYPE</em><br>
-            You Can Trust,<br>
-            Every Single Time.
+            <em>SERVICE_TYPE</em><br>
+            For Homes in<br>
+            CITY, ST
           </h1>
 
           <p class="hero-subheadline reveal delay-2">
-            BUSINESS_NAME delivers professional SERVICES across CITY and STATE.
-            Licensed, insured, and backed by 500+ five-star reviews.
-            Fast response. Transparent pricing. Guaranteed workmanship.
+            Short description here. Add your service details.
           </p>
-
-          <div class="hero-trust-line reveal delay-2">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-            <span>No hidden fees. 100% satisfaction guaranteed.</span>
-          </div>
-
-          <div class="trust-bar reveal delay-3" role="list">
-            <div class="trust-item" role="listitem">
-              <div class="trust-number">15<span>+</span></div>
-              <div class="trust-label">Years in business</div>
-            </div>
-            <div class="trust-divider" aria-hidden="true"></div>
-            <div class="trust-item" role="listitem">
-              <div class="trust-number">500<span>+</span></div>
-              <div class="trust-label">Jobs completed</div>
-            </div>
-            <div class="trust-divider" aria-hidden="true"></div>
-            <div class="trust-item" role="listitem">
-              <div class="trust-number">5.0<span>★</span></div>
-              <div class="trust-label">Google rating</div>
-            </div>
-          </div>
 
           <div class="hero-cta-row reveal delay-4">
             <div>
               <a href="#" class="btn-primary" onclick="scrollToForm(); return false;">
-                Get Your Free Quote in Minutes
+                Primary Action
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
               </a>
-              <span class="btn-microcopy">✔ No credit card • ✔ No spam • ✔ Fast response</span>
             </div>
-            <a href="tel:PHONE_NUMBER" class="btn-secondary">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13 19.79 19.79 0 01.43 4.49 2 2 0 012.4 2.28h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.06 6.06l1.79-1.79a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2z"/>
-              </svg>
-              Call PHONE_NUMBER
-            </a>
           </div>
         </div>
 
         <div class="hero-form-card reveal delay-2"
-             role="complementary" aria-label="Quick quote form">
+             role="complementary" aria-label="Contact form">
 
-          <div class="form-social-proof">
-            <div class="fsp-avatars" aria-hidden="true">
-              <div class="fsp-avatar">👤</div>
-              <div class="fsp-avatar">👤</div>
-              <div class="fsp-avatar">👤</div>
-            </div>
-            <span class="fsp-stars" aria-hidden="true">★★★★★</span>
-            <span>Trusted by <strong>500+ homeowners</strong> in CITY</span>
-          </div>
-
-          <h2 class="hero-form-title">Get Your Free Estimate</h2>
-          <p class="hero-form-sub">Takes less than 60 seconds. We'll respond within 1 business hour.</p>
-
-          <div class="form-progress" id="formProgress"
-               role="status" aria-live="polite" aria-label="Form step 1 of 2">
-            <span class="form-progress-label">Step 1 of 2 — Your Info</span>
-            <div class="form-progress-bar" aria-hidden="true">
-              <div class="form-progress-fill" id="formProgressFill"></div>
-            </div>
-          </div>
+          <h2 class="hero-form-title">Quick Contact</h2>
+          <p class="hero-form-sub">Short form description here.</p>
 
           <form id="heroForm" novalidate aria-label="Hero lead form">
             <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
@@ -1124,61 +810,42 @@
             </div>
 
             <div class="form-group" id="hf-name-group">
-              <label for="hf-name">Your name *</label>
+              <label for="hf-name">Name *</label>
               <input type="text" id="hf-name" name="from_name"
                      placeholder="John Smith" required autocomplete="name" />
-              <span class="form-error-msg" role="alert">Please enter your first and last name.</span>
+              <span class="form-error-msg" role="alert">Add your name.</span>
             </div>
 
             <div class="form-group" id="hf-email-group">
-              <label for="hf-email">Email address *</label>
+              <label for="hf-email">Email *</label>
               <input type="email" id="hf-email" name="reply_to"
                      placeholder="john@email.com" required autocomplete="email" />
-              <span class="form-error-msg" role="alert">Please enter a valid email address.</span>
-              <span class="field-helper email-ok" id="hf-email-helper" aria-live="polite">We'll only use this to contact you</span>
+              <span class="form-error-msg" role="alert">Add a valid email.</span>
             </div>
 
-            <div class="form-group" id="hf-phone-group">
-              <label for="hf-phone">Phone number *</label>
-              <input type="tel" id="hf-phone" name="phone"
-                     placeholder="(555) 000-0000" required autocomplete="tel" />
-              <span class="form-error-msg" role="alert">Please add your phone number so we can reach you.</span>
-              <span class="field-helper phone-ok" id="hf-phone-helper" aria-live="polite">Looks good 👍</span>
-            </div>
-
-            <div class="form-group no-check" id="hf-service-group">
-              <label for="hf-service">Service needed</label>
-              <select id="hf-service" name="service">
-                <option value="" disabled selected>Select a service…</option>
-                <option value="service-1">SERVICE 1</option>
-                <option value="service-2">SERVICE 2</option>
-                <option value="service-3">SERVICE 3</option>
-                <option value="service-4">SERVICE 4</option>
-                <option value="service-5">SERVICE 5</option>
-                <option value="other">Other / Not sure</option>
-              </select>
+            <div class="form-group" id="hf-message-group">
+              <label for="hf-message">Message *</label>
+              <textarea id="hf-message" name="message" placeholder="Write a short message…" required></textarea>
+              <span class="form-error-msg" role="alert">Add a short message.</span>
             </div>
 
             <div class="submit-wrap">
-              <span class="submit-hover-tip" aria-hidden="true">No spam. We respond within 1 hour.</span>
               <button type="submit" class="btn-submit" id="heroSubmitBtn"
-                      aria-label="Send free quote request">
-                <span class="btn-text">Send My Request — It's Free →</span>
+                      aria-label="Send message">
+                <span class="btn-text">Send</span>
                 <span class="spinner" aria-hidden="true"></span>
               </button>
             </div>
 
-            <span class="btn-microcopy">✔ No credit card • ✔ No spam • ✔ Fast response</span>
-
             <div class="form-inline-error" id="heroInlineError" role="alert">
-              <p>We couldn't send your request automatically. Click below to send it manually via your email app — your information is already filled in.</p>
+              <p>Couldn’t open your email app automatically. Use the button below.</p>
               <button type="button" class="btn-mailto" id="heroMailtoBtn">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                   <polyline points="22,6 12,13 2,6"/>
                 </svg>
-                Open Email App
+                Open Email
               </button>
             </div>
           </form>
@@ -1190,44 +857,11 @@
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
             </div>
-            <h3>Request Received!</h3>
-            <p>Thanks! We'll reach out within 1 business hour to discuss your project and provide a free estimate.</p>
+            <h3>Message Ready</h3>
+            <p>We’ll get back to you soon. Add your response-time details here.</p>
           </div>
 
-          <div class="form-trust-row">
-            <span class="form-trust-item">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              </svg>
-              Licensed &amp; Insured
-            </span>
-            <span class="form-trust-item">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
-              500+ Jobs Done
-            </span>
-            <span class="form-trust-item">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-              </svg>
-              5-Star Rated
-            </span>
-          </div>
-
-          <p class="no-spam-line">
-            <strong>No spam. No sales pressure.</strong> Just a quick, honest quote.
-          </p>
-          <p class="form-guarantee" aria-label="Privacy assurance">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-            100% secure. We never share your information.
-          </p>
+          <!-- Minimal template: removed extra trust/marketing blocks -->
         </div>
 
       </div>
@@ -1247,14 +881,14 @@
         <div class="about-content reveal-right">
           <span class="section-label">About Us</span>
           <h2 id="about-heading">
-            Trusted by Homeowners<br>
-            <em class="accent">Across CITY</em> Since YEAR
+            About<br>
+            <em class="accent">BUSINESS_NAME</em>
           </h2>
           <p>
-            BUSINESS_NAME was founded on a simple belief: every homeowner deserves professional-grade service without the runaround. Our team of licensed specialists brings over 15 years of hands-on experience to every project in CITY and STATE.
+            Short description here. Add your story or mission in 1–2 lines.
           </p>
           <p>
-            We don't cut corners, we don't give vague quotes, and we don't disappear after the job. Our reputation is built job by job, neighbor by neighbor—and we intend to keep it that way.
+            Add a second short paragraph if needed.
           </p>
           <ul class="about-bullets" role="list">
             <li class="about-bullet reveal delay-1">
@@ -1264,7 +898,7 @@
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
               </div>
-              <span><strong>Fully Licensed &amp; Insured</strong> — every technician is background-checked and certified.</span>
+              <span><strong>Key point</strong> — short detail here.</span>
             </li>
             <li class="about-bullet reveal delay-2">
               <div class="bullet-icon" aria-hidden="true">
@@ -1273,7 +907,7 @@
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
               </div>
-              <span><strong>Same-Day &amp; Emergency Service</strong> — available when you need us most.</span>
+              <span><strong>Key point</strong> — short detail here.</span>
             </li>
             <li class="about-bullet reveal delay-3">
               <div class="bullet-icon" aria-hidden="true">
@@ -1282,7 +916,7 @@
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
               </div>
-              <span><strong>Upfront, Honest Pricing</strong> — free estimates with zero hidden fees.</span>
+              <span><strong>Key point</strong> — short detail here.</span>
             </li>
             <li class="about-bullet reveal delay-4">
               <div class="bullet-icon" aria-hidden="true">
@@ -1291,7 +925,7 @@
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
               </div>
-              <span><strong>Workmanship Guarantee</strong> — we stand behind every project we complete.</span>
+              <span><strong>Key point</strong> — short detail here.</span>
             </li>
           </ul>
         </div>
@@ -1306,8 +940,7 @@
         <span class="section-label">What We Do</span>
         <h2 class="section-title" id="services-heading">Our <span class="accent">Services</span></h2>
         <p class="section-sub">
-          From routine maintenance to major installations, BUSINESS_NAME handles it all.
-          Every service backed by our quality guarantee.
+          Add your service details.
         </p>
       </div>
 
@@ -1316,91 +949,47 @@
              role="button" tabindex="0" aria-label="Select SERVICE NAME 1">
           <div class="service-icon" aria-hidden="true">🔧</div>
           <h3>SERVICE NAME 1</h3>
-          <p>Brief 1–2 sentence description of what this service includes and who it's for. Keep it benefit-focused.</p>
+          <p>Short description here.</p>
           <span class="service-card-link" aria-hidden="true">
-            Get a quote for this service
+            Learn more
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                  stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </span>
-          <span class="service-tooltip" aria-hidden="true">Click to get a quote →</span>
+          <span class="service-tooltip" aria-hidden="true">Add service details</span>
         </div>
 
         <div class="service-card reveal delay-2" data-service="service-2"
              role="button" tabindex="0" aria-label="Select SERVICE NAME 2">
           <div class="service-icon" aria-hidden="true">🏠</div>
           <h3>SERVICE NAME 2</h3>
-          <p>Brief 1–2 sentence description of what this service includes and who it's for. Keep it benefit-focused.</p>
+          <p>Short description here.</p>
           <span class="service-card-link" aria-hidden="true">
-            Get a quote for this service
+            Learn more
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                  stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </span>
-          <span class="service-tooltip" aria-hidden="true">Click to get a quote →</span>
+          <span class="service-tooltip" aria-hidden="true">Add service details</span>
         </div>
 
         <div class="service-card reveal delay-3" data-service="service-3"
              role="button" tabindex="0" aria-label="Select SERVICE NAME 3">
           <div class="service-icon" aria-hidden="true">⚡</div>
           <h3>SERVICE NAME 3</h3>
-          <p>Brief 1–2 sentence description of what this service includes and who it's for. Keep it benefit-focused.</p>
+          <p>Short description here.</p>
           <span class="service-card-link" aria-hidden="true">
-            Get a quote for this service
+            Learn more
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                  stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </span>
-          <span class="service-tooltip" aria-hidden="true">Click to get a quote →</span>
+          <span class="service-tooltip" aria-hidden="true">Add service details</span>
         </div>
 
-        <div class="service-card reveal delay-2" data-service="service-4"
-             role="button" tabindex="0" aria-label="Select SERVICE NAME 4">
-          <div class="service-icon" aria-hidden="true">🌡️</div>
-          <h3>SERVICE NAME 4</h3>
-          <p>Brief 1–2 sentence description of what this service includes and who it's for. Keep it benefit-focused.</p>
-          <span class="service-card-link" aria-hidden="true">
-            Get a quote for this service
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </span>
-          <span class="service-tooltip" aria-hidden="true">Click to get a quote →</span>
-        </div>
-
-        <div class="service-card reveal delay-3" data-service="service-5"
-             role="button" tabindex="0" aria-label="Select SERVICE NAME 5">
-          <div class="service-icon" aria-hidden="true">🛠️</div>
-          <h3>SERVICE NAME 5</h3>
-          <p>Brief 1–2 sentence description of what this service includes and who it's for. Keep it benefit-focused.</p>
-          <span class="service-card-link" aria-hidden="true">
-            Get a quote for this service
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </span>
-          <span class="service-tooltip" aria-hidden="true">Click to get a quote →</span>
-        </div>
-
-        <div class="service-card reveal delay-4" data-service="other"
-             role="button" tabindex="0" aria-label="Select SERVICE NAME 6">
-          <div class="service-icon" aria-hidden="true">✅</div>
-          <h3>SERVICE NAME 6</h3>
-          <p>Brief 1–2 sentence description of what this service includes and who it's for. Keep it benefit-focused.</p>
-          <span class="service-card-link" aria-hidden="true">
-            Get a quote for this service
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </span>
-          <span class="service-tooltip" aria-hidden="true">Click to get a quote →</span>
-        </div>
       </div>
     </div>
   </section>
@@ -1411,7 +1000,7 @@
         <span class="section-label">Reviews</span>
         <h2 class="section-title" id="testimonials-heading">What Our Clients <span class="accent">Say</span></h2>
         <p class="section-sub">
-          Don't take our word for it. See why homeowners across CITY keep choosing BUSINESS_NAME.
+          Client testimonial goes here.
         </p>
       </div>
 
@@ -1419,19 +1008,19 @@
         <div class="testimonial-card reveal">
           <span class="quote-mark" aria-hidden="true">"</span>
           <p class="testimonial-text">
-            BUSINESS_NAME exceeded every expectation. They showed up on time, explained everything clearly, and the quality of work was outstanding. Our CITY neighbors actually stopped to ask who did the work. I'll never use anyone else for home services again.
+            Client testimonial goes here. Keep it short.
           </p>
           <div class="testimonial-author">
             <div class="author-avatar" aria-hidden="true">👤</div>
             <div>
               <div class="author-name">FIRSTNAME LASTNAME</div>
-              <div class="author-detail">CITY, STATE homeowner</div>
+              <div class="author-detail">CITY, ST</div>
               <div class="verified-badge">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                      stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
-                Verified Google Review
+                Verified Review
               </div>
             </div>
             <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
@@ -1441,19 +1030,19 @@
         <div class="testimonial-card reveal delay-1">
           <span class="quote-mark" aria-hidden="true">"</span>
           <p class="testimonial-text">
-            Super professional from start to finish. Got a quote quickly and the team was respectful of our home. Highly recommend to anyone in CITY looking for reliable service.
+            Client testimonial goes here.
           </p>
           <div class="testimonial-author">
             <div class="author-avatar" aria-hidden="true">👤</div>
             <div>
               <div class="author-name">FIRSTNAME LASTNAME</div>
-              <div class="author-detail">CITY, STATE</div>
+              <div class="author-detail">CITY, ST</div>
               <div class="verified-badge">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                      stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
-                Verified Google Review
+                Verified Review
               </div>
             </div>
             <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
@@ -1463,19 +1052,19 @@
         <div class="testimonial-card reveal delay-2">
           <span class="quote-mark" aria-hidden="true">"</span>
           <p class="testimonial-text">
-            Emergency situation on a Saturday morning and they picked up within minutes. Arrived fast, diagnosed the issue quickly, and fixed everything same day. Genuinely impressed.
+            Client testimonial goes here.
           </p>
           <div class="testimonial-author">
             <div class="author-avatar" aria-hidden="true">👤</div>
             <div>
               <div class="author-name">FIRSTNAME LASTNAME</div>
-              <div class="author-detail">CITY, STATE</div>
+              <div class="author-detail">CITY, ST</div>
               <div class="verified-badge">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                      stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
-                Verified Google Review
+                Verified Review
               </div>
             </div>
             <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
@@ -1485,19 +1074,19 @@
         <div class="testimonial-card reveal delay-3">
           <span class="quote-mark" aria-hidden="true">"</span>
           <p class="testimonial-text">
-            Called three companies for quotes. BUSINESS_NAME was the most transparent, most professional, and completed the job faster than expected. No surprises, no drama—just great work.
+            Client testimonial goes here.
           </p>
           <div class="testimonial-author">
             <div class="author-avatar" aria-hidden="true">👤</div>
             <div>
               <div class="author-name">FIRSTNAME LASTNAME</div>
-              <div class="author-detail">CITY, STATE</div>
+              <div class="author-detail">CITY, ST</div>
               <div class="verified-badge">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                      stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
-                Verified Google Review
+                Verified Review
               </div>
             </div>
             <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
@@ -1508,40 +1097,7 @@
       <div style="text-align:center">
         <div class="google-badge reveal" role="complementary" aria-label="Google reviews badge">
           <div class="google-g" aria-hidden="true">G</div>
-          <span>5.0 stars · 120+ Google reviews</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="cta-mid" aria-labelledby="cta-mid-heading">
-    <div class="container">
-      <div class="cta-mid-inner">
-        <span class="section-label reveal" style="justify-content:center;">Limited Availability</span>
-        <h2 class="reveal delay-1" id="cta-mid-heading">
-          Ready for Service Done <span class="accent">Right?</span>
-        </h2>
-        <p class="reveal delay-2">
-          BUSINESS_NAME is currently accepting new projects in CITY. Spots fill up fast — get your free estimate today and we'll follow up within the hour.
-        </p>
-        <div class="cta-mid-actions reveal delay-3">
-          <div>
-            <a href="#" class="btn-primary" onclick="scrollToForm(); return false;">
-              Claim Your Free Quote Now
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </a>
-            <span class="btn-microcopy">✔ No credit card • ✔ No spam • ✔ Fast response</span>
-          </div>
-          <a href="tel:PHONE_NUMBER" class="btn-outline">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13 19.79 19.79 0 01.43 4.49 2 2 0 012.4 2.28h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.06 6.06l1.79-1.79a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2z"/>
-            </svg>
-            Call PHONE_NUMBER
-          </a>
+          <span>Review badge text</span>
         </div>
       </div>
     </div>
@@ -1554,20 +1110,16 @@
         <h2 class="reveal delay-1" id="contact-heading">
           We're Ready When <span class="accent">You Are</span>
         </h2>
-        <p class="reveal delay-2">
-          Reach out by phone, email, or use the quick quote form at the top of this page.
-          Our team responds within 1 business hour — no runaround, no pressure.
-        </p>
+        <p class="reveal delay-2">Short description here.</p>
         <div class="reveal delay-3">
-          <a href="#" class="btn-primary" style="margin:0 auto; display:inline-flex;"
-             onclick="scrollToForm(); return false;">
-            Get Your Free Quote in Minutes
+          <a class="btn-primary" style="margin:0 auto; display:inline-flex;"
+             href="mailto:EMAIL@DOMAIN.COM" aria-label="Email BUSINESS_NAME">
+            Contact Us
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                  stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
-          <span class="btn-microcopy">✔ No credit card • ✔ No spam • ✔ Fast response</span>
         </div>
 
         <div class="contact-cards">
@@ -1603,7 +1155,7 @@
               </svg>
             </div>
             <div class="contact-card-label">Service Area</div>
-            <div class="contact-card-value">CITY, STATE &amp; Nearby</div>
+            <div class="contact-card-value">CITY, ST &amp; Nearby</div>
           </div>
 
           <div class="contact-card reveal delay-4">
@@ -1632,7 +1184,7 @@
             <div class="nav-logo-icon">B</div>
             <span>BUSINESS_NAME</span>
           </div>
-          <p>Professional SERVICES serving CITY, STATE and surrounding areas. Licensed, insured, and committed to excellence since YEAR.</p>
+          <p>Short description here. Add a one-sentence summary of what you do.</p>
         </div>
 
         <div class="footer-col">
@@ -1641,8 +1193,6 @@
             <li><a href="#services">SERVICE 1</a></li>
             <li><a href="#services">SERVICE 2</a></li>
             <li><a href="#services">SERVICE 3</a></li>
-            <li><a href="#services">SERVICE 4</a></li>
-            <li><a href="#services">SERVICE 5</a></li>
           </ul>
         </div>
 
@@ -1651,17 +1201,16 @@
           <ul role="list">
             <li><a href="tel:PHONE_NUMBER">PHONE_NUMBER</a></li>
             <li><a href="mailto:EMAIL@DOMAIN.COM">EMAIL@DOMAIN.COM</a></li>
-            <li><span style="color:var(--text-muted)">CITY, STATE ZIP</span></li>
-            <li><span style="color:var(--text-muted)">Mon–Fri 7am–7pm</span></li>
-            <li><span style="color:var(--text-muted)">Sat 8am–5pm</span></li>
+            <li><span style="color:var(--text-muted)">CITY, ST ZIP</span></li>
+            <li><span style="color:var(--text-muted)">Hours: Add hours</span></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
         <span>© <span id="footerYear"></span> BUSINESS_NAME. All rights reserved.</span>
-        <span>Licensed &amp; Insured · CITY, STATE</span>
-        <span>Designed with ♥ in CITY</span>
+        <span>CITY, ST</span>
+        <span>Template footer text</span>
       </div>
     </div>
   </footer>
@@ -1669,57 +1218,19 @@
   <script>
   'use strict';
 
-  const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
-  const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
-  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
   const CONTACT_EMAIL       = 'EMAIL@DOMAIN.COM';
-  const LS_KEY              = 'bnl_form_draft';
-
-  let emailjsReady = false;
-  function initEmailJS() {
-    if (emailjsReady) return;
-    try { emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); emailjsReady = true; }
-    catch (e) { console.error('EmailJS init failed:', e); }
-  }
 
   const navbar           = document.getElementById('navbar');
   const hamburger        = document.getElementById('hamburger');
   const mobileMenu       = document.getElementById('mobileMenu');
-  const heroGlow         = document.querySelector('.hero-glow');
   const heroForm         = document.getElementById('heroForm');
   const heroSubmit       = document.getElementById('heroSubmitBtn');
   const heroSuccess      = document.getElementById('heroSuccess');
   const heroInlineError  = document.getElementById('heroInlineError');
   const heroMailtoBtn    = document.getElementById('heroMailtoBtn');
-  const floatCallLabel   = document.getElementById('floatCallLabel');
-  const formProgress     = document.getElementById('formProgress');
-  const stickyMini       = document.getElementById('stickyMiniCta');
 
   let isSubmitting        = false;
-  let autoAdvanceLock     = false;
-  let ctaGlowFired        = false;
-  let stickyMiniDismissed = false;
-  let intentFired         = false;
-  let intentResetTimer    = null;
   let _pendingMailtoParams = null;
-
-  function trackLead(params) {
-    if (typeof gtag === 'function') {
-      gtag('event', 'generate_lead', {
-        event_category: 'Lead',
-        event_label: params.action || params.service || 'general',
-        value: 1
-      });
-    }
-    if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: params.action || 'general' });
-  }
-
-  const _trackedEvents = new Set();
-  function safeTrack(action, extra = {}) {
-    if (_trackedEvents.has(action)) return;
-    _trackedEvents.add(action);
-    trackLead({ action, ...extra });
-  }
 
   function smoothScrollTo(id) {
     const target = document.getElementById(id);
@@ -1759,20 +1270,19 @@
   window.addEventListener('scroll', () => {
     const sy = window.scrollY;
     navbar.classList.toggle('scrolled', sy > 40);
-    if (heroGlow) heroGlow.style.transform = `translateY(${sy * 0.25}px)`;
   }, { passive: true });
 
-  hamburger.addEventListener('click', () => {
+  hamburger?.addEventListener('click', () => {
     const isOpen = hamburger.classList.toggle('open');
     hamburger.setAttribute('aria-expanded', String(isOpen));
-    mobileMenu.classList.toggle('open', isOpen);
+    mobileMenu?.classList.toggle('open', isOpen);
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
   function closeMobile() {
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-    mobileMenu.classList.remove('open');
+    hamburger?.classList.remove('open');
+    hamburger?.setAttribute('aria-expanded', 'false');
+    mobileMenu?.classList.remove('open');
     document.body.style.overflow = '';
   }
 
@@ -1804,18 +1314,7 @@
 
   document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-  function formatPhone(input) {
-    let v = input.value.replace(/\D/g, '').slice(0, 10);
-    if      (v.length >= 7) v = `(${v.slice(0,3)}) ${v.slice(3,6)}-${v.slice(6)}`;
-    else if (v.length >= 4) v = `(${v.slice(0,3)}) ${v.slice(3)}`;
-    else if (v.length >= 1) v = `(${v}`;
-    input.value = v;
-  }
-  document.querySelectorAll('input[type="tel"]')
-    .forEach(el => el.addEventListener('input', () => formatPhone(el)));
-
   const isValidEmail = e => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim());
-  const isValidPhone = p => p.replace(/\D/g, '').length >= 10;
 
   function setFieldState(groupId, state) {
     const g = document.getElementById(groupId);
@@ -1825,144 +1324,46 @@
     if (state === 'valid') g.classList.add('valid');
   }
 
-  function updateFormProgress() {
-    if (!formProgress) return;
-    const nameOk  = document.getElementById('hf-name')?.value.trim();
-    const emailOk = isValidEmail(document.getElementById('hf-email')?.value || '');
-    const step2   = nameOk && emailOk;
-    formProgress.classList.toggle('step2', !!step2);
-    formProgress.setAttribute('aria-label', step2 ? 'Form step 2 of 2' : 'Form step 1 of 2');
-    formProgress.querySelector('.form-progress-label').textContent = step2
-      ? 'Step 2 of 2 — Final Step ✓'
-      : 'Step 1 of 2 — Your Info';
-  }
-
-  function saveFormDraft() {
-    try {
-      const d = {
-        name:    document.getElementById('hf-name')?.value    || '',
-        email:   document.getElementById('hf-email')?.value   || '',
-        phone:   document.getElementById('hf-phone')?.value   || '',
-        service: document.getElementById('hf-service')?.value || ''
-      };
-      if (d.name || d.email || d.phone) localStorage.setItem(LS_KEY, JSON.stringify(d));
-    } catch (_) {}
-  }
-
-  function restoreFormDraft() {
-    try {
-      const raw = localStorage.getItem(LS_KEY);
-      if (!raw) return;
-      const d = JSON.parse(raw);
-      const nEl = document.getElementById('hf-name');
-      const eEl = document.getElementById('hf-email');
-      const pEl = document.getElementById('hf-phone');
-      const sEl = document.getElementById('hf-service');
-      if (d.name  && nEl) { nEl.value = d.name;  setFieldState('hf-name-group',  'valid'); }
-      if (d.email && eEl) { eEl.value = d.email;  if (isValidEmail(d.email))  setFieldState('hf-email-group',  'valid'); }
-      if (d.phone && pEl) { pEl.value = d.phone;  if (isValidPhone(d.phone))  setFieldState('hf-phone-group',  'valid'); }
-      if (d.service && sEl) sEl.value = d.service;
-      updateFormProgress();
-    } catch (_) {}
-  }
-
-  function clearFormDraft() { try { localStorage.removeItem(LS_KEY); } catch (_) {} }
-
-  heroForm.addEventListener('input', () => { saveFormDraft(); updateFormProgress(); });
-  restoreFormDraft();
-
   function attachRealtimeValidation(prefix) {
-    const nameEl      = document.getElementById(`${prefix}-name`);
-    const emailEl     = document.getElementById(`${prefix}-email`);
-    const phoneEl     = document.getElementById(`${prefix}-phone`);
-    const emailHelper = document.getElementById(`${prefix}-email-helper`);
-    const phoneHelper = document.getElementById(`${prefix}-phone-helper`);
+    const nameEl  = document.getElementById(`${prefix}-name`);
+    const emailEl = document.getElementById(`${prefix}-email`);
+    const msgEl   = document.getElementById(`${prefix}-message`);
 
-    if (nameEl) {
-      nameEl.addEventListener('blur', () => {
-        setFieldState(`${prefix}-name-group`, nameEl.value.trim() ? 'valid' : 'error');
-        if (!autoAdvanceLock && nameEl.value.trim() && emailEl && !emailEl.value.trim()) {
-          autoAdvanceLock = true;
-          setTimeout(() => { emailEl.focus(); autoAdvanceLock = false; }, 80);
-        }
-      });
-      nameEl.addEventListener('input', () =>
-        setFieldState(`${prefix}-name-group`, nameEl.value.trim() ? 'valid' : 'reset')
-      );
-    }
-
-    if (emailEl) {
-      const setEmail = () => {
-        const ok = isValidEmail(emailEl.value);
-        setFieldState(`${prefix}-email-group`, ok ? 'valid' : (emailEl.value.trim() ? 'error' : 'reset'));
-        if (emailHelper) emailHelper.style.display = ok ? 'block' : 'none';
-      };
-      emailEl.addEventListener('blur', () => {
-        setEmail();
-        if (!autoAdvanceLock && isValidEmail(emailEl.value) && phoneEl && !phoneEl.value.trim()) {
-          autoAdvanceLock = true;
-          setTimeout(() => { phoneEl.focus(); autoAdvanceLock = false; }, 80);
-        }
-      });
-      emailEl.addEventListener('input', () => {
-        const ok = isValidEmail(emailEl.value);
-        setFieldState(`${prefix}-email-group`, ok ? 'valid' : 'reset');
-        if (emailHelper) emailHelper.style.display = ok ? 'block' : 'none';
-      });
-    }
-
-    if (phoneEl) {
-      const setPhone = () => {
-        const ok = isValidPhone(phoneEl.value);
-        setFieldState(`${prefix}-phone-group`, ok ? 'valid' : (phoneEl.value.trim() ? 'error' : 'reset'));
-        if (phoneHelper) phoneHelper.style.display = ok ? 'block' : 'none';
-      };
-      phoneEl.addEventListener('blur',  setPhone);
-      phoneEl.addEventListener('input', () => {
-        const ok = isValidPhone(phoneEl.value);
-        setFieldState(`${prefix}-phone-group`, ok ? 'valid' : 'reset');
-        if (phoneHelper) phoneHelper.style.display = ok ? 'block' : 'none';
-      });
-    }
+    if (nameEl) nameEl.addEventListener('blur', () =>
+      setFieldState(`${prefix}-name-group`, nameEl.value.trim() ? 'valid' : 'error')
+    );
+    if (emailEl) emailEl.addEventListener('blur', () =>
+      setFieldState(`${prefix}-email-group`, isValidEmail(emailEl.value) ? 'valid' : 'error')
+    );
+    if (msgEl) msgEl.addEventListener('blur', () =>
+      setFieldState(`${prefix}-message-group`, msgEl.value.trim() ? 'valid' : 'error')
+    );
   }
   attachRealtimeValidation('hf');
+
+  heroForm?.addEventListener('input', () => {
+    heroInlineError?.classList.remove('show');
+  }, { passive: true });
 
   function validateForm(prefix) {
     let valid = true;
     const nEl = document.getElementById(`${prefix}-name`);
     const eEl = document.getElementById(`${prefix}-email`);
-    const pEl = document.getElementById(`${prefix}-phone`);
+    const mEl = document.getElementById(`${prefix}-message`);
 
     if (!nEl.value.trim())       { setFieldState(`${prefix}-name-group`,  'error'); valid = false; }
     else                          { setFieldState(`${prefix}-name-group`,  'valid'); }
     if (!isValidEmail(eEl.value)) { setFieldState(`${prefix}-email-group`, 'error'); valid = false; }
     else                          { setFieldState(`${prefix}-email-group`, 'valid'); }
-    if (!isValidPhone(pEl.value)) { setFieldState(`${prefix}-phone-group`, 'error'); valid = false; }
-    else                          { setFieldState(`${prefix}-phone-group`, 'valid'); }
+    if (!mEl.value.trim())        { setFieldState(`${prefix}-message-group`, 'error'); valid = false; }
+    else                          { setFieldState(`${prefix}-message-group`, 'valid'); }
     return valid;
   }
 
-  heroForm.addEventListener('input', () => {
-    if (intentFired) return;
-    intentFired = true;
-    document.querySelectorAll('.btn-primary').forEach(btn => {
-      btn.style.transform = 'scale(1.03)';
-      btn.style.transition = 'transform 0.2s cubic-bezier(0.4,0,0.2,1)';
-    });
-    clearTimeout(intentResetTimer);
-    intentResetTimer = setTimeout(() => {
-      document.querySelectorAll('.btn-primary').forEach(btn => {
-        btn.style.transform = '';
-        btn.style.transition = '';
-      });
-      intentFired = false;
-    }, 2000);
-  }, { passive: true });
-
   function mailtoFallback(params) {
-    const subject = encodeURIComponent(`Free Quote Request — ${params.service || 'General Inquiry'}`);
+    const subject = encodeURIComponent(`Website inquiry`);
     const body = encodeURIComponent(
-      `Name: ${params.from_name}\nEmail: ${params.reply_to}\nPhone: ${params.phone}\nService: ${params.service}\n\nSent from: ${params.page_url}`
+      `Name: ${params.from_name}\nEmail: ${params.reply_to}\n\nMessage:\n${params.message}\n\nSent from: ${params.page_url}`
     );
     window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
   }
@@ -1979,50 +1380,36 @@
     if (isSubmitting) return;
 
     if (isSpam()) {
-      clearFormDraft();
       heroForm.style.display = 'none';
       heroSuccess.classList.add('show');
       return;
     }
 
     if (!validateForm('hf')) {
-      const firstError = heroForm.querySelector('.form-group.error input, .form-group.error select');
+      const firstError = heroForm.querySelector('.form-group.error input, .form-group.error textarea, .form-group.error select');
       if (firstError) firstError.focus({ preventScroll: false });
       return;
     }
 
     isSubmitting = true;
-    initEmailJS();
     heroInlineError?.classList.remove('show');
 
     const btnText = heroSubmit.querySelector('.btn-text');
-    if (btnText) btnText.textContent = 'Sending your request…';
+    if (btnText) btnText.textContent = 'Opening email…';
     heroSubmit.classList.add('loading');
     heroSubmit.disabled = true;
 
-    const serviceEl = document.getElementById('hf-service');
     const params = {
       from_name:  document.getElementById('hf-name').value.trim(),
       reply_to:   document.getElementById('hf-email').value.trim(),
-      phone:      document.getElementById('hf-phone').value.trim(),
-      service:    serviceEl?.value || 'Not specified',
-      message:    '',
+      message:    document.getElementById('hf-message').value.trim(),
       page_url:   window.location.href,
       timestamp:  new Date().toLocaleString(),
     };
     _pendingMailtoParams = params;
 
-    const timeout = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('timeout')), 10000)
-    );
-
     try {
-      await Promise.race([
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params),
-        timeout
-      ]);
-
-      clearFormDraft();
+      mailtoFallback(params);
       _pendingMailtoParams = null;
 
       heroForm.classList.add('form-fading');
@@ -2032,18 +1419,15 @@
         heroSuccess.classList.add('show');
       }, 220);
 
-      safeTrack('form_submit', { ...params });
-
     } catch (err) {
-      console.error('Submission error:', err.message === 'timeout' ? 'Timed out after 10s' : err);
+      console.error('Submission error:', err);
       isSubmitting = false;
       heroSubmit.classList.remove('loading');
       heroSubmit.disabled = false;
 
       const btn = heroSubmit.querySelector('.btn-text');
-      if (btn) btn.textContent = "Send My Request — It's Free →";
+      if (btn) btn.textContent = "Send";
 
-      saveFormDraft();
       if (heroInlineError) {
         heroInlineError.classList.add('show');
         heroInlineError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -2052,7 +1436,6 @@
   }
 
   heroForm.addEventListener('submit', e => { e.preventDefault(); handleFormSubmit(); });
-  heroForm.addEventListener('focusin', initEmailJS, { once: true });
 
   document.querySelectorAll('.service-card[data-service]').forEach(card => {
     function activateCard() {
@@ -2065,12 +1448,11 @@
         setTimeout(() => { formCard.style.boxShadow = ''; }, 400);
       }
 
-      const sel = document.getElementById('hf-service');
-      if (sel) {
-        sel.value = card.dataset.service;
-        sel.focus();
-        setTimeout(() => sel.blur(), 350);
-        setFieldState('hf-service-group', 'valid');
+      const msg = document.getElementById('hf-message');
+      const title = card.querySelector('h3')?.textContent?.trim();
+      if (msg && !msg.value.trim() && title) {
+        msg.value = `Interested in: ${title}`;
+        setFieldState('hf-message-group', 'valid');
       }
 
       smoothScrollTo('hero');
@@ -2088,33 +1470,6 @@
     });
   });
 
-  document.querySelectorAll('a[href^="tel:"]')
-    .forEach(el => el.addEventListener('click', () => safeTrack('phone_click'), { passive: true }));
-  document.querySelectorAll('.btn-primary')
-    .forEach(el => el.addEventListener('click', () => safeTrack('cta_click'), { passive: true }));
-
-  function dismissStickyMini() {
-    stickyMiniDismissed = true;
-    stickyMini?.classList.remove('show');
-  }
-
-  const depthTracked = { 25: false, 50: false, 75: false, 90: false };
-  window.addEventListener('scroll', () => {
-    const pct = Math.round(100 * window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight));
-
-    [25, 50, 75, 90].forEach(d => {
-      if (!depthTracked[d] && pct >= d) { depthTracked[d] = true; safeTrack(`scroll_${d}`); }
-    });
-
-    if (!ctaGlowFired && pct >= 60) {
-      ctaGlowFired = true;
-      document.querySelectorAll('.btn-primary').forEach(btn => {
-        btn.classList.add('cta-glow-once');
-        btn.addEventListener('animationend', () => btn.classList.remove('cta-glow-once'), { once: true });
-      });
-    }
-  }, { passive: true });
-
   const deferWork = typeof requestIdleCallback === 'function'
     ? cb => requestIdleCallback(cb, { timeout: 2000 })
     : cb => setTimeout(cb, 200);
@@ -2129,40 +1484,6 @@
     });
 
     document.querySelectorAll('img:not([loading])').forEach(img => img.setAttribute('loading', 'lazy'));
-
-    let floatLabelShown = false;
-    window.addEventListener('scroll', function onScrollLabel() {
-      if (floatLabelShown || !floatCallLabel) return;
-      if (window.innerWidth <= 768 && window.scrollY > 200) {
-        floatLabelShown = true;
-        floatCallLabel.style.display = 'block';
-        requestAnimationFrame(() => floatCallLabel.classList.add('visible'));
-        window.removeEventListener('scroll', onScrollLabel);
-      }
-    }, { passive: true });
-
-    let stickyShown = false;
-    window.addEventListener('scroll', function showSticky() {
-      if (stickyMiniDismissed || !stickyMini || stickyShown) return;
-      if (window.innerWidth <= 768 && window.scrollY > window.innerHeight * 0.6) {
-        stickyShown = true;
-        stickyMini.style.display = 'block';
-        requestAnimationFrame(() => stickyMini.classList.add('show'));
-      }
-    }, { passive: true });
-
-    let smartDefaultFired = false;
-    const serviceSection = document.getElementById('services');
-    if (serviceSection) {
-      new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (!smartDefaultFired && !entry.isIntersecting && entry.boundingClientRect.top < 0) {
-            const sel = document.getElementById('hf-service');
-            if (sel && !sel.value) { sel.value = 'service-1'; smartDefaultFired = true; }
-          }
-        });
-      }, { threshold: 0 }).observe(serviceSection);
-    }
   });
   </script>
 </body>
