@@ -857,22 +857,30 @@
       background: linear-gradient(90deg, #ff6b35, #ff8c5a);
       color: #fff;
       text-align: center;
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 8px 16px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 6px 12px;
       z-index: 10000;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.02em;
+      line-height: 1.4;
     }
     
     .template-bar a {
       color: #fff;
       text-decoration: underline;
-      font-weight: 700;
+      font-weight: 600;
     }
     
-    /* Move navbar down so it doesn't overlap */
+    /* Mobile optimization */
+    @media (max-width: 600px) {
+      .template-bar {
+        font-size: 0.7rem;
+        padding: 6px 10px;
+      }
+    }
+    
     #navbar {
-      top: 36px;
+      top: 32px;
     }
   </style>
 
@@ -920,7 +928,7 @@
 </head>
 
   <body>
-    <div class="template-bar">
+  <div class="template-bar">
     Demo template by <strong>Samuel Rincón</strong> —
     Inquiries:
     <a href="mailto:samuelrinconm@yahoo.com">Samuel</a> |
