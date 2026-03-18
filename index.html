@@ -42,16 +42,120 @@
     .section-label{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
     .section-label::before{content:'';display:block;width:28px;height:2px;background:var(--accent);border-radius:2px}
     body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");opacity:.35}
-    #navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 0;transition:padding var(--transition),background var(--transition),box-shadow var(--transition)}
-    #navbar.scrolled{background:rgba(13,15,20,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:14px 0;border-bottom:1px solid var(--border);box-shadow:0 4px 32px rgba(0,0,0,.4)}
+
+    /* ─── NAVBAR BASE ─────────────────────────────────────────────── */
+    #navbar{
+      position:fixed;top:0;left:0;right:0;z-index:1000;
+      padding:24px 0;
+      transition:padding var(--transition),background var(--transition),box-shadow var(--transition);
+    }
+
+    /* ─── NAVBAR SCROLLED ─────────────────────────────────────────── */
+    #navbar.scrolled{
+      background:rgba(10,12,17,0.96);
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px);
+      padding:12px 0;
+      border-bottom:none;
+      box-shadow:
+        0 8px 40px rgba(0,0,0,0.6),
+        0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    /* Gradient glow bottom border on scrolled state */
+    #navbar.scrolled::after{
+      content:'';
+      position:absolute;
+      left:0;right:0;bottom:0;
+      height:1px;
+      background:linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,107,53,0.3) 20%,
+        rgba(255,107,53,0.55) 50%,
+        rgba(255,107,53,0.3) 80%,
+        transparent 100%
+      );
+      pointer-events:none;
+    }
+
     .nav-inner{display:flex;align-items:center;justify-content:space-between}
-    .nav-logo{display:flex;align-items:center;gap:11px;font-family:var(--font-display);font-size:1.3rem;font-weight:700;letter-spacing:-.02em}
-    .nav-logo-icon{width:36px;height:36px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:900;flex-shrink:0;box-shadow:0 4px 16px rgba(255,107,53,.4)}
+
+    /* ─── LOGO ────────────────────────────────────────────────────── */
+    .nav-logo{
+      display:flex;align-items:center;gap:11px;
+      font-family:var(--font-display);
+      font-size:1.35rem;
+      font-weight:700;
+      letter-spacing:-.025em;
+      transition:opacity var(--transition);
+    }
+    .nav-logo:hover{ opacity:0.88; }
+
+    .nav-logo-icon{
+      width:38px;height:38px;
+      background:var(--accent);
+      border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:16px;color:#fff;font-weight:900;
+      flex-shrink:0;
+      box-shadow:0 4px 20px rgba(255,107,53,0.55);
+      transition:box-shadow var(--transition),transform var(--transition);
+    }
+    .nav-logo:hover .nav-logo-icon{
+      box-shadow:0 6px 28px rgba(255,107,53,0.75);
+      transform:translateY(-1px);
+    }
+
+    /* ─── NAV LINKS ───────────────────────────────────────────────── */
     .nav-links{display:flex;align-items:center;gap:36px}
-    .nav-links a{font-size:.875rem;font-weight:500;color:var(--text-secondary);transition:color var(--transition)}
-    .nav-links a:hover,.nav-links a.active{color:var(--text-primary)}
-    .nav-cta{display:flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-size:.875rem;font-weight:600;padding:10px 22px;border-radius:var(--radius-pill);transition:background var(--transition),transform var(--transition),box-shadow var(--transition);box-shadow:0 4px 16px rgba(255,107,53,.3)}
-    .nav-cta:hover{background:var(--accent-light);transform:translateY(-1px);box-shadow:var(--shadow-accent)}
+    .nav-links a{
+      position:relative;
+      font-size:.875rem;font-weight:500;
+      color:var(--text-secondary);
+      padding-bottom:3px;
+      transition:color var(--transition);
+    }
+    /* Sliding underline */
+    .nav-links a::after{
+      content:'';
+      position:absolute;
+      left:0;right:0;bottom:-2px;
+      height:1.5px;
+      background:var(--accent);
+      border-radius:2px;
+      transform:scaleX(0);
+      transform-origin:left;
+      transition:transform 0.22s cubic-bezier(0.4,0,0.2,1);
+    }
+    .nav-links a:hover,
+    .nav-links a.active{color:var(--text-primary)}
+    .nav-links a:hover::after,
+    .nav-links a.active::after{transform:scaleX(1)}
+
+    /* ─── CTA BUTTON ──────────────────────────────────────────────── */
+    .nav-cta{
+      display:flex;align-items:center;gap:8px;
+      background:var(--accent);
+      color:#fff;
+      font-size:.875rem;font-weight:600;
+      padding:11px 24px;
+      border-radius:var(--radius-pill);
+      letter-spacing:.02em;
+      border:1px solid rgba(255,120,60,0.3);
+      transition:background var(--transition),transform var(--transition),box-shadow var(--transition);
+      box-shadow:
+        0 4px 20px rgba(255,107,53,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .nav-cta:hover{
+      background:var(--accent-light);
+      transform:translateY(-2px);
+      box-shadow:
+        0 8px 32px rgba(255,107,53,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+
     .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px}
     .hamburger span{display:block;width:24px;height:2px;background:var(--text-secondary);border-radius:2px;transition:var(--transition)}
     .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -203,7 +307,7 @@
   <a href="#services" onclick="closeMobile()">Packages</a>
   <a href="#testimonials" onclick="closeMobile()">Results</a>
   <a href="#contact" onclick="closeMobile()">Contact</a>
-  <a href="mailto:danieldebo18@gmail.com" class="nav-cta">Get Started</a>
+  <a href="/cdn-cgi/l/email-protection#660207080f030a02030409575e26010b070f0a4805090b" class="nav-cta">Get Started</a>
 </nav>
 
 <header id="navbar">
@@ -219,7 +323,7 @@
         <a href="#testimonials">Results</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a href="mailto:danieldebo18@gmail.com" class="nav-cta">Get Your Website</a>
+      <a href="/cdn-cgi/l/email-protection#7e1a1f10171b121a1b1c114f463e19131f1712501d1113" class="nav-cta">Get Your Website</a>
       <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -479,34 +583,11 @@
       <h2 class="reveal delay-1">Your New Website is <span class="accent">One Step Away</span></h2>
       <p class="reveal delay-2">Ready to start attracting more customers? Send us a message and we'll put together the right package for your business.</p>
       <div class="reveal delay-3">
-        <a class="btn-primary" style="margin:0 auto;display:inline-flex;" href="mailto:danieldebo18@gmail.com">
+        <a class="btn-primary" style="margin:0 auto;display:inline-flex;" href="#" onclick="scrollToForm();return false;">
           Get in Touch
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
-
-      <form id="contactForm" style="max-width:480px;margin:32px auto 0;display:flex;flex-direction:column;gap:14px;">
-        <div class="form-group" style="margin-bottom:0;">
-          <label for="contact-name">Your Name *</label>
-          <input type="text" id="contact-name" name="name" placeholder="Your name" required autocomplete="name" />
-        </div>
-        <div class="form-group" style="margin-bottom:0;">
-          <label for="contact-email">Email Address *</label>
-          <input type="email" id="contact-email" name="email" placeholder="your@business.com" required autocomplete="email" />
-        </div>
-        <div class="form-group" style="margin-bottom:0;">
-          <label for="contact-message">Tell Us About Your Business *</label>
-          <textarea id="contact-message" name="message" placeholder="What type of business do you run, where are you located, and what are you looking for in a website?" required></textarea>
-        </div>
-        <button type="submit" id="contactSubmitBtn" class="btn-primary" style="align-self:center;border:none;cursor:pointer;">
-          <span class="btn-text">Send My Request</span>
-          <span class="spinner" aria-hidden="true"></span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-        <p id="contactError" style="display:none;text-align:center;font-size:.78rem;color:var(--error);margin-top:4px;">Something went wrong. Try again or email us directly.</p>
-        <p id="contactSuccess" style="display:none;text-align:center;font-size:.78rem;color:var(--success);margin-top:4px;">&#10003; Request received! We'll be in touch within 24 hours.</p>
-        <p style="text-align:center;font-size:.78rem;color:var(--text-muted);margin-top:4px;">We typically respond within 24 hours.</p>
-      </form>
 
       <div class="contact-cards">
         <div class="contact-card reveal delay-1">
@@ -517,7 +598,7 @@
         <div class="contact-card reveal delay-2">
           <div class="contact-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
           <div class="contact-card-label">Email Us</div>
-          <div class="contact-card-value" style="font-size:.82rem;"><a href="mailto:danieldebo18@gmail.com">danieldebo18@gmail.com</a><br><a href="mailto:samuelrincomm@yahoo.com">samuelrincomm@yahoo.com</a></div>
+          <div class="contact-card-value" style="font-size:.82rem;"><a href="/cdn-cgi/l/email-protection#a3c7c2cdcac6cfc7c6c1cc929be3c4cec2cacf8dc0ccce"><span class="__cf_email__" data-cfemail="066267686f636a62636469373e46616b676f6a2865696b">[email&#160;protected]</span></a><br><a href="/cdn-cgi/l/email-protection#b2c1d3dfc7d7dec0dbdcd1dddfdff2cbd3dadddd9cd1dddf"><span class="__cf_email__" data-cfemail="2350424e56464f514a4d404c4e4e635a424b4c4c0d404c4e">[email&#160;protected]</span></a></div>
         </div>
         <div class="contact-card reveal delay-3">
           <div class="contact-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
@@ -555,8 +636,8 @@
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
-          <li><a href="mailto:danieldebo18@gmail.com">danieldebo18@gmail.com</a></li>
-          <li><a href="mailto:samuelrincomm@yahoo.com">samuelrincomm@yahoo.com</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#4327222d2a262f2726212c727b03242e222a2f6d202c2e"><span class="__cf_email__" data-cfemail="fc989d9295999098999e93cdc4bc9b919d9590d29f9391">[email&#160;protected]</span></a></li>
+          <li><a href="/cdn-cgi/l/email-protection#95e6f4f8e0f0f9e7fcfbf6faf8f8d5ecf4fdfafabbf6faf8"><span class="__cf_email__" data-cfemail="d3a0b2bea6b6bfa1babdb0bcbebe93aab2bbbcbcfdb0bcbe">[email&#160;protected]</span></a></li>
           <li><span style="color:var(--text-muted)">Serving businesses nationwide</span></li>
           <li><span style="color:var(--text-muted)">7 days a week</span></li>
         </ul>
@@ -569,7 +650,7 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 'use strict';
 var CONTACT_EMAIL = 'danieldebo18@gmail.com';
 var navbar    = document.getElementById('navbar');
@@ -591,7 +672,7 @@ function smoothScrollTo(id) {
 }
 function scrollToForm() {
   smoothScrollTo('hero');
-  setTimeout(function(){ var n = document.getElementById('hf-name'); if(n) n.focus(); }, 600);
+  setTimeout(function(){ var n = document.getElementById('hf-name'); if(n) n.focus(); }, 500);
 }
 document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(function(a) {
   a.addEventListener('click', function(e) {
@@ -668,21 +749,6 @@ heroForm && heroForm.addEventListener('submit', async function(e) {
     else throw new Error('fail');
   } catch(err) { heroInlineError.classList.add('show'); }
   isSubmitting = false; heroSubmit.classList.remove('loading'); heroSubmit.disabled = false;
-});
-var cForm = document.getElementById('contactForm');
-var cBtn  = document.getElementById('contactSubmitBtn');
-var cErr  = document.getElementById('contactError');
-var cOk   = document.getElementById('contactSuccess');
-cForm && cForm.addEventListener('submit', async function(e) {
-  e.preventDefault(); if (cBtn.disabled) return;
-  cErr.style.display='none'; cOk.style.display='none';
-  cBtn.classList.add('loading'); cBtn.disabled = true;
-  var data = { name: document.getElementById('contact-name').value, email: document.getElementById('contact-email').value, message: document.getElementById('contact-message').value };
-  try {
-    var res = await fetch('https://booking-proxy.samuelrincon8.workers.dev', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
-    if (res.ok) { cForm.reset(); cOk.style.display='block'; } else throw new Error('fail');
-  } catch(err) { cErr.style.display='block'; }
-  cBtn.classList.remove('loading'); cBtn.disabled = false;
 });
 </script>
 </body>
