@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Lead Website Services for Local Businesses</title>
   <meta name="description" content="We build premium, high-converting websites for local service businesses." />
   <meta property="og:title" content="Lead Website Services for Local Businesses" />
@@ -47,6 +47,8 @@
     #navbar{
       position:fixed;top:0;left:0;right:0;z-index:1000;
       padding:24px 0;
+      padding-top:max(24px, env(safe-area-inset-top));
+      background:var(--bg-base);
       transition:padding var(--transition),background var(--transition),box-shadow var(--transition);
     }
 
@@ -56,6 +58,7 @@
       backdrop-filter:blur(20px);
       -webkit-backdrop-filter:blur(20px);
       padding:12px 0;
+      padding-top:max(12px, env(safe-area-inset-top));
       border-bottom:none;
       box-shadow:
         0 8px 40px rgba(0,0,0,0.6),
@@ -243,7 +246,7 @@
     .section-header .section-label::after{content:'';display:block;width:28px;height:2px;background:var(--accent);border-radius:2px}
     .section-title{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:16px}
     .section-sub{font-size:.95rem;color:var(--text-muted);line-height:1.7;font-weight:300}
-    .service-card{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 28px;position:relative;overflow:hidden;transition:transform var(--transition),border-color var(--transition),box-shadow var(--transition)}
+    .service-card{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 28px;position:relative;overflow:hidden;transition:transform var(--transition),border-color var(--transition),box-shadow var(--transition);cursor:pointer}
     .service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform var(--transition)}
     .service-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.02) 0%,transparent 60%);opacity:0;transition:opacity var(--transition)}
     .service-card:hover{transform:translateY(-5px) scale(1.01);border-color:var(--border-strong);box-shadow:0 16px 48px rgba(0,0,0,.4)}
@@ -295,9 +298,9 @@
     .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;font-size:.78rem;color:var(--text-muted);flex-wrap:wrap;gap:10px}
     .footer-bottom a{color:var(--accent)}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-    @media(max-width:1024px){:root{--section-pad:72px}.hero-inner{grid-template-columns:1fr;gap:56px}.hero-form-card{max-width:540px}.about-grid{grid-template-columns:1fr;gap:52px}.about-image-wrap{max-width:480px}.about-badge{right:0}.footer-top{grid-template-columns:repeat(2,1fr)}#hero .hero-bg-split::after,#hero .hero-bg-divider{display:none}}
-    @media(max-width:768px){:root{--section-pad:56px}.nav-links,.nav-cta{display:none}.hamburger{display:flex}.testimonials-grid{grid-template-columns:1fr}.testimonial-card--featured{grid-column:auto}.footer-top{grid-template-columns:1fr;gap:24px;padding-bottom:24px}.footer-bottom{flex-direction:column;align-items:flex-start}.contact-cards{grid-template-columns:1fr;max-width:340px}.hero-form-card{padding:32px 24px}.btn-primary,.btn-submit{min-height:52px}.form-group input,.form-group textarea{font-size:16px;padding:13px 14px}}
-    @media(max-width:480px){.hero-headline{font-size:2.4rem}.hero-form-card{padding:28px 20px}}
+    @media(max-width:1024px){:root{--section-pad:72px}.hero-inner{grid-template-columns:1fr;gap:56px}.hero-form-card{max-width:540px}.about-grid{grid-template-columns:1fr;gap:52px}.about-image-wrap{max-width:480px}.about-badge{right:0}.footer-top{grid-template-columns:repeat(2,1fr)}#hero .hero-bg-split::after,#hero .hero-bg-divider{display:none}.services-grid{grid-template-columns:1fr!important}}
+    @media(max-width:768px){:root{--section-pad:56px}.nav-links,.nav-cta{display:none}.hamburger{display:flex}.testimonials-grid{grid-template-columns:1fr}.testimonial-card--featured{grid-column:auto}.footer-top{grid-template-columns:1fr;gap:24px;padding-bottom:24px}.footer-bottom{flex-direction:column;align-items:flex-start}.contact-cards{grid-template-columns:1fr;max-width:340px}.hero-form-card{padding:32px 24px}.btn-primary,.btn-submit{min-height:52px}.form-group input,.form-group textarea{font-size:16px;padding:13px 14px}.services-grid{grid-template-columns:1fr!important;max-width:480px;margin-left:auto;margin-right:auto}}
+    @media(max-width:480px){.hero-headline{font-size:2.4rem}.hero-form-card{padding:28px 20px}.services-grid{max-width:100%}.hero-eyebrow{font-size:.58rem;letter-spacing:.06em;padding:5px 12px}}
   </style>
 </head>
 <body>
@@ -323,7 +326,6 @@
         <a href="#testimonials">Results</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a href="/cdn-cgi/l/email-protection#7e1a1f10171b121a1b1c114f463e19131f1712501d1113" class="nav-cta">Get Your Website</a>
       <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -454,7 +456,7 @@
       <h2 class="section-title">Choose Your <span class="accent">Plan</span></h2>
       <p class="section-sub">Simple, transparent pricing. Every package includes everything you need to get online and start winning customers — no hidden fees, no surprises.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start;">
+    <div class="services-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start;">
 
       <div class="service-card reveal delay-1" style="display:flex;flex-direction:column;">
         <div class="service-icon">🚀</div>
@@ -467,7 +469,7 @@
           <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SSL security certificate</li>
           <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>6-month performance guarantee</li>
         </ul>
-        <a href="#contact" class="btn-outline" style="justify-content:center;width:100%;box-sizing:border-box;">Get Started</a>
+        <a href="#" class="btn-outline scroll-to-form" style="justify-content:center;width:100%;box-sizing:border-box;">Get Started</a>
       </div>
 
       <div class="service-card reveal delay-2" style="display:flex;flex-direction:column;border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 16px 48px rgba(255,107,53,.18);position:relative;">
@@ -481,7 +483,7 @@
           <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1-year performance guarantee</li>
           <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Priority support response</li>
         </ul>
-        <a href="#contact" class="btn-primary" style="justify-content:center;width:100%;box-sizing:border-box;">Get Started</a>
+        <a href="#" class="btn-primary scroll-to-form" style="justify-content:center;width:100%;box-sizing:border-box;">Get Started</a>
       </div>
 
       <div class="service-card reveal delay-3" style="display:flex;flex-direction:column;">
@@ -494,7 +496,7 @@
           <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited content edits</li>
           <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Conversion rate optimization</li>
         </ul>
-        <a href="#contact" class="btn-outline" style="justify-content:center;width:100%;box-sizing:border-box;">Get a Custom Quote</a>
+        <a href="#" class="btn-outline scroll-to-form" style="justify-content:center;width:100%;box-sizing:border-box;">Get a Custom Quote</a>
       </div>
 
     </div>
@@ -671,10 +673,24 @@ function smoothScrollTo(id) {
   window.scrollTo({ top: y, behavior: 'smooth' });
 }
 function scrollToForm() {
-  smoothScrollTo('hero');
-  setTimeout(function(){ var n = document.getElementById('hf-name'); if(n) n.focus(); }, 500);
+  var form = document.querySelector('.hero-form-card');
+  if (!form) return;
+  var navbar = document.getElementById('navbar');
+  var offset = navbar ? navbar.offsetHeight : 80;
+  var y = form.getBoundingClientRect().top + window.scrollY - offset - 10;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+  setTimeout(function() { var input = document.getElementById('hf-name'); if (input) input.focus(); }, 500);
 }
-document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(function(a) {
+window.scrollToForm = scrollToForm;
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.scroll-to-form').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      scrollToForm();
+    });
+  });
+});
+document.querySelectorAll('a[href^="#"]:not([href="#"]):not([onclick])').forEach(function(a) {
   a.addEventListener('click', function(e) {
     var id = this.getAttribute('href').slice(1);
     var t = document.getElementById(id);
@@ -749,6 +765,20 @@ heroForm && heroForm.addEventListener('submit', async function(e) {
     else throw new Error('fail');
   } catch(err) { heroInlineError.classList.add('show'); }
   isSubmitting = false; heroSubmit.classList.remove('loading'); heroSubmit.disabled = false;
+});
+
+/* ── Service cards: click anywhere → scroll to hero form ── */
+document.addEventListener('click', function(e) {
+  if (e.target.closest('.service-card')) {
+    e.preventDefault();
+    var form = document.querySelector('.hero-form-card');
+    if (!form) return;
+    var nb = document.getElementById('navbar');
+    var offset = nb ? nb.offsetHeight : 80;
+    var y = form.getBoundingClientRect().top + window.scrollY - offset - 10;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+    setTimeout(function(){ var n = document.getElementById('hf-name'); if(n) n.focus(); }, 500);
+  }
 });
 </script>
 </body>
