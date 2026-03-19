@@ -1428,7 +1428,7 @@
             <div class="author-avatar">👤</div>
             <div>
               <div class="author-name">Roberto</div>
-              <div class="author-detail">Owner, Aldea Music Corp — Spring, TX</div>
+              <div class="author-detail">Aldea Music Corp — Spring, TX</div>
               <div class="verified-badge">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 Verified Client Result
@@ -1446,7 +1446,7 @@
             <div class="author-avatar">👤</div>
             <div>
               <div class="author-name">Gabriel</div>
-              <div class="author-detail">Owner, Out The Door Moving — Conroe, TX</div>
+              <div class="author-detail">Out The Door Moving — Conroe, TX</div>
               <div class="verified-badge">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 Verified Client Result
@@ -1464,7 +1464,7 @@
             <div class="author-avatar">👤</div>
             <div>
               <div class="author-name">Marcelo</div>
-              <div class="author-detail">Owner, First Class Floors — Conroe, TX</div>
+              <div class="author-detail">First Class Floors — Conroe, TX</div>
               <div class="verified-badge">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 Verified Client Result
@@ -1482,7 +1482,7 @@
             <div class="author-avatar">👤</div>
             <div>
               <div class="author-name">Bryan</div>
-              <div class="author-detail">Owner, The Woodlands Latin Dance — The Woodlands, TX</div>
+              <div class="author-detail">The Woodlands Latin Dance — The Woodlands, TX</div>
               <div class="verified-badge">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 Verified Client Result
@@ -1784,4 +1784,25 @@
       heroInlineError.classList.add('show');
     }
 
-    isSubmitting = false;S
+    isSubmitting = false;
+    heroSubmit.classList.remove('loading');
+    heroSubmit.disabled = false;
+  });
+
+  /* Service card click → scroll to form */
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('.service-card')) {
+      e.preventDefault();
+      var form   = document.querySelector('.hero-form-card');
+      if (!form) return;
+      var nb     = document.getElementById('navbar');
+      var offset = nb ? nb.offsetHeight : 80;
+      var y      = form.getBoundingClientRect().top + window.scrollY - offset - 10;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      setTimeout(function () { var n = document.getElementById('hf-name'); if (n) n.focus(); }, 500);
+    }
+  });
+  </script>
+
+</body>
+</html>
