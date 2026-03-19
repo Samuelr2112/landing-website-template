@@ -145,7 +145,10 @@
       left:                    0;
       right:                   0;
       z-index:                 1000;
-      padding:                 calc(22px + env(safe-area-inset-top)) 0 22px 0;
+      padding-top:             max(22px, env(safe-area-inset-top));
+      padding-bottom:          22px;
+      padding-left:            max(0px, env(safe-area-inset-left));
+      padding-right:           max(0px, env(safe-area-inset-right));
       background:              rgba(13,15,20,0.95);
       backdrop-filter:         blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -155,7 +158,10 @@
 
     #navbar.scrolled {
       background:              rgba(13,15,20,0.97);
-      padding:                 calc(14px + env(safe-area-inset-top)) 0 14px 0;
+      padding-top:             max(14px, env(safe-area-inset-top));
+      padding-bottom:          14px;
+      padding-left:            max(0px, env(safe-area-inset-left));
+      padding-right:           max(0px, env(safe-area-inset-right));
       box-shadow:              0 2px 20px rgba(0,0,0,0.3);
     }
 
