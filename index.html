@@ -141,7 +141,7 @@
     /* ─── NAVBAR ────────────────────────────────────────────────── */
     #navbar {
       position:                fixed;
-      top:                     env(safe-area-inset-top);
+      top:                     28px;
       left:                    0;
       right:                   0;
       z-index:                 1000;
@@ -1106,8 +1106,8 @@
     <a href="/cdn-cgi/l/email-protection#3f5b5e51565a535b5a5d500e077f58525e5653115c5052" class="nav-cta">Get Started</a>
   </nav>
 
-  <!-- Cubre el safe area del notch/Dynamic Island independientemente del navbar -->
-  <div style="position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:rgba(13,15,20,0.97);z-index:1001;"></div>
+  <!-- Barra fina safe area — mismo patrón que /hvac/ -->
+  <div style="position:fixed;top:0;left:0;right:0;padding:4px 0;background:rgba(13,15,20,0.97);z-index:1001;"></div>
 
   <!-- ─── NAVBAR ──────────────────────────────────────────────────── -->
   <header id="navbar">
@@ -1615,7 +1615,9 @@
   function smoothScrollTo(id) {
     var t = document.getElementById(id);
     if (!t) return;
-    var y = t.getBoundingClientRect().top + window.scrollY - (navbar ? navbar.offsetHeight : 80) - 20;
+    var safeBar = document.getElementById('safe-area-bar');
+    var offset  = (navbar ? navbar.offsetHeight : 80) + (safeBar ? safeBar.offsetHeight : 0);
+    var y = t.getBoundingClientRect().top + window.scrollY - offset - 20;
     window.scrollTo({ top: y, behavior: 'smooth' });
   }
 
