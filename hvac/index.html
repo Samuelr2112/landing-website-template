@@ -20,41 +20,26 @@
   <style>
     /* ─── DESIGN TOKENS ──────────────────────────────────────────────────── */
     :root {
-      /* Light background palette */
       --bg-base:        #f4f7fb;
       --bg-surface:     #ffffff;
       --bg-raised:      #eef2f8;
       --bg-highlight:   #dde6f4;
-
-      /* Borders */
       --border:         rgba(30,70,140,0.10);
       --border-strong:  rgba(30,70,140,0.20);
-
-      /* Text */
       --text-primary:   #0d1f3c;
       --text-secondary: #3a5070;
       --text-muted:     #7a94b0;
-
-      /* Accent — bold red (heat / urgency) */
       --accent:         #e02020;
       --accent-dark:    #b81414;
       --accent-light:   #f04444;
       --accent-glow:    rgba(224,32,32,0.15);
       --accent-subtle:  rgba(224,32,32,0.07);
-
-      /* Secondary accent — strong sky blue (cool / AC) */
       --teal:           #1565c0;
       --teal-subtle:    rgba(21,101,192,0.08);
-
-      /* Success */
       --success:        #16a34a;
       --error:          #dc2626;
-
-      /* Typography */
       --font-display:   'Barlow Condensed', 'Arial Narrow', sans-serif;
       --font-body:      'DM Sans', system-ui, sans-serif;
-
-      /* Spatial */
       --radius:         8px;
       --radius-lg:      16px;
       --radius-pill:    999px;
@@ -234,43 +219,24 @@
       background: linear-gradient(160deg, #e8f0fc 0%, #f4f7fb 50%, #fde8e8 100%);
     }
 
-    /* ── SPLIT BACKGROUND ── */
-    #hero .hero-bg-split {
-      position: absolute; inset: 0; z-index: 0;
-      pointer-events: none;
-    }
-    #hero .hero-bg-split::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: transparent;
-    }
+    #hero .hero-bg-split { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    #hero .hero-bg-split::before { content: ''; position: absolute; inset: 0; background: transparent; }
     #hero .hero-bg-split::after {
       content: '';
-      position: absolute; top: 0; right: 0; bottom: 0;
-      width: 42%;
-      background: linear-gradient(
-        160deg,
-        rgba(255,255,255,0.85) 0%,
-        rgba(240,246,255,0.90) 100%
-      );
+      position: absolute; top: 0; right: 0; bottom: 0; width: 42%;
+      background: linear-gradient(160deg, rgba(255,255,255,0.85) 0%, rgba(240,246,255,0.90) 100%);
       -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%);
       mask-image: linear-gradient(to right, transparent 0%, black 18%);
     }
-
-    /* Blue (cool) glow left, red (heat) glow right */
     #hero .hero-bg-glow {
-      position: absolute; inset: 0; z-index: 0;
-      pointer-events: none;
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
       background:
         radial-gradient(ellipse 55% 55% at 18% 50%, rgba(21,101,192,0.10) 0%, transparent 65%),
         radial-gradient(ellipse 40% 60% at 0% 90%, rgba(21,101,192,0.06) 0%, transparent 55%),
         radial-gradient(ellipse 50% 70% at 82% 45%, rgba(224,32,32,0.07) 0%, transparent 55%);
     }
-
-    /* Subtle grid, light blue tint */
     #hero .hero-bg-grid {
-      position: absolute; inset: 0; z-index: 0;
-      pointer-events: none;
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
       background-image:
         linear-gradient(rgba(21,101,192,0.06) 1px, transparent 1px),
         linear-gradient(90deg, rgba(21,101,192,0.06) 1px, transparent 1px);
@@ -278,44 +244,28 @@
       -webkit-mask-image: radial-gradient(ellipse 60% 75% at 28% 50%, black 30%, transparent 80%);
       mask-image: radial-gradient(ellipse 60% 75% at 28% 50%, black 30%, transparent 80%);
     }
-
-    /* Vertical divider — blue */
     #hero .hero-bg-divider {
-      position: absolute; top: 12%; bottom: 12%; z-index: 0;
-      pointer-events: none;
-      left: calc(50% + 60px);
-      width: 1px;
-      background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(21,101,192,0.20) 25%,
-        rgba(21,101,192,0.30) 50%,
-        rgba(21,101,192,0.20) 75%,
-        transparent 100%
-      );
+      position: absolute; top: 12%; bottom: 12%; z-index: 0; pointer-events: none;
+      left: calc(50% + 60px); width: 1px;
+      background: linear-gradient(to bottom, transparent 0%, rgba(21,101,192,0.20) 25%, rgba(21,101,192,0.30) 50%, rgba(21,101,192,0.20) 75%, transparent 100%);
     }
 
     .hero-inner {
       position: relative; z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr 420px;
+      display: grid; grid-template-columns: 1fr 420px;
       gap: 72px; align-items: center;
     }
 
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(21,101,192,0.08);
-      border: 1px solid rgba(21,101,192,0.20);
-      border-radius: var(--radius-pill);
-      padding: 6px 16px;
-      font-size: 0.75rem; font-weight: 700;
-      letter-spacing: 0.14em; text-transform: uppercase;
+      background: rgba(21,101,192,0.08); border: 1px solid rgba(21,101,192,0.20);
+      border-radius: var(--radius-pill); padding: 6px 16px;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
       color: var(--teal); margin-bottom: 20px;
     }
     .hero-eyebrow-dot {
       width: 6px; height: 6px; border-radius: 50%;
-      background: var(--teal);
-      animation: pulse-dot 2s ease-in-out infinite;
+      background: var(--teal); animation: pulse-dot 2s ease-in-out infinite;
     }
     @keyframes pulse-dot {
       0%, 100% { opacity: 1; transform: scale(1); }
@@ -326,33 +276,25 @@
       font-family: var(--font-display);
       font-size: clamp(3.2rem, 6vw, 5.2rem);
       font-weight: 900; line-height: 0.98; letter-spacing: 0.01em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-      color: var(--text-primary);
-      text-shadow: none;
+      text-transform: uppercase; margin-bottom: 24px;
+      color: var(--text-primary); text-shadow: none;
     }
     .hero-headline em { font-style: italic; color: var(--teal); font-weight: 900; }
 
-    /* Underline flourish on last word */
-    .hero-underline {
-      position: relative; display: inline-block;
-    }
+    .hero-underline { position: relative; display: inline-block; }
     .hero-underline::after {
       content: '';
       position: absolute; left: 0; right: 0; bottom: -4px; height: 4px;
       background: linear-gradient(90deg, var(--accent), var(--teal));
-      border-radius: 2px;
-      transform-origin: left; transform: scaleX(0);
+      border-radius: 2px; transform-origin: left; transform: scaleX(0);
       transition: transform 1s cubic-bezier(0.4,0,0.2,1) 0.8s;
     }
     .reveal.visible .hero-underline::after { transform: scaleX(1); }
 
     .hero-subheadline {
       font-size: 1.05rem; color: var(--text-secondary);
-      line-height: 1.82; font-weight: 400;
-      max-width: 520px; margin-bottom: 32px;
+      line-height: 1.82; font-weight: 400; max-width: 520px; margin-bottom: 32px;
     }
-
     .hero-cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 
     .btn-primary {
@@ -363,11 +305,7 @@
       transition: background 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
       box-shadow: 0 4px 18px rgba(224,32,32,0.32);
     }
-    .btn-primary:hover {
-      background: var(--accent-light);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-accent);
-    }
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: var(--shadow-accent); }
     .btn-primary:active { transform: translateY(0); transition-duration: 0.08s; }
 
     .btn-outline {
@@ -381,28 +319,17 @@
 
     /* ─── HERO FORM CARD ─────────────────────────────────────────────────── */
     .hero-form-card {
-      background: #ffffff;
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-lg);
-      padding: 36px 32px;
-      box-shadow:
-        0 0 0 1px rgba(21,101,192,0.06),
-        0 24px 60px rgba(13,31,60,0.12),
-        0 6px 20px rgba(13,31,60,0.07);
+      background: #ffffff; border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg); padding: 36px 32px;
+      box-shadow: 0 0 0 1px rgba(21,101,192,0.06), 0 24px 60px rgba(13,31,60,0.12), 0 6px 20px rgba(13,31,60,0.07);
       position: relative; overflow: hidden;
     }
-
-    /* Top accent stripe — blue to red */
     .hero-form-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
       background: linear-gradient(90deg, var(--teal), var(--accent));
     }
-
-    /* Corner glow */
     .hero-form-card::after {
-      content: '';
-      position: absolute; top: -80px; right: -80px;
+      content: ''; position: absolute; top: -80px; right: -80px;
       width: 220px; height: 220px;
       background: radial-gradient(circle, rgba(21,101,192,0.07) 0%, transparent 65%);
       pointer-events: none;
@@ -414,86 +341,58 @@
     /* ─── FORM ELEMENTS ──────────────────────────────────────────────────── */
     .form-group { margin-bottom: 14px; position: relative; }
     .form-group label {
-      display: block;
-      font-size: 0.72rem; font-weight: 700;
+      display: block; font-size: 0.72rem; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--text-secondary); margin-bottom: 6px;
     }
     .form-group input,
     .form-group select,
     .form-group textarea {
-      width: 100%;
-      background: var(--bg-raised);
-      border: 1.5px solid var(--border-strong);
-      border-radius: var(--radius);
+      width: 100%; background: var(--bg-raised);
+      border: 1.5px solid var(--border-strong); border-radius: var(--radius);
       color: var(--text-primary); font-size: 0.9rem;
       padding: 11px 14px; outline: none;
-      transition: border-color 0.18s ease, background 0.18s ease,
-                  transform 0.18s ease, box-shadow 0.18s ease;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
       appearance: none;
     }
-    .form-group input::placeholder,
-    .form-group textarea::placeholder { color: var(--text-muted); }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); }
     .form-group select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a94b0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 14px center;
-      padding-right: 38px;
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
     }
     .form-group select option { background: #fff; color: var(--text-primary); }
     .form-group textarea { resize: vertical; min-height: 80px; }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: var(--teal);
-      background: rgba(21,101,192,0.03);
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--teal); background: rgba(21,101,192,0.03);
       transform: scale(1.012);
       box-shadow: 0 0 0 3px rgba(21,101,192,0.12), 0 2px 10px rgba(21,101,192,0.07);
     }
-    .form-group.error input,
-    .form-group.error select,
-    .form-group.error textarea {
-      border-color: var(--error);
-      box-shadow: 0 0 0 3px rgba(220,38,38,0.10);
+    .form-group.error input, .form-group.error select, .form-group.error textarea {
+      border-color: var(--error); box-shadow: 0 0 0 3px rgba(220,38,38,0.10);
     }
-    .form-error-msg {
-      font-size: 0.72rem; color: var(--error);
-      margin-top: 5px; display: none; line-height: 1.4;
-    }
+    .form-error-msg { font-size: 0.72rem; color: var(--error); margin-top: 5px; display: none; line-height: 1.4; }
     .form-group.error .form-error-msg { display: block; }
-    .form-group.valid input,
-    .form-group.valid select,
-    .form-group.valid textarea {
-      border-color: var(--success);
-      background: rgba(22,163,74,0.03);
+    .form-group.valid input, .form-group.valid select, .form-group.valid textarea {
+      border-color: var(--success); background: rgba(22,163,74,0.03);
     }
     .form-group.valid::after {
-      content: '✓';
-      position: absolute; right: 13px; top: 36px;
-      color: var(--success); font-size: 13px; font-weight: 700;
-      pointer-events: none;
+      content: '✓'; position: absolute; right: 13px; top: 36px;
+      color: var(--success); font-size: 13px; font-weight: 700; pointer-events: none;
     }
     .form-group.valid.no-check::after { display: none; }
 
     .btn-submit {
-      width: 100%;
-      background: var(--accent); color: #fff;
+      width: 100%; background: var(--accent); color: #fff;
       font-size: 0.9rem; font-weight: 700;
-      padding: 14px; border-radius: var(--radius-pill); border: none;
-      cursor: pointer;
+      padding: 14px; border-radius: var(--radius-pill); border: none; cursor: pointer;
       transition: background 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
       letter-spacing: 0.04em;
       display: flex; align-items: center; justify-content: center; gap: 8px;
-      margin-top: 6px;
-      box-shadow: 0 4px 16px rgba(224,32,32,0.28);
+      margin-top: 6px; box-shadow: 0 4px 16px rgba(224,32,32,0.28);
     }
-    .btn-submit:hover:not(:disabled) {
-      background: var(--accent-light);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-accent);
-    }
+    .btn-submit:hover:not(:disabled) { background: var(--accent-light); transform: translateY(-2px); box-shadow: var(--shadow-accent); }
     .btn-submit:active:not(:disabled) { transform: translateY(0); transition-duration: 0.08s; }
-    .btn-submit:disabled               { opacity: 0.7; cursor: not-allowed; }
+    .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
 
     .spinner {
       display: none; width: 16px; height: 16px;
@@ -505,27 +404,22 @@
     .btn-submit.loading .spinner  { display: block; }
     .btn-submit.loading .btn-text { display: none; }
 
-    /* Inline error / mailto fallback */
     .form-inline-error {
-      display: none;
-      background: rgba(248,113,113,0.06);
+      display: none; background: rgba(248,113,113,0.06);
       border: 1px solid rgba(248,113,113,0.2);
-      border-radius: var(--radius);
-      padding: 16px 18px; margin-top: 12px;
+      border-radius: var(--radius); padding: 16px 18px; margin-top: 12px;
     }
     .form-inline-error.show { display: block; }
-    .form-inline-error p    { font-size: 0.82rem; color: var(--error); line-height: 1.6; margin-bottom: 12px; }
+    .form-inline-error p { font-size: 0.82rem; color: var(--error); line-height: 1.6; margin-bottom: 12px; }
     .btn-mailto {
       display: inline-flex; align-items: center; gap: 7px;
       background: transparent; border: 1px solid rgba(248,113,113,0.3);
       color: var(--error); font-size: 0.78rem; font-weight: 600;
       padding: 8px 18px; border-radius: var(--radius-pill); cursor: pointer;
-      font-family: var(--font-body);
-      transition: background 0.15s ease;
+      font-family: var(--font-body); transition: background 0.15s ease;
     }
     .btn-mailto:hover { background: rgba(248,113,113,0.08); }
 
-    /* Success state */
     @keyframes successScale {
       0%   { opacity: 0; transform: scale(0.88) translateY(8px); }
       60%  { transform: scale(1.03) translateY(-2px); }
@@ -535,10 +429,7 @@
     .form-fading { animation: formFadeOut 0.22s ease forwards; pointer-events: none; }
 
     .form-success { display: none; text-align: center; padding: 20px 0; }
-    .form-success.show {
-      display: block;
-      animation: successScale 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards;
-    }
+    .form-success.show { display: block; animation: successScale 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards; }
     @keyframes successBounce {
       0%   { transform: scale(0.5); opacity: 0; }
       60%  { transform: scale(1.15); }
@@ -547,142 +438,96 @@
     }
     .form-success.show .success-icon { animation: successBounce 0.55s cubic-bezier(0.34,1.56,0.64,1) forwards; }
     .success-icon {
-      width: 64px; height: 64px;
-      background: rgba(22,163,74,0.08); border-radius: 50%;
+      width: 64px; height: 64px; background: rgba(22,163,74,0.08); border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 16px;
-      border: 1px solid rgba(22,163,74,0.25);
+      margin: 0 auto 16px; border: 1px solid rgba(22,163,74,0.25);
     }
     .form-success h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; text-transform: uppercase; margin-bottom: 8px; color: var(--text-primary); }
     .form-success p  { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
 
     /* ─── ABOUT ──────────────────────────────────────────────────────────── */
-    #about {
-      padding: var(--section-pad) 0;
-      background: #ffffff;
-      position: relative; overflow: hidden;
-    }
+    #about { padding: var(--section-pad) 0; background: #ffffff; position: relative; overflow: hidden; }
     #about::before {
-      content: '';
-      position: absolute; left: -300px; bottom: -200px;
+      content: ''; position: absolute; left: -300px; bottom: -200px;
       width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(21,101,192,0.04) 0%, transparent 65%);
-      pointer-events: none;
+      background: radial-gradient(circle, rgba(21,101,192,0.04) 0%, transparent 65%); pointer-events: none;
     }
-
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-
     .about-image-placeholder {
-      aspect-ratio: 4/5;
-      background: var(--bg-raised);
-      border-radius: var(--radius-lg);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 12px;
-      color: var(--text-muted);
-      position: relative; overflow: hidden;
+      aspect-ratio: 4/5; background: var(--bg-raised); border-radius: var(--radius-lg);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; color: var(--text-muted); position: relative; overflow: hidden;
       border: 1px solid var(--border);
     }
-    .about-image-placeholder::after {
-      content: '';
-    }
-    /* Decorative blue corner accent */
+    .about-image-placeholder::after { content: ''; }
     .about-image-placeholder::before {
-      content: '';
-      position: absolute; top: 0; left: 0;
-      width: 60px; height: 60px;
+      content: ''; position: absolute; top: 0; left: 0; width: 60px; height: 60px;
       background: linear-gradient(135deg, rgba(21,101,192,0.18), transparent);
       border-radius: 0 0 var(--radius-lg) 0;
     }
     .about-image-wrap { position: relative; }
-
-    /* Floating badge on image */
     .about-badge {
-      position: absolute; bottom: -18px; right: -18px;
-      background: var(--teal);
-      border-radius: var(--radius-lg);
-      padding: 16px 20px;
-      box-shadow: 0 8px 24px rgba(21,101,192,0.30);
-      text-align: center; z-index: 1;
+      position: absolute; bottom: -18px; right: -18px; background: var(--teal);
+      border-radius: var(--radius-lg); padding: 16px 20px;
+      box-shadow: 0 8px 24px rgba(21,101,192,0.30); text-align: center; z-index: 1;
     }
     .about-badge-num  { font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; color: #fff; line-height: 1; }
     .about-badge-text { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.80); margin-top: 3px; }
-
     .about-content h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+      font-family: var(--font-display); font-size: clamp(2.2rem, 3.8vw, 3.2rem);
       font-weight: 900; line-height: 1.05; letter-spacing: 0.01em;
-      text-transform: uppercase; margin-bottom: 20px;
-      color: var(--text-primary);
+      text-transform: uppercase; margin-bottom: 20px; color: var(--text-primary);
     }
-    .about-content p {
-      font-size: 0.95rem; color: var(--text-secondary);
-      line-height: 1.82; margin-bottom: 12px; font-weight: 400;
-    }
+    .about-content p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.82; margin-bottom: 12px; font-weight: 400; }
     .about-bullets { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
     .about-bullet  { display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; }
     .bullet-icon   {
-      width: 22px; height: 22px;
-      background: rgba(21,101,192,0.10); border-radius: 50%;
+      width: 22px; height: 22px; background: rgba(21,101,192,0.10); border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: 1px;
-      border: 1px solid rgba(21,101,192,0.20);
+      flex-shrink: 0; margin-top: 1px; border: 1px solid rgba(21,101,192,0.20);
     }
     .bullet-icon svg { color: var(--teal); }
 
     /* ─── SERVICES ───────────────────────────────────────────────────────── */
     #services { padding: var(--section-pad) 0; background: var(--bg-base); }
-
     .section-header { text-align: center; max-width: 620px; margin: 0 auto 52px; }
-    .section-header .section-label          { justify-content: center; }
-    .section-header .section-label::before  { display: none; }
-    .section-header .section-label::after   { content: ''; display: block; width: 28px; height: 2px; background: var(--teal); border-radius: 2px; }
+    .section-header .section-label { justify-content: center; }
+    .section-header .section-label::before { display: none; }
+    .section-header .section-label::after { content: ''; display: block; width: 28px; height: 2px; background: var(--teal); border-radius: 2px; }
     .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+      font-family: var(--font-display); font-size: clamp(2.2rem, 3.8vw, 3.2rem);
       font-weight: 900; letter-spacing: 0.01em; text-transform: uppercase;
-      line-height: 1.05; margin-bottom: 16px;
-      color: var(--text-primary);
+      line-height: 1.05; margin-bottom: 16px; color: var(--text-primary);
     }
     .section-sub { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; font-weight: 400; }
-
     .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-
     .service-card {
-      background: #ffffff;
-      border: 1.5px solid var(--border);
+      background: #ffffff; border: 1.5px solid var(--border);
       border-radius: var(--radius-lg); padding: 36px 28px;
       position: relative; overflow: hidden;
       transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
     }
-    /* AC = blue, Heating = red, Maintenance = deep navy */
     .service-card:nth-child(1) { --card-accent: #1565c0; }
     .service-card:nth-child(2) { --card-accent: #e02020; }
     .service-card:nth-child(3) { --card-accent: #0d47a1; }
-
     .service-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: var(--card-accent);
-      transform: scaleX(0); transform-origin: left;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--card-accent); transform: scaleX(0); transform-origin: left;
       transition: transform var(--transition);
     }
     .service-card::after {
-      content: '';
-      position: absolute; inset: 0;
+      content: ''; position: absolute; inset: 0;
       background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, transparent 60%);
       opacity: 0; transition: opacity var(--transition);
     }
     .service-card:hover { transform: translateY(-5px) scale(1.01); border-color: var(--border-strong); box-shadow: 0 16px 40px rgba(13,31,60,0.12); }
     .service-card:hover::before { transform: scaleX(1); }
     .service-card:hover::after  { opacity: 1; }
-    .service-card:active        { transform: scale(0.97); }
-
+    .service-card:active { transform: scale(0.97); }
     .service-icon {
       width: 52px; height: 52px;
       background: color-mix(in srgb, var(--card-accent) 10%, transparent);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
       font-size: 22px; margin-bottom: 20px;
       border: 1px solid color-mix(in srgb, var(--card-accent) 18%, transparent);
     }
@@ -695,12 +540,10 @@
       transition: gap var(--transition);
     }
     .service-card:hover .service-card-link { gap: 10px; }
-
     .service-tooltip {
       position: absolute; bottom: calc(100% + 8px); left: 50%;
       transform: translateX(-50%) translateY(4px);
-      background: var(--text-primary); border: none;
-      color: #fff; font-size: 0.68rem;
+      background: var(--text-primary); color: #fff; font-size: 0.68rem;
       padding: 5px 12px; border-radius: var(--radius-pill);
       white-space: nowrap; max-width: calc(100vw - 40px);
       text-align: center; pointer-events: none;
@@ -711,126 +554,50 @@
     /* ─── TESTIMONIALS ───────────────────────────────────────────────────── */
     #testimonials { padding: var(--section-pad) 0; background: #ffffff; position: relative; overflow: hidden; }
     #testimonials::before {
-      content: '';
-      position: absolute; right: -200px; top: -100px;
+      content: ''; position: absolute; right: -200px; top: -100px;
       width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(21,101,192,0.04) 0%, transparent 65%);
-      pointer-events: none;
+      background: radial-gradient(circle, rgba(21,101,192,0.04) 0%, transparent 65%); pointer-events: none;
     }
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    /* Featured review spans full row */
-    .testimonial-card--featured {
-      grid-column: 1 / -1;
-    }
-
+    .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .testimonial-card--featured { grid-column: 1 / -1; }
     .testimonial-card {
-      background: var(--bg-raised);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-lg); padding: 32px 28px;
-      position: relative;
+      background: var(--bg-raised); border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg); padding: 32px 28px; position: relative;
       transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
     }
     .testimonial-card--featured {
       background: linear-gradient(135deg, #e8f0fc 0%, #f0f6ff 100%);
-      border-color: rgba(21,101,192,0.18);
-      padding: 40px 40px;
+      border-color: rgba(21,101,192,0.18); padding: 40px 40px;
     }
     .testimonial-card:hover { transform: translateY(-3px); border-color: var(--border-strong); box-shadow: var(--shadow); }
-
-    .quote-mark {
-      font-family: var(--font-display); font-size: 5rem;
-      color: var(--teal); line-height: 0.6; opacity: 0.25;
-      margin-bottom: 12px; display: block;
-    }
-    .testimonial-text {
-      font-size: 0.95rem; color: var(--text-secondary);
-      line-height: 1.85; font-weight: 400; margin-bottom: 24px; font-style: italic;
-    }
+    .quote-mark { font-family: var(--font-display); font-size: 5rem; color: var(--teal); line-height: 0.6; opacity: 0.25; margin-bottom: 12px; display: block; }
+    .testimonial-text { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.85; font-weight: 400; margin-bottom: 24px; font-style: italic; }
     .testimonial-card--featured .testimonial-text { font-size: 1.1rem; line-height: 1.9; margin-bottom: 28px; color: var(--text-primary); }
-
     .testimonial-author { display: flex; align-items: center; gap: 14px; }
-    .author-avatar {
-      width: 44px; height: 44px; border-radius: 50%;
-      background: var(--bg-highlight); display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; flex-shrink: 0;
-      border: 2px solid var(--border-strong);
-    }
+    .author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-highlight); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; border: 2px solid var(--border-strong); }
     .author-name   { font-weight: 700; font-size: 0.9rem; margin-bottom: 2px; color: var(--text-primary); }
     .author-detail { font-size: 0.78rem; color: var(--text-muted); }
     .stars         { margin-left: auto; color: #f59e0b; font-size: 0.9rem; letter-spacing: 2px; }
-
-    .verified-badge {
-      display: inline-flex; align-items: center; gap: 4px;
-      font-size: 0.68rem; font-weight: 700; color: var(--teal);
-      letter-spacing: 0.05em; margin-top: 5px;
-    }
-
-    .reviews-footer {
-      display: flex; align-items: center; justify-content: center;
-      margin-top: 44px;
-    }
+    .verified-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.68rem; font-weight: 700; color: var(--teal); letter-spacing: 0.05em; margin-top: 5px; }
+    .reviews-footer { display: flex; align-items: center; justify-content: center; margin-top: 44px; }
     .google-badge {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: #fff;
+      display: inline-flex; align-items: center; gap: 10px; background: #fff;
       border: 1.5px solid var(--border-strong); border-radius: var(--radius-pill);
-      padding: 10px 20px; font-size: 0.82rem; font-weight: 600;
-      color: var(--text-secondary);
+      padding: 10px 20px; font-size: 0.82rem; font-weight: 600; color: var(--text-secondary);
       box-shadow: 0 2px 12px rgba(13,31,60,0.07);
     }
-    .google-g {
-      width: 22px; height: 22px;
-      background: white; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 700; color: #4285F4;
-      border: 1px solid #e0e0e0;
-    }
+    .google-g { width: 22px; height: 22px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #4285F4; border: 1px solid #e0e0e0; }
 
     /* ─── CONTACT ────────────────────────────────────────────────────────── */
     #contact { padding: var(--section-pad) 0; background: var(--bg-base); position: relative; }
-    #contact::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 60% 60% at 50% 0%, rgba(21,101,192,0.06) 0%, transparent 60%);
-      pointer-events: none;
-    }
+    #contact::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(21,101,192,0.06) 0%, transparent 60%); pointer-events: none; }
     .contact-simple { position: relative; z-index: 1; text-align: center; max-width: 700px; margin: 0 auto; }
-    .contact-simple h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 3.8vw, 3.2rem);
-      font-weight: 900; text-transform: uppercase; letter-spacing: 0.01em;
-      line-height: 1.05; margin-bottom: 16px; color: var(--text-primary);
-    }
+    .contact-simple h2 { font-family: var(--font-display); font-size: clamp(2.2rem, 3.8vw, 3.2rem); font-weight: 900; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.05; margin-bottom: 16px; color: var(--text-primary); }
     .contact-simple > p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.82; font-weight: 400; margin-bottom: 28px; }
-
-    .contact-cards {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
-      margin-top: 36px; max-width: 640px; margin-left: auto; margin-right: auto;
-    }
-    .contact-card {
-      background: #ffffff;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-lg); padding: 28px 24px; text-align: center;
-      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
-    }
-    .contact-card:hover {
-      border-color: rgba(21,101,192,0.28);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 28px rgba(13,31,60,0.10);
-    }
-    .contact-card-icon {
-      width: 46px; height: 46px;
-      background: rgba(21,101,192,0.08); border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 14px;
-      border: 1px solid rgba(21,101,192,0.15);
-    }
+    .contact-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 36px; max-width: 640px; margin-left: auto; margin-right: auto; }
+    .contact-card { background: #ffffff; border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 28px 24px; text-align: center; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); }
+    .contact-card:hover { border-color: rgba(21,101,192,0.28); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(13,31,60,0.10); }
+    .contact-card-icon { width: 46px; height: 46px; background: rgba(21,101,192,0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; border: 1px solid rgba(21,101,192,0.15); }
     .contact-card-icon svg  { color: var(--teal); }
     .contact-card-label     { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
     .contact-card-value     { font-size: 0.92rem; font-weight: 700; color: var(--text-primary); }
@@ -838,42 +605,22 @@
     .contact-card-value a:hover { color: var(--teal); }
 
     /* ─── FOOTER ─────────────────────────────────────────────────────────── */
-    footer {
-      background: var(--text-primary);
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 48px 0 24px;
-    }
-    .footer-top {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
-      gap: 32px;
-      padding-bottom: 32px;
-      border-bottom: 1px solid rgba(255,255,255,0.10);
-    }
+    footer { background: var(--text-primary); border-top: 1px solid rgba(255,255,255,0.08); padding: 48px 0 24px; }
+    .footer-top { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.10); }
     .footer-brand p { font-size: 0.875rem; color: rgba(255,255,255,0.50); line-height: 1.7; font-weight: 300; margin-top: 14px; max-width: 260px; }
     .footer-col h4  { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.90); margin-bottom: 14px; }
     .footer-col ul  { display: flex; flex-direction: column; gap: 8px; }
     .footer-col ul li a { font-size: 0.875rem; color: rgba(255,255,255,0.50); transition: color var(--transition); font-weight: 300; }
     .footer-col ul li a:hover { color: #fff; }
-    .footer-bottom {
-      display: flex; align-items: center; justify-content: space-between;
-      padding-top: 24px; font-size: 0.78rem; color: rgba(255,255,255,0.40);
-      flex-wrap: wrap; gap: 10px;
-    }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; font-size: 0.78rem; color: rgba(255,255,255,0.40); flex-wrap: wrap; gap: 10px; }
     .footer-bottom a { color: #7eaff0; transition: opacity var(--transition); }
     .footer-bottom a:hover { opacity: 0.7; }
-
-    /* Override nav-logo inside footer for dark background */
     footer .nav-logo { color: #fff; }
     footer .nav-logo-icon { background: var(--teal); box-shadow: 0 4px 14px rgba(21,101,192,0.4); }
 
     /* ─── REDUCED MOTION ─────────────────────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
       html { scroll-behavior: auto; }
     }
 
@@ -887,11 +634,9 @@
       .about-badge { right: 0; }
       .services-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-top { grid-template-columns: repeat(2, 1fr); }
-      /* On smaller screens the split bg would be distracting, neutralize it */
       #hero .hero-bg-split::after { display: none; }
       #hero .hero-bg-divider { display: none; }
     }
-
     @media (max-width: 768px) {
       :root { --section-pad: 56px; }
       .nav-links, .nav-cta { display: none; }
@@ -904,49 +649,23 @@
       .contact-cards { grid-template-columns: 1fr; max-width: 340px; }
       .hero-form-card { padding: 32px 24px; }
       .btn-primary, .btn-submit { min-height: 52px; }
-      .form-group input,
-      .form-group select,
-      .form-group textarea { font-size: 16px; padding: 13px 14px; }
+      .form-group input, .form-group select, .form-group textarea { font-size: 16px; padding: 13px 14px; }
     }
-
     @media (max-width: 480px) {
       .hero-headline { font-size: 2.4rem; }
       .hero-form-card { padding: 28px 20px; }
     }
+
     /* ─── TEMPLATE NOTICE BAR ───────────────────────────────────────── */
     .template-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
+      position: fixed; top: 0; left: 0; width: 100%;
       background: linear-gradient(90deg, #1565c0, #1976d2);
-      color: #fff;
-      text-align: center;
-      font-size: 0.75rem;
-      font-weight: 500;
-      padding: 4px 10px;
-      z-index: 10000;
-      letter-spacing: 0.02em;
-      line-height: 1.4;
+      color: #fff; text-align: center; font-size: 0.75rem; font-weight: 500;
+      padding: 4px 10px; z-index: 10000; letter-spacing: 0.02em; line-height: 1.4;
     }
-    
-    .template-bar a {
-      color: #fff;
-      text-decoration: underline;
-      font-weight: 600;
-    }
-    
-    /* Mobile optimization */
-    @media (max-width: 600px) {
-      .template-bar {
-        font-size: 0.7rem;
-        padding: 6px 10px;
-      }
-    }
-    
-    #navbar {
-      top: 24px;
-    }
+    .template-bar a { color: #fff; text-decoration: underline; font-weight: 600; }
+    @media (max-width: 600px) { .template-bar { font-size: 0.7rem; padding: 6px 10px; } }
+    #navbar { top: 24px; }
   </style>
 
   <script type="application/ld+json">
@@ -960,30 +679,18 @@
     "email": "contact@houstoncoolingpros.com",
     "foundingDate": "2014",
     "priceRange": "$$",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Houston",
-      "addressRegion": "TX",
-      "postalCode": "77001",
-      "addressCountry": "US"
-    },
+    "address": { "@type": "PostalAddress", "addressLocality": "Houston", "addressRegion": "TX", "postalCode": "77001", "addressCountry": "US" },
     "geo": { "@type": "GeoCoordinates", "latitude": "29.7604", "longitude": "-95.3698" },
     "areaServed": { "@type": "City", "name": "Houston" },
     "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "HVAC Services",
+      "@type": "OfferCatalog", "name": "HVAC Services",
       "itemListElement": [
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AC Repair" } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Heating Installation" } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "HVAC Maintenance" } }
       ]
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "reviewCount": "120",
-      "bestRating": "5"
-    },
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "120", "bestRating": "5" },
     "openingHoursSpecification": [
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "19:00" },
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "08:00", "closes": "17:00" }
@@ -992,17 +699,16 @@
   </script>
 
 </head>
+<body>
 
-  <body>
   <div class="template-bar">
     Demo template by <strong>Samuel Rincón</strong> —
     Inquiries:
-    <a href="/cdn-cgi/l/email-protection#6a190b071f0f06180304090504072a130b02050544090507">Samuel</a> |
-    <a href="/cdn-cgi/l/email-protection#aecacfc0c7cbc2cacbccc19f96eec9c3cfc7c280cdc1c3">Daniel (Sales)</a>
+    <a href="mailto:samuelrinconm@yahoo.com">Samuel</a> |
+    <a href="mailto:danieldebo18@gmail.com">Daniel (Sales)</a>
   </div>
 
   <!-- ── MOBILE MENU ─────────────────────────────────────────────────────── -->
-
   <nav class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
     <a href="#about"        onclick="closeMobile()">About</a>
     <a href="#services"     onclick="closeMobile()">Services</a>
@@ -1012,7 +718,6 @@
   </nav>
 
   <!-- ── NAVBAR ─────────────────────────────────────────────────────────── -->
-
   <header id="navbar" role="banner">
     <div class="container">
       <div class="nav-inner">
@@ -1035,9 +740,7 @@
   </header>
 
   <!-- ── HERO ───────────────────────────────────────────────────────────── -->
-
   <section id="hero" aria-labelledby="hero-headline">
-    <!-- Background layers (purely decorative, no z-index conflict) -->
     <div class="hero-bg-split"   aria-hidden="true"></div>
     <img src="images/hvac3.png" alt="" aria-hidden="true" loading="eager" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.05;z-index:0;pointer-events:none;" />
     <div class="hero-bg-glow"    aria-hidden="true"></div>
@@ -1047,182 +750,134 @@
     <div class="container">
       <div class="hero-inner">
 
-    <div class="hero-content">
-      <div class="hero-eyebrow reveal">
-        <span class="hero-eyebrow-dot"></span>
-        Serving Houston, TX
-      </div>
-
-      <h1 class="hero-headline reveal delay-1" id="hero-headline">
-        <em>AC Repair &amp; HVAC</em><br>
-        Services in<br>
-        <span class="hero-underline">Houston, TX</span>
-      </h1>
-
-      <p class="hero-subheadline reveal delay-2">
-        Beat the Texas heat with fast, reliable HVAC service from Houston's most trusted team. We offer <strong style="color:var(--text-primary);font-weight:700;">same-day service</strong>, <strong style="color:var(--text-primary);font-weight:700;">free estimates</strong>, and <strong style="color:var(--text-primary);font-weight:700;">emergency AC repair</strong> — 24/7 when you need it most. Licensed, insured, and proud to serve Houston homeowners.
-      </p>
-
-      <div class="hero-cta-row reveal delay-4">
-        <a href="tel:(713) 555-0198" class="btn-primary">
-          Call Now for Same-Day Service
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13 19.79 19.79 0 01.43 4.49 2 2 0 012.4 2.28h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.06 6.06l1.79-1.79a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2z"/>
-          </svg>
-        </a>
-        <a href="#" class="btn-outline" onclick="scrollToForm(); return false;">Get Free Estimate</a>
-        <a href="/" class="btn-outline" aria-label="Back to main website">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M19 12H5M12 5l-7 7 7 7"/>
-          </svg>
-          Back to Main Page
-        </a>
-      </div>
-    </div>
-
-    <!-- Hero Form -->
-    <div class="hero-form-card reveal delay-2" role="complementary" aria-label="Contact form">
-
-      <h2 class="hero-form-title">Request a Free Estimate</h2>
-      <p class="hero-form-sub">Tell us about your HVAC issue and we'll get back to you fast — often the same day.</p>
-
-      <form id="heroForm" novalidate aria-label="Hero lead form">
-        <!-- Honeypot -->
-        <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
-          <label for="hf-website">Website (leave blank)</label>
-          <input type="text" id="hf-website" name="website" tabindex="-1" autocomplete="off" />
+        <div class="hero-content">
+          <div class="hero-eyebrow reveal">
+            <span class="hero-eyebrow-dot"></span>
+            Serving Houston, TX
+          </div>
+          <h1 class="hero-headline reveal delay-1" id="hero-headline">
+            <em>AC Repair &amp; HVAC</em><br>
+            Services in<br>
+            <span class="hero-underline">Houston, TX</span>
+          </h1>
+          <p class="hero-subheadline reveal delay-2">
+            Beat the Texas heat with fast, reliable HVAC service from Houston's most trusted team. We offer <strong style="color:var(--text-primary);font-weight:700;">same-day service</strong>, <strong style="color:var(--text-primary);font-weight:700;">free estimates</strong>, and <strong style="color:var(--text-primary);font-weight:700;">emergency AC repair</strong> — 24/7 when you need it most. Licensed, insured, and proud to serve Houston homeowners.
+          </p>
+          <div class="hero-cta-row reveal delay-4">
+            <a href="tel:(713) 555-0198" class="btn-primary">
+              Call Now for Same-Day Service
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13 19.79 19.79 0 01.43 4.49 2 2 0 012.4 2.28h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.06 6.06l1.79-1.79a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2z"/>
+              </svg>
+            </a>
+            <a href="#" class="btn-outline" onclick="scrollToForm(); return false;">Get Free Estimate</a>
+            <a href="/" class="btn-outline" aria-label="Back to main website">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M19 12H5M12 5l-7 7 7 7"/>
+              </svg>
+              Back to Main Page
+            </a>
+          </div>
         </div>
 
-        <div class="form-group" id="hf-name-group">
-          <label for="hf-name">Name *</label>
-          <input type="text" id="hf-name" name="from_name"
-                 placeholder="John Smith" required autocomplete="name" />
-          <span class="form-error-msg" role="alert">Add your name.</span>
+        <div class="hero-form-card reveal delay-2" role="complementary" aria-label="Contact form">
+          <h2 class="hero-form-title">Request a Free Estimate</h2>
+          <p class="hero-form-sub">Tell us about your HVAC issue and we'll get back to you fast — often the same day.</p>
+
+          <form id="heroForm" novalidate aria-label="Hero lead form">
+            <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
+              <label for="hf-website">Website (leave blank)</label>
+              <input type="text" id="hf-website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+            <div class="form-group" id="hf-name-group">
+              <label for="hf-name">Name *</label>
+              <input type="text" id="hf-name" name="from_name" placeholder="John Smith" required autocomplete="name" />
+              <span class="form-error-msg" role="alert">Add your name.</span>
+            </div>
+            <div class="form-group" id="hf-email-group">
+              <label for="hf-email">Email *</label>
+              <input type="email" id="hf-email" name="reply_to" placeholder="john@email.com" required autocomplete="email" />
+              <span class="form-error-msg" role="alert">Add a valid email.</span>
+            </div>
+            <div class="form-group" id="hf-message-group">
+              <label for="hf-message">Describe Your HVAC Issue *</label>
+              <textarea id="hf-message" name="message" placeholder="e.g. AC stopped cooling, strange noise from unit, need annual tune-up…" required></textarea>
+              <span class="form-error-msg" role="alert">Add a short message.</span>
+            </div>
+            <div class="submit-wrap">
+              <button type="submit" class="btn-submit" id="heroSubmitBtn" aria-label="Send message">
+                <span class="btn-text">Get My Free Estimate</span>
+                <span class="spinner" aria-hidden="true"></span>
+              </button>
+            </div>
+            <div class="form-inline-error" id="heroInlineError" role="alert">
+              <p>Something went wrong. Please try again.</p>
+            </div>
+          </form>
+
+          <div class="form-success" id="heroSuccess" role="status" aria-live="polite">
+            <div class="success-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <h3>Request Sent!</h3>
+            <p>We'll be in touch shortly — most requests receive a response within the hour during business hours.</p>
+          </div>
         </div>
 
-        <div class="form-group" id="hf-email-group">
-          <label for="hf-email">Email *</label>
-          <input type="email" id="hf-email" name="reply_to"
-                 placeholder="john@email.com" required autocomplete="email" />
-          <span class="form-error-msg" role="alert">Add a valid email.</span>
-        </div>
-
-        <div class="form-group" id="hf-message-group">
-          <label for="hf-message">Describe Your HVAC Issue *</label>
-          <textarea id="hf-message" name="message" placeholder="e.g. AC stopped cooling, strange noise from unit, need annual tune-up…" required></textarea>
-          <span class="form-error-msg" role="alert">Add a short message.</span>
-        </div>
-
-        <div class="submit-wrap">
-          <button type="submit" class="btn-submit" id="heroSubmitBtn" aria-label="Send message">
-            <span class="btn-text">Get My Free Estimate</span>
-            <span class="spinner" aria-hidden="true"></span>
-          </button>
-        </div>
-
-        <div class="form-inline-error" id="heroInlineError" role="alert">
-          <p>Couldn't open your email app automatically. Use the button below.</p>
-          <button type="button" class="btn-mailto" id="heroMailtoBtn">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
-            </svg>
-            Open Email
-          </button>
-        </div>
-      </form>
-
-      <div class="form-success" id="heroSuccess" role="status" aria-live="polite">
-        <div class="success-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16a34a"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-        </div>
-        <h3>Request Sent!</h3>
-        <p>We'll be in touch shortly — most requests receive a response within the hour during business hours.</p>
       </div>
     </div>
-
-  </div>
-</div>
-
   </section>
 
   <!-- ── ABOUT ──────────────────────────────────────────────────────────── -->
-
   <section id="about" aria-labelledby="about-heading">
     <div class="container">
       <div class="about-grid">
 
-    <div class="about-image-wrap reveal-left">
-      <div class="about-image-placeholder" role="img" aria-label="Houston Cooling & Heating Pros team photo">
-        <img src="images/hvac1.png" alt="Houston Cooling & Heating Pros team on the job" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px;" />
-      </div>
-      <div class="about-badge">
-        <div class="about-badge-num">10+</div>
-        <div class="about-badge-text">Years<br>Experience</div>
+        <div class="about-image-wrap reveal-left">
+          <div class="about-image-placeholder" role="img" aria-label="Houston Cooling & Heating Pros team photo">
+            <img src="images/hvac1.png" alt="Houston Cooling & Heating Pros team on the job" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px;" />
+          </div>
+          <div class="about-badge">
+            <div class="about-badge-num">10+</div>
+            <div class="about-badge-text">Years<br>Experience</div>
+          </div>
+        </div>
+
+        <div class="about-content reveal-right">
+          <span class="section-label">About Us</span>
+          <h2 id="about-heading">
+            About<br>
+            <em class="accent">Houston Cooling & Heating Pros</em>
+          </h2>
+          <p>We're a family-owned and operated HVAC company proudly serving Houston homeowners for over a decade. We know Texas heat like no one else — and we know how fast a broken AC can turn a Houston summer into a real emergency.</p>
+          <p>From routine maintenance to emergency same-day repairs, our licensed and insured technicians are ready to restore your comfort quickly and honestly — with upfront pricing and no surprise fees.</p>
+          <ul class="about-bullets" role="list">
+            <li class="about-bullet reveal delay-1">
+              <div class="bullet-icon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span><strong>Licensed &amp; Insured</strong> — fully certified HVAC technicians you can trust in your home.</span>
+            </li>
+            <li class="about-bullet reveal delay-2">
+              <div class="bullet-icon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span><strong>Same-Day Emergency Service</strong> — because AC failures in Houston can't wait until tomorrow.</span>
+            </li>
+            <li class="about-bullet reveal delay-3">
+              <div class="bullet-icon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span><strong>Family-Owned &amp; Local</strong> — we live here, we work here, and we stand behind every job.</span>
+            </li>
+            <li class="about-bullet reveal delay-4">
+              <div class="bullet-icon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <span><strong>Free Estimates</strong> — transparent quotes with no hidden costs, ever.</span>
+            </li>
+          </ul>
+        </div>
+
       </div>
     </div>
-
-    <div class="about-content reveal-right">
-      <span class="section-label">About Us</span>
-      <h2 id="about-heading">
-        About<br>
-        <em class="accent">Houston Cooling & Heating Pros</em>
-      </h2>
-      <p>We're a family-owned and operated HVAC company proudly serving Houston homeowners for over a decade. We know Texas heat like no one else — and we know how fast a broken AC can turn a Houston summer into a real emergency.</p>
-      <p>From routine maintenance to emergency same-day repairs, our licensed and insured technicians are ready to restore your comfort quickly and honestly — with upfront pricing and no surprise fees.</p>
-      <ul class="about-bullets" role="list">
-        <li class="about-bullet reveal delay-1">
-          <div class="bullet-icon" aria-hidden="true">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-          </div>
-          <span><strong>Licensed &amp; Insured</strong> — fully certified HVAC technicians you can trust in your home.</span>
-        </li>
-        <li class="about-bullet reveal delay-2">
-          <div class="bullet-icon" aria-hidden="true">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-          </div>
-          <span><strong>Same-Day Emergency Service</strong> — because AC failures in Houston can't wait until tomorrow.</span>
-        </li>
-        <li class="about-bullet reveal delay-3">
-          <div class="bullet-icon" aria-hidden="true">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-          </div>
-          <span><strong>Family-Owned &amp; Local</strong> — we live here, we work here, and we stand behind every job.</span>
-        </li>
-        <li class="about-bullet reveal delay-4">
-          <div class="bullet-icon" aria-hidden="true">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-          </div>
-          <span><strong>Free Estimates</strong> — transparent quotes with no hidden costs, ever.</span>
-        </li>
-      </ul>
-    </div>
-
-  </div>
-</div>
-
   </section>
 
   <!-- ── SERVICES ───────────────────────────────────────────────────────── -->
-
   <section id="services" aria-labelledby="services-heading">
     <div class="container">
       <div class="section-header reveal">
@@ -1231,62 +886,47 @@
         <p class="section-sub">Comprehensive HVAC solutions for Houston homeowners — from emergency AC repairs to full system installations and preventive care.</p>
       </div>
 
-  <div class="services-grid">
-    <!-- Card accent colors are set via nth-child in CSS: orange / teal / violet -->
-    <div class="service-card reveal delay-1" data-service="ac-repair"
-         role="button" tabindex="0" aria-label="Select AC Repair">
-      <img src="images/hvac4.png" alt="Technician repairing AC unit" loading="lazy" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:20px;display:block;" />
-      <div class="service-icon" aria-hidden="true">❄️</div>
-      <h3>AC Repair</h3>
-      <p>Emergency AC repair with same-day service to keep your home cool in Houston heat. We diagnose and fix all makes and models fast.</p>
-      <span class="service-card-link" aria-hidden="true">
-        Learn more
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </span>
-      <span class="service-tooltip" aria-hidden="true">Same-day emergency service available</span>
-    </div>
+      <div class="services-grid">
+        <div class="service-card reveal delay-1" data-service="ac-repair" role="button" tabindex="0" aria-label="Select AC Repair">
+          <img src="images/hvac4.png" alt="Technician repairing AC unit" loading="lazy" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:20px;display:block;" />
+          <div class="service-icon" aria-hidden="true">❄️</div>
+          <h3>AC Repair</h3>
+          <p>Emergency AC repair with same-day service to keep your home cool in Houston heat. We diagnose and fix all makes and models fast.</p>
+          <span class="service-card-link" aria-hidden="true">
+            Learn more
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+          <span class="service-tooltip" aria-hidden="true">Same-day emergency service available</span>
+        </div>
 
-    <div class="service-card reveal delay-2" data-service="heating-installation"
-         role="button" tabindex="0" aria-label="Select Heating Installation">
-      <img src="images/hvac2.png" alt="Customer handshake after HVAC installation" loading="lazy" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:20px;display:block;" />
-      <div class="service-icon" aria-hidden="true">🔥</div>
-      <h3>Heating Installation</h3>
-      <p>Energy-efficient heating systems installed for long-term comfort. We'll help you choose the right unit and handle every step of installation.</p>
-      <span class="service-card-link" aria-hidden="true">
-        Learn more
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </span>
-      <span class="service-tooltip" aria-hidden="true">Free estimate on all installations</span>
-    </div>
+        <div class="service-card reveal delay-2" data-service="heating-installation" role="button" tabindex="0" aria-label="Select Heating Installation">
+          <img src="images/hvac2.png" alt="Customer handshake after HVAC installation" loading="lazy" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:20px;display:block;" />
+          <div class="service-icon" aria-hidden="true">🔥</div>
+          <h3>Heating Installation</h3>
+          <p>Energy-efficient heating systems installed for long-term comfort. We'll help you choose the right unit and handle every step of installation.</p>
+          <span class="service-card-link" aria-hidden="true">
+            Learn more
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+          <span class="service-tooltip" aria-hidden="true">Free estimate on all installations</span>
+        </div>
 
-    <div class="service-card reveal delay-3" data-service="hvac-maintenance"
-         role="button" tabindex="0" aria-label="Select HVAC Maintenance">
-      <img src="images/hvac3.png" alt="HVAC van and technician at house exterior" loading="lazy" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:20px;display:block;" />
-      <div class="service-icon" aria-hidden="true">🔧</div>
-      <h3>HVAC Maintenance</h3>
-      <p>Prevent breakdowns and extend system life with regular maintenance tune-ups. Keep your system running efficiently all year long.</p>
-      <span class="service-card-link" aria-hidden="true">
-        Learn more
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </span>
-      <span class="service-tooltip" aria-hidden="true">Annual maintenance plans available</span>
+        <div class="service-card reveal delay-3" data-service="hvac-maintenance" role="button" tabindex="0" aria-label="Select HVAC Maintenance">
+          <img src="images/hvac3.png" alt="HVAC van and technician at house exterior" loading="lazy" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:20px;display:block;" />
+          <div class="service-icon" aria-hidden="true">🔧</div>
+          <h3>HVAC Maintenance</h3>
+          <p>Prevent breakdowns and extend system life with regular maintenance tune-ups. Keep your system running efficiently all year long.</p>
+          <span class="service-card-link" aria-hidden="true">
+            Learn more
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+          <span class="service-tooltip" aria-hidden="true">Annual maintenance plans available</span>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
   </section>
 
   <!-- ── TESTIMONIALS ───────────────────────────────────────────────────── -->
-
   <section id="testimonials" aria-labelledby="testimonials-heading">
     <div class="container">
       <div class="section-header reveal">
@@ -1295,188 +935,118 @@
         <p class="section-sub">Real reviews from Houston homeowners who trust us to keep their homes comfortable year-round.</p>
       </div>
 
-  <!-- 
-    TESTIMONIAL LAYOUT NOTE:
-    - First card gets class "testimonial-card--featured" → spans full row
-    - Remaining cards share the 2-column grid
-    - Replace placeholder text and names with real reviews
-  -->
-  <div class="testimonials-grid">
+      <div class="testimonials-grid">
 
-    <div class="testimonial-card testimonial-card--featured reveal">
-      <span class="quote-mark" aria-hidden="true">"</span>
-      <p class="testimonial-text">
-        Our AC broke down right in the middle of August — the worst possible time in Houston. I called Houston Cooling & Heating Pros at 9am and they had a technician at our door by noon. He had the unit running again within two hours. The pricing was honest and upfront, no hidden fees. I genuinely can't recommend them enough — these guys are lifesavers.
-      </p>
-      <div class="testimonial-author">
-        <div class="author-avatar" aria-hidden="true">👤</div>
-        <div>
-          <div class="author-name">Carlos M.</div>
-          <div class="author-detail">Houston, TX</div>
-          <div class="verified-badge">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-            Verified Review
+        <div class="testimonial-card testimonial-card--featured reveal">
+          <span class="quote-mark" aria-hidden="true">"</span>
+          <p class="testimonial-text">Our AC broke down right in the middle of August — the worst possible time in Houston. I called Houston Cooling & Heating Pros at 9am and they had a technician at our door by noon. He had the unit running again within two hours. The pricing was honest and upfront, no hidden fees. I genuinely can't recommend them enough — these guys are lifesavers.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" aria-hidden="true">👤</div>
+            <div>
+              <div class="author-name">Carlos M.</div>
+              <div class="author-detail">Houston, TX</div>
+              <div class="verified-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Verified Review</div>
+            </div>
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
           </div>
         </div>
-        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-      </div>
-    </div>
 
-    <div class="testimonial-card reveal delay-1">
-      <span class="quote-mark" aria-hidden="true">"</span>
-      <p class="testimonial-text">Fast, professional, and honest pricing. The technician explained exactly what was wrong with my system before doing any work and gave me options. No pressure, no upsells. This is how every service company should operate.</p>
-      <div class="testimonial-author">
-        <div class="author-avatar" aria-hidden="true">👤</div>
-        <div>
-          <div class="author-name">Ashley T.</div>
-          <div class="author-detail">Houston, TX</div>
-          <div class="verified-badge">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-            Verified Review
+        <div class="testimonial-card reveal delay-1">
+          <span class="quote-mark" aria-hidden="true">"</span>
+          <p class="testimonial-text">Fast, professional, and honest pricing. The technician explained exactly what was wrong with my system before doing any work and gave me options. No pressure, no upsells. This is how every service company should operate.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" aria-hidden="true">👤</div>
+            <div>
+              <div class="author-name">Ashley T.</div>
+              <div class="author-detail">Houston, TX</div>
+              <div class="verified-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Verified Review</div>
+            </div>
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
           </div>
         </div>
-        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-      </div>
-    </div>
 
-    <div class="testimonial-card reveal delay-2">
-      <span class="quote-mark" aria-hidden="true">"</span>
-      <p class="testimonial-text">I've used a few different HVAC companies over the years and Houston Cooling & Heating Pros is by far the best. They installed a new system for us last spring and our energy bills dropped noticeably. Great work and a great team.</p>
-      <div class="testimonial-author">
-        <div class="author-avatar" aria-hidden="true">👤</div>
-        <div>
-          <div class="author-name">Michael R.</div>
-          <div class="author-detail">Houston, TX</div>
-          <div class="verified-badge">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-            Verified Review
-          </div>
-    </div>
-        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-      </div>
-    </div>
-
-    <div class="testimonial-card reveal delay-3" style="grid-column: 1 / -1;">
-      <span class="quote-mark" aria-hidden="true">"</span>
-      <p class="testimonial-text">Called them on a Saturday when my AC went out and they came out the same day without any extra weekend charge. The tech was friendly, thorough, and had my system back up quickly. Houston summers are brutal and these guys make sure you're never stuck without cool air for long. Will definitely be using them for our annual maintenance from now on.</p>
-      <div class="testimonial-author">
-        <div class="author-avatar" aria-hidden="true">👤</div>
-        <div>
-          <div class="author-name">Sandra L.</div>
-          <div class="author-detail">Houston, TX</div>
-          <div class="verified-badge">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-            Verified Review
+        <div class="testimonial-card reveal delay-2">
+          <span class="quote-mark" aria-hidden="true">"</span>
+          <p class="testimonial-text">I've used a few different HVAC companies over the years and Houston Cooling & Heating Pros is by far the best. They installed a new system for us last spring and our energy bills dropped noticeably. Great work and a great team.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" aria-hidden="true">👤</div>
+            <div>
+              <div class="author-name">Michael R.</div>
+              <div class="author-detail">Houston, TX</div>
+              <div class="verified-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Verified Review</div>
+            </div>
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
           </div>
         </div>
-        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+
+        <div class="testimonial-card reveal delay-3" style="grid-column: 1 / -1;">
+          <span class="quote-mark" aria-hidden="true">"</span>
+          <p class="testimonial-text">Called them on a Saturday when my AC went out and they came out the same day without any extra weekend charge. The tech was friendly, thorough, and had my system back up quickly. Houston summers are brutal and these guys make sure you're never stuck without cool air for long. Will definitely be using them for our annual maintenance from now on.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" aria-hidden="true">👤</div>
+            <div>
+              <div class="author-name">Sandra L.</div>
+              <div class="author-detail">Houston, TX</div>
+              <div class="verified-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Verified Review</div>
+            </div>
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="reviews-footer">
+        <div class="google-badge reveal" role="complementary" aria-label="Google reviews badge">
+          <div class="google-g" aria-hidden="true">G</div>
+          <span>5.0 Stars · 120+ Google Reviews</span>
+        </div>
       </div>
     </div>
-
-  </div>
-
-  <div class="reviews-footer">
-    <div class="google-badge reveal" role="complementary" aria-label="Google reviews badge">
-      <div class="google-g" aria-hidden="true">G</div>
-      <span>5.0 Stars · 120+ Google Reviews</span>
-    </div>
-  </div>
-</div>
-
-
   </section>
 
   <!-- ── CONTACT ────────────────────────────────────────────────────────── -->
-
   <section id="contact" aria-labelledby="contact-heading">
     <div class="container">
       <div class="contact-simple">
         <span class="section-label reveal" style="justify-content:center; margin-bottom:16px;">Get in Touch</span>
-        <h2 class="reveal delay-1" id="contact-heading">
-          We're Ready When <span class="accent">You Are</span>
-        </h2>
+        <h2 class="reveal delay-1" id="contact-heading">We're Ready When <span class="accent">You Are</span></h2>
         <p class="reveal delay-2">Houston summers don't wait — and neither do we. Call now to schedule same-day service or get your free estimate today. Our friendly team is standing by.</p>
         <div class="reveal delay-3">
-          <a class="btn-primary" style="margin:0 auto; display:inline-flex;"
-             href="tel:(713) 555-0198" aria-label="Call Houston Cooling & Heating Pros">
+          <a class="btn-primary" style="margin:0 auto; display:inline-flex;" href="tel:(713) 555-0198" aria-label="Call Houston Cooling & Heating Pros">
             Call Now to Schedule Service
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13 19.79 19.79 0 01.43 4.49 2 2 0 012.4 2.28h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.06 6.06l1.79-1.79a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2z"/>
             </svg>
           </a>
         </div>
 
-    <div class="contact-cards">
-      <div class="contact-card reveal delay-1">
-        <div class="contact-card-icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13 19.79 19.79 0 01.43 4.49 2 2 0 012.4 2.28h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.06 6.06l1.79-1.79a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2z"/>
-          </svg>
-        </div>
-        <div class="contact-card-label">Call Us</div>
-        <div class="contact-card-value"><a href="tel:(713) 555-0198">(713) 555-0198</a></div>
-      </div>
-
-      <div class="contact-card reveal delay-2">
-        <div class="contact-card-icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-            <polyline points="22,6 12,13 2,6"/>
-          </svg>
-        </div>
-        <div class="contact-card-label">Email Us</div>
-        <div class="contact-card-value"><a href="/cdn-cgi/l/email-protection#afccc0c1dbceccdbefc7c0dadcdbc0c1ccc0c0c3c6c1c8dfddc0dc81ccc0c2"><span class="__cf_email__" data-cfemail="a6c5c9c8d2c7c5d2e6cec9d3d5d2c9c8c5c9c9cacfc8c1d6d4c9d588c5c9cb">[email&#160;protected]</span></a></div>
-      </div>
-
-      <div class="contact-card reveal delay-3">
-        <div class="contact-card-icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-            <circle cx="12" cy="10" r="3"/>
-          </svg>
-        </div>
-        <div class="contact-card-label">Service Area</div>
-        <div class="contact-card-value">Houston, TX &amp; Nearby</div>
-      </div>
-
-      <div class="contact-card reveal delay-4">
-        <div class="contact-card-icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
-        </div>
-        <div class="contact-card-label">Hours</div>
-        <div class="contact-card-value" style="font-size:0.82rem;">
-          Mon–Fri 7am–7pm<br>Sat 8am–5pm
+        <div class="contact-cards">
+          <div class="contact-card reveal delay-1">
+            <div class="contact-card-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13 19.79 19.79 0 01.43 4.49 2 2 0 012.4 2.28h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.06 6.06l1.79-1.79a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2z"/></svg></div>
+            <div class="contact-card-label">Call Us</div>
+            <div class="contact-card-value"><a href="tel:(713) 555-0198">(713) 555-0198</a></div>
+          </div>
+          <div class="contact-card reveal delay-2">
+            <div class="contact-card-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div class="contact-card-label">Email Us</div>
+            <div class="contact-card-value"><a href="mailto:contact@houstoncoolingpros.com">contact@houstoncoolingpros.com</a></div>
+          </div>
+          <div class="contact-card reveal delay-3">
+            <div class="contact-card-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="contact-card-label">Service Area</div>
+            <div class="contact-card-value">Houston, TX &amp; Nearby</div>
+          </div>
+          <div class="contact-card reveal delay-4">
+            <div class="contact-card-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="contact-card-label">Hours</div>
+            <div class="contact-card-value" style="font-size:0.82rem;">Mon–Fri 7am–7pm<br>Sat 8am–5pm</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-
   </section>
 
   <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
-
   <footer role="contentinfo">
     <div class="container">
       <div class="footer-top">
@@ -1487,42 +1057,35 @@
           </div>
           <p>Licensed &amp; insured HVAC experts serving Houston, TX. Same-day AC repair, heating installation, and maintenance you can count on.</p>
         </div>
-
-    <div class="footer-col">
-      <h4>Services</h4>
-      <ul role="list">
-        <li><a href="#services">AC Repair</a></li>
-        <li><a href="#services">Heating Installation</a></li>
-        <li><a href="#services">HVAC Maintenance</a></li>
-      </ul>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul role="list">
+            <li><a href="#services">AC Repair</a></li>
+            <li><a href="#services">Heating Installation</a></li>
+            <li><a href="#services">HVAC Maintenance</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul role="list">
+            <li><a href="tel:(713) 555-0198">(713) 555-0198</a></li>
+            <li><a href="mailto:contact@houstoncoolingpros.com">contact@houstoncoolingpros.com</a></li>
+            <li><span style="color:rgba(255,255,255,0.4)">Houston, TX</span></li>
+            <li><span style="color:rgba(255,255,255,0.4)">Hours: Mon–Fri 7am–7pm, Sat 8am–5pm</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="footerYear"></span> Houston Cooling & Heating Pros. All rights reserved.</span>
+        <span>Houston, TX</span>
+        <span>Licensed &amp; Insured HVAC Services</span>
+      </div>
     </div>
-
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <ul role="list">
-        <li><a href="tel:(713) 555-0198">(713) 555-0198</a></li>
-        <li><a href="/cdn-cgi/l/email-protection#c6a5a9a8b2a7a5b286aea9b3b5b2a9a8a5a9a9aaafa8a1b6b4a9b5e8a5a9ab"><span class="__cf_email__" data-cfemail="31525e5f4550524571595e4442455e5f525e5e5d585f5641435e421f525e5c">[email&#160;protected]</span></a></li>
-        <li><span style="color:var(--text-muted)">Houston, TX</span></li>
-        <li><span style="color:var(--text-muted)">Hours: Mon–Fri 7am–7pm, Sat 8am–5pm</span></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <span>© <span id="footerYear"></span> Houston Cooling & Heating Pros. All rights reserved.</span>
-    <span>Houston, TX</span>
-    <span>Licensed &amp; Insured HVAC Services</span>
-  </div>
-</div>
-
   </footer>
 
   <!-- ── SCRIPTS ────────────────────────────────────────────────────────── -->
-
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
   'use strict';
-
-  const CONTACT_EMAIL      = 'contact@houstoncoolingpros.com';
 
   const navbar          = document.getElementById('navbar');
   const hamburger       = document.getElementById('hamburger');
@@ -1531,10 +1094,8 @@
   const heroSubmit      = document.getElementById('heroSubmitBtn');
   const heroSuccess     = document.getElementById('heroSuccess');
   const heroInlineError = document.getElementById('heroInlineError');
-  const heroMailtoBtn   = document.getElementById('heroMailtoBtn');
 
-  let isSubmitting         = false;
-  let _pendingMailtoParams = null;
+  let isSubmitting = false;
 
   /* ── Smooth scroll ────────────────────────────────────────────────── */
   function smoothScrollTo(id) {
@@ -1553,7 +1114,6 @@
     }, 600);
   }
 
-  /* Anchor click handler — exclude bare "#" links */
   document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       const id     = this.getAttribute('href').slice(1);
@@ -1570,7 +1130,7 @@
     navbar.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
 
-  /* ── Active nav link via IntersectionObserver ─────────────────────── */
+  /* ── Active nav link ──────────────────────────────────────────────── */
   const navLinks = document.querySelectorAll('.nav-links a');
   const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -1622,97 +1182,48 @@
     if (state) g.classList.add(state);
   }
 
-  function attachRealtimeValidation(prefix) {
-    const nameEl  = document.getElementById(`${prefix}-name`);
-    const emailEl = document.getElementById(`${prefix}-email`);
-    const msgEl   = document.getElementById(`${prefix}-message`);
-    nameEl?.addEventListener('blur',  () => setFieldState(`${prefix}-name-group`,    nameEl.value.trim()        ? 'valid' : 'error'));
-    emailEl?.addEventListener('blur', () => setFieldState(`${prefix}-email-group`,   isValidEmail(emailEl.value) ? 'valid' : 'error'));
-    msgEl?.addEventListener('blur',   () => setFieldState(`${prefix}-message-group`, msgEl.value.trim()          ? 'valid' : 'error'));
-  }
-  attachRealtimeValidation('hf');
+  const nameEl  = document.getElementById('hf-name');
+  const emailEl = document.getElementById('hf-email');
+  const msgEl   = document.getElementById('hf-message');
 
-  heroForm?.addEventListener('input', () => heroInlineError?.classList.remove('show'), { passive: true });
+  nameEl?.addEventListener('blur',  () => setFieldState('hf-name-group',    nameEl.value.trim()         ? 'valid' : 'error'));
+  emailEl?.addEventListener('blur', () => setFieldState('hf-email-group',   isValidEmail(emailEl.value)  ? 'valid' : 'error'));
+  msgEl?.addEventListener('blur',   () => setFieldState('hf-message-group', msgEl.value.trim()           ? 'valid' : 'error'));
 
-  function validateForm(prefix) {
+  function validateForm() {
     let valid = true;
-    const nEl = document.getElementById(`${prefix}-name`);
-    const eEl = document.getElementById(`${prefix}-email`);
-    const mEl = document.getElementById(`${prefix}-message`);
-    if (!nEl.value.trim())        { setFieldState(`${prefix}-name-group`,    'error'); valid = false; } else { setFieldState(`${prefix}-name-group`,    'valid'); }
-    if (!isValidEmail(eEl.value)) { setFieldState(`${prefix}-email-group`,   'error'); valid = false; } else { setFieldState(`${prefix}-email-group`,   'valid'); }
-    if (!mEl.value.trim())        { setFieldState(`${prefix}-message-group`, 'error'); valid = false; } else { setFieldState(`${prefix}-message-group`, 'valid'); }
+    if (!nameEl.value.trim())         { setFieldState('hf-name-group',    'error'); valid = false; } else { setFieldState('hf-name-group',    'valid'); }
+    if (!isValidEmail(emailEl.value)) { setFieldState('hf-email-group',   'error'); valid = false; } else { setFieldState('hf-email-group',   'valid'); }
+    if (!msgEl.value.trim())          { setFieldState('hf-message-group', 'error'); valid = false; } else { setFieldState('hf-message-group', 'valid'); }
     return valid;
   }
 
-  /* ── Mailto fallback ──────────────────────────────────────────────── */
-  function mailtoFallback(params) {
-    const subject = encodeURIComponent('HVAC Service Request – Houston Cooling & Heating Pros');
-    const body = encodeURIComponent(
-      `Name: ${params.from_name}\nEmail: ${params.reply_to}\n\nMessage:\n${params.message}\n\nSent from: ${params.page_url}`
-    );
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-  }
-  heroMailtoBtn?.addEventListener('click', () => { if (_pendingMailtoParams) mailtoFallback(_pendingMailtoParams); });
-
-  /* ── Spam check ───────────────────────────────────────────────────── */
-  function isSpam() {
-    const h = document.getElementById('hf-website');
-    return h && h.value.length > 0;
-  }
-
-  /* ── Form submit ──────────────────────────────────────────────────── */
+  /* ── Form submit — DEMO MODE (no real email sent) ─────────────────── */
   async function handleFormSubmit() {
     if (isSubmitting) return;
 
-    if (isSpam()) {
-      heroForm.style.display = 'none';
-      heroSuccess.classList.add('show');
-      return;
-    }
-
-    if (!validateForm('hf')) {
-      const firstError = heroForm.querySelector('.form-group.error input, .form-group.error textarea, .form-group.error select');
+    if (!validateForm()) {
+      const firstError = heroForm.querySelector('.form-group.error input, .form-group.error textarea');
       if (firstError) firstError.focus({ preventScroll: false });
       return;
     }
 
     isSubmitting = true;
-    heroInlineError?.classList.remove('show');
-
-    const btnText = heroSubmit.querySelector('.btn-text');
-    if (btnText) btnText.textContent = 'Opening email…';
     heroSubmit.classList.add('loading');
     heroSubmit.disabled = true;
 
-    const params = {
-      from_name: document.getElementById('hf-name').value.trim(),
-      reply_to:  document.getElementById('hf-email').value.trim(),
-      message:   document.getElementById('hf-message').value.trim(),
-      page_url:  window.location.href,
-      timestamp: new Date().toLocaleString(),
-    };
-    _pendingMailtoParams = params;
-
-    try {
-      mailtoFallback(params);
-      _pendingMailtoParams = null;
+    /* Simulate a short processing delay, then show success — nothing is sent */
+    setTimeout(() => {
       heroForm.classList.add('form-fading');
       setTimeout(() => {
         heroForm.style.display = 'none';
         heroForm.classList.remove('form-fading');
         heroSuccess.classList.add('show');
       }, 220);
-    } catch (err) {
-      console.error('Submission error:', err);
       isSubmitting = false;
       heroSubmit.classList.remove('loading');
       heroSubmit.disabled = false;
-      const btn = heroSubmit.querySelector('.btn-text');
-      if (btn) btn.textContent = 'Get My Free Estimate';
-      heroInlineError?.classList.add('show');
-      heroInlineError?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
+    }, 800);
   }
 
   heroForm?.addEventListener('submit', e => { e.preventDefault(); handleFormSubmit(); });
@@ -1738,10 +1249,8 @@
 
       smoothScrollTo('hero');
       setTimeout(() => {
-        const nameEl = document.getElementById('hf-name');
-        if (nameEl && !nameEl.value.trim() && document.activeElement === document.body) {
-          nameEl.focus();
-        }
+        const n = document.getElementById('hf-name');
+        if (n && !n.value.trim() && document.activeElement === document.body) n.focus();
       }, 620);
     }
 
@@ -1768,4 +1277,4 @@
   </script>
 
 </body>
-</html>
+</html>S
