@@ -139,43 +139,27 @@
     }
 
     /* ─── NAVBAR ────────────────────────────────────────────────── */
-    /* FIX 1: safe-area integrado directamente en el navbar real,
-       sin pseudo-elementos separados que causan el efecto "layer" */
     #navbar {
       position:                fixed;
       top:                     0;
       left:                    0;
       right:                   0;
       z-index:                 1000;
-      isolation:               isolate;
-
-      /* FIX: altura y padding-top absorben el safe area */
-      height:                  calc(var(--nav-height) + env(safe-area-inset-top));
-      padding-top:             env(safe-area-inset-top);
-
-      display:                 flex;
-      align-items:             center;
-
-      /* FIX: fondo más sólido para evitar transparencia problemática */
+      padding:                 calc(22px + env(safe-area-inset-top)) 0 22px 0;
       background:              rgba(13,15,20,0.95);
       backdrop-filter:         blur(16px);
       -webkit-backdrop-filter: blur(16px);
-
       border-bottom:           1px solid var(--border);
-      transition:              background var(--transition), box-shadow var(--transition);
+      transition:              padding var(--transition), background var(--transition), box-shadow var(--transition);
     }
-
-    /* FIX 2: eliminado el ::before que causaba el layer separado */
 
     #navbar.scrolled {
       background:              rgba(13,15,20,0.97);
-      backdrop-filter:         blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      padding:                 calc(14px + env(safe-area-inset-top)) 0 14px 0;
       box-shadow:              0 2px 20px rgba(0,0,0,0.3);
     }
 
     .nav-inner {
-      height:          var(--nav-height);
       display:         flex;
       align-items:     center;
       justify-content: space-between;
@@ -298,7 +282,7 @@
       min-height:    100svh;
       display:       flex;
       align-items:   center;
-      padding-top:   calc(var(--nav-height) + env(safe-area-inset-top) + 40px);
+      padding-top:   120px;
       padding-bottom: 80px;
       overflow:      hidden;
     }
@@ -1101,13 +1085,6 @@
       .form-group input,
       .form-group textarea                 { font-size: 16px; padding: 13px 14px; }
       .services-grid                       { grid-template-columns: 1fr !important; max-width: 480px; margin-left: auto; margin-right: auto; }
-
-      /* FIX 3: navbar más sólido en mobile */
-      #navbar {
-        background:              rgba(13,15,20,0.98);
-        backdrop-filter:         blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-      }
     }
 
     @media (max-width: 480px) {
