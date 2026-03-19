@@ -45,26 +45,6 @@
     /* ─── RESET ─────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html  { scroll-behavior: smooth; font-size: 16px; background-color: #0d0f14; }
-    html::before {
-      content:    '';
-      position:   fixed;
-      top:        0;
-      left:       0;
-      right:      0;
-      height:     env(safe-area-inset-top);
-      background: #0d0f14;
-      z-index:    9998;
-    }
-    html::before {
-      content:    '';
-      position:   fixed;
-      top:        0;
-      left:       0;
-      right:      0;
-      height:     env(safe-area-inset-top);
-      background: #0d0f14;
-      z-index:    1001;
-    }
     body  {
       font-family: var(--font-body);
       background:  var(--bg-base);
@@ -161,40 +141,25 @@
     /* ─── NAVBAR ────────────────────────────────────────────────── */
     #navbar {
       position:                fixed;
-      top:                     0;
+      top:                     env(safe-area-inset-top);
       left:                    0;
       right:                   0;
       z-index:                 1000;
-      isolation:               isolate;
-      height:                  calc(var(--nav-height) + env(safe-area-inset-top));
-      padding-top:             env(safe-area-inset-top);
-      display:                 flex;
-      align-items:             center;
-      background:              rgba(13,15,20,0.82);
-      backdrop-filter:         blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom:           1px solid var(--border);
-      transition:              background var(--transition), box-shadow var(--transition);
-    }
-    #navbar::before {
-      content:    '';
-      position:   absolute;
-      top:        0;
-      left:       0;
-      right:      0;
-      height:     env(safe-area-inset-top);
-      background: rgba(13,15,20,0.82);
-      z-index:    -1;
-    }
-    #navbar.scrolled {
-      background:              rgba(13,15,20,0.97);
+      padding:                 22px 0;
+      background:              rgba(13,15,20,0.95);
       backdrop-filter:         blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      box-shadow:              0 2px 20px rgba(0,0,0,0.3);
+      border-bottom:           1px solid var(--border);
+      transition:              padding var(--transition), background var(--transition), box-shadow var(--transition);
+    }
+
+    #navbar.scrolled {
+      background:  rgba(13,15,20,0.97);
+      padding:     14px 0;
+      box-shadow:  0 2px 20px rgba(0,0,0,0.3);
     }
 
     .nav-inner {
-      height:          var(--nav-height);
       display:         flex;
       align-items:     center;
       justify-content: space-between;
@@ -317,7 +282,7 @@
       min-height:    100svh;
       display:       flex;
       align-items:   center;
-      padding-top:   calc(var(--nav-height) + env(safe-area-inset-top) + 40px);
+      padding-top:   120px;
       padding-bottom: 80px;
       overflow:      hidden;
     }
@@ -1141,6 +1106,9 @@
     <a href="/cdn-cgi/l/email-protection#3f5b5e51565a535b5a5d500e077f58525e5653115c5052" class="nav-cta">Get Started</a>
   </nav>
 
+  <!-- Cubre exactamente el safe area del notch -->
+  <div style="position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:rgba(13,15,20,0.97);z-index:1001;"></div>
+
   <!-- ─── NAVBAR ──────────────────────────────────────────────────── -->
   <header id="navbar">
     <div class="container">
@@ -1647,7 +1615,9 @@
   function smoothScrollTo(id) {
     var t = document.getElementById(id);
     if (!t) return;
-    var y = t.getBoundingClientRect().top + window.scrollY - (navbar ? navbar.offsetHeight : 80) - 20;
+    var safeBar = document.getElementById('safe-area-bar');
+    var offset  = (navbar ? navbar.offsetHeight : 80) + (safeBar ? safeBar.offsetHeight : 0);
+    var y = t.getBoundingClientRect().top + window.scrollY - offset - 20;
     window.scrollTo({ top: y, behavior: 'smooth' });
   }
 
