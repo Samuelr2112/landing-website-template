@@ -46,8 +46,8 @@
     /* ─── NAVBAR BASE ─────────────────────────────────────────────── */
     #navbar{
       position:fixed;top:0;left:0;right:0;z-index:1000;
-      padding:24px 0;
-      padding-top:max(24px, env(safe-area-inset-top));
+      padding:12px 0;
+      padding-top:calc(env(safe-area-inset-top) + 12px);
       background:var(--bg-base);
       transition:padding var(--transition),background var(--transition),box-shadow var(--transition);
     }
@@ -58,7 +58,7 @@
       backdrop-filter:blur(20px);
       -webkit-backdrop-filter:blur(20px);
       padding:12px 0;
-      padding-top:max(12px, env(safe-area-inset-top));
+      padding-top:calc(env(safe-area-inset-top) + 12px);
       border-bottom:none;
       box-shadow:
         0 8px 40px rgba(0,0,0,0.6),
@@ -469,7 +469,7 @@
           <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SSL security certificate</li>
           <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>6-month performance guarantee</li>
         </ul>
-        <a href="#" class="btn-outline scroll-to-form" style="justify-content:center;width:100%;box-sizing:border-box;">Get Started</a>
+        <a href="#" class="btn-primary scroll-to-form" style="justify-content:center;width:100%;box-sizing:border-box;">Get Started</a>
       </div>
 
       <div class="service-card reveal delay-2" style="display:flex;flex-direction:column;border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 16px 48px rgba(255,107,53,.18);position:relative;">
@@ -496,7 +496,7 @@
           <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited content edits</li>
           <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Conversion rate optimization</li>
         </ul>
-        <a href="#" class="btn-outline scroll-to-form" style="justify-content:center;width:100%;box-sizing:border-box;">Get a Custom Quote</a>
+        <a href="#" class="btn-primary scroll-to-form" style="justify-content:center;width:100%;box-sizing:border-box;">Get a Custom Quote</a>
       </div>
 
     </div>
