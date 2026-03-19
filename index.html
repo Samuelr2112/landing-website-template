@@ -10,687 +10,1787 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
   <style>
+    /* ─── VARIABLES ─────────────────────────────────────────────── */
     :root {
-      --bg-base:#0d0f14;--bg-surface:#13161e;--bg-raised:#1a1e28;--bg-highlight:#222738;
-      --border:rgba(255,255,255,0.07);--border-strong:rgba(255,255,255,0.13);
-      --text-primary:#f0eee8;--text-secondary:#9ba3b8;--text-muted:#606880;
-      --accent:#ff6b35;--accent-light:#ff8c5a;--accent-subtle:rgba(255,107,53,0.08);
-      --teal:#00c9a7;--success:#34d399;--error:#f87171;
-      --font-display:'Fraunces',Georgia,serif;--font-body:'Outfit',system-ui,sans-serif;
-      --radius:8px;--radius-lg:16px;--radius-pill:999px;
-      --shadow:0 4px 32px rgba(0,0,0,0.5);
-      --shadow-accent:0 8px 32px rgba(255,107,53,0.25);
-      --transition:0.22s cubic-bezier(0.4,0,0.2,1);
-      --max-w:1200px;--section-pad:96px;--nav-height:72px;
+      --bg-base:         #0d0f14;
+      --bg-surface:      #13161e;
+      --bg-raised:       #1a1e28;
+      --bg-highlight:    #222738;
+      --border:          rgba(255,255,255,0.07);
+      --border-strong:   rgba(255,255,255,0.13);
+      --text-primary:    #f0eee8;
+      --text-secondary:  #9ba3b8;
+      --text-muted:      #606880;
+      --accent:          #ff6b35;
+      --accent-light:    #ff8c5a;
+      --accent-subtle:   rgba(255,107,53,0.08);
+      --teal:            #00c9a7;
+      --success:         #34d399;
+      --error:           #f87171;
+      --font-display:    'Fraunces', Georgia, serif;
+      --font-body:       'Outfit', system-ui, sans-serif;
+      --radius:          8px;
+      --radius-lg:       16px;
+      --radius-pill:     999px;
+      --shadow:          0 4px 32px rgba(0,0,0,0.5);
+      --shadow-accent:   0 8px 32px rgba(255,107,53,0.25);
+      --transition:      0.22s cubic-bezier(0.4,0,0.2,1);
+      --max-w:           1200px;
+      --section-pad:     96px;
+      --nav-height:      72px;
     }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth;font-size:16px}
-    body{font-family:var(--font-body);background:var(--bg-base);color:var(--text-primary);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.75}
-    a{color:inherit;text-decoration:none}ul{list-style:none}
-    button,input,textarea{font-family:inherit}button{cursor:pointer}
-    .container{width:100%;max-width:var(--max-w);margin:0 auto;padding:0 28px}
-    .accent{color:var(--accent)}
-    :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:var(--radius)}
-    .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
-    .reveal.visible{opacity:1;transform:none}
-    .reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .7s var(--transition),transform .7s var(--transition)}
-    .reveal-right{opacity:0;transform:translateX(40px);transition:opacity .7s var(--transition),transform .7s var(--transition)}
-    .reveal-left.visible,.reveal-right.visible{opacity:1;transform:none}
-    .delay-1{transition-delay:.10s!important}.delay-2{transition-delay:.20s!important}
-    .delay-3{transition-delay:.30s!important}.delay-4{transition-delay:.40s!important}
-    .section-label{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
-    .section-label::before{content:'';display:block;width:28px;height:2px;background:var(--accent);border-radius:2px}
-    body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");opacity:.35}
+
+    /* ─── RESET ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html  { scroll-behavior: smooth; font-size: 16px; }
+    body  {
+      font-family: var(--font-body);
+      background:  var(--bg-base);
+      color:       var(--text-primary);
+      overflow-x:  hidden;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.75;
+    }
+    a               { color: inherit; text-decoration: none; }
+    ul              { list-style: none; }
+    button, input, textarea { font-family: inherit; }
+    button          { cursor: pointer; }
+
+    /* ─── UTILITIES ─────────────────────────────────────────────── */
+    .container {
+      width:      100%;
+      max-width:  var(--max-w);
+      margin:     0 auto;
+      padding:    0 28px;
+    }
+    .accent { color: var(--accent); }
+    :focus-visible {
+      outline:        2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius:  var(--radius);
+    }
+
+    /* Noise overlay */
+    body::after {
+      content:          '';
+      position:         fixed;
+      inset:            0;
+      z-index:          9999;
+      pointer-events:   none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .35;
+    }
+
+    /* ─── ANIMATIONS ────────────────────────────────────────────── */
+    .reveal {
+      opacity:    0;
+      transform:  translateY(32px);
+      transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    .reveal-left  { opacity: 0; transform: translateX(-40px); transition: opacity .7s var(--transition), transform .7s var(--transition); }
+    .reveal-right { opacity: 0; transform: translateX( 40px); transition: opacity .7s var(--transition), transform .7s var(--transition); }
+    .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: none; }
+
+    .delay-1 { transition-delay: .10s !important; }
+    .delay-2 { transition-delay: .20s !important; }
+    .delay-3 { transition-delay: .30s !important; }
+    .delay-4 { transition-delay: .40s !important; }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1);  }
+      50%       { opacity: .5; transform: scale(.7); }
+    }
+    @keyframes spin          { to { transform: rotate(360deg); } }
+    @keyframes successScale  {
+      0%   { opacity: 0; transform: scale(.88) translateY(8px);  }
+      60%  {             transform: scale(1.03) translateY(-2px); }
+      100% { opacity: 1; transform: scale(1)   translateY(0);    }
+    }
+    @keyframes successBounce {
+      0%   { transform: scale(.5);  opacity: 0; }
+      60%  { transform: scale(1.15);            }
+      80%  { transform: scale(.95);             }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+
+    /* ─── SECTION LABEL ─────────────────────────────────────────── */
+    .section-label {
+      display:         inline-flex;
+      align-items:     center;
+      gap:             10px;
+      font-size:       11px;
+      font-weight:     600;
+      letter-spacing:  .22em;
+      text-transform:  uppercase;
+      color:           var(--accent);
+      margin-bottom:   18px;
+    }
+    .section-label::before {
+      content:       '';
+      display:       block;
+      width:         28px;
+      height:        2px;
+      background:    var(--accent);
+      border-radius: 2px;
+    }
 
     /* ─── NAVBAR ────────────────────────────────────────────────── */
-    #navbar{
-      position:fixed;top:0;left:0;right:0;z-index:1000;
-      height:calc(var(--nav-height) + env(safe-area-inset-top));
-      padding-top:env(safe-area-inset-top);
-      display:flex;
-      align-items:center;
-      background:rgba(13,15,20,0.82);
-      backdrop-filter:blur(12px);
-      -webkit-backdrop-filter:blur(12px);
-      border-bottom:1px solid var(--border);
-      transition:padding var(--transition),background var(--transition),box-shadow var(--transition);
+    #navbar {
+      position:           fixed;
+      top:                0;
+      left:               0;
+      right:              0;
+      z-index:            1000;
+      height:             var(--nav-height);   /* fixed height — no safe-area padding */
+      display:            flex;
+      align-items:        center;
+      background:         rgba(13,15,20,0.82);
+      backdrop-filter:    blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom:      1px solid var(--border);
+      transition:         background var(--transition), box-shadow var(--transition);
     }
-    #navbar.scrolled{
-      background:rgba(13,15,20,0.97);
-      backdrop-filter:blur(16px);
-      -webkit-backdrop-filter:blur(16px);
-      border-bottom:1px solid var(--border);
-      box-shadow:0 2px 20px rgba(0,0,0,0.3);
+    #navbar.scrolled {
+      background:              rgba(13,15,20,0.97);
+      backdrop-filter:         blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow:              0 2px 20px rgba(0,0,0,0.3);
     }
-    .nav-inner{height:var(--nav-height);display:flex;align-items:center;justify-content:space-between}
-    .nav-logo{display:flex;align-items:center;gap:11px;font-family:var(--font-display);font-size:1.35rem;font-weight:700;letter-spacing:-.025em;transition:opacity var(--transition)}
-    .nav-logo:hover{opacity:0.88}
-    .nav-logo-icon{width:38px;height:38px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;font-weight:900;flex-shrink:0;box-shadow:0 4px 20px rgba(255,107,53,0.55);transition:box-shadow var(--transition),transform var(--transition)}
-    .nav-logo:hover .nav-logo-icon{box-shadow:0 6px 28px rgba(255,107,53,0.75);transform:translateY(-1px)}
-    .nav-links{display:flex;align-items:center;gap:36px}
-    .nav-links a{font-size:.875rem;font-weight:600;color:var(--text-secondary);transition:color var(--transition);letter-spacing:.01em}
-    .nav-links a:hover,.nav-links a.active{color:var(--accent)}
-    .nav-cta{display:flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-size:.875rem;font-weight:700;padding:10px 22px;border-radius:var(--radius-pill);transition:background var(--transition),transform var(--transition),box-shadow var(--transition);box-shadow:0 4px 14px rgba(255,107,53,0.30)}
-    .nav-cta:hover{background:var(--accent-light);transform:translateY(-1px);box-shadow:var(--shadow-accent)}
-    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px}
-    .hamburger span{display:block;width:24px;height:2px;background:var(--text-secondary);border-radius:2px;transition:var(--transition)}
-    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-    .hamburger.open span:nth-child(2){opacity:0}
-    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-    .mobile-menu{display:none;position:fixed;inset:0;background:var(--bg-base);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:32px;opacity:0;transition:opacity .3s ease}
-    .mobile-menu.open{display:flex;opacity:1}
-    .mobile-menu a{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--text-primary);transition:color var(--transition)}
-    .mobile-menu a:hover{color:var(--accent)}
-    .mobile-menu .nav-cta{font-family:var(--font-body);font-size:1rem;padding:14px 36px}
+
+    .nav-inner {
+      height:          var(--nav-height);
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display:         flex;
+      align-items:     center;
+      gap:             11px;
+      font-family:     var(--font-display);
+      font-size:       1.35rem;
+      font-weight:     700;
+      letter-spacing:  -.025em;
+      transition:      opacity var(--transition);
+    }
+    .nav-logo:hover { opacity: 0.88; }
+
+    .nav-logo-icon {
+      width:         38px;
+      height:        38px;
+      background:    var(--accent);
+      border-radius: 10px;
+      display:       flex;
+      align-items:   center;
+      justify-content: center;
+      font-size:     16px;
+      color:         #fff;
+      font-weight:   900;
+      flex-shrink:   0;
+      box-shadow:    0 4px 20px rgba(255,107,53,0.55);
+      transition:    box-shadow var(--transition), transform var(--transition);
+    }
+    .nav-logo:hover .nav-logo-icon {
+      box-shadow: 0 6px 28px rgba(255,107,53,0.75);
+      transform:  translateY(-1px);
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-links a {
+      font-size:      .875rem;
+      font-weight:    600;
+      color:          var(--text-secondary);
+      transition:     color var(--transition);
+      letter-spacing: .01em;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--accent); }
+
+    .nav-cta {
+      display:       flex;
+      align-items:   center;
+      gap:           8px;
+      background:    var(--accent);
+      color:         #fff;
+      font-size:     .875rem;
+      font-weight:   700;
+      padding:       10px 22px;
+      border-radius: var(--radius-pill);
+      transition:    background var(--transition), transform var(--transition), box-shadow var(--transition);
+      box-shadow:    0 4px 14px rgba(255,107,53,0.30);
+    }
+    .nav-cta:hover {
+      background:  var(--accent-light);
+      transform:   translateY(-1px);
+      box-shadow:  var(--shadow-accent);
+    }
+
+    .hamburger {
+      display:    none;
+      flex-direction: column;
+      gap:        5px;
+      background: none;
+      border:     none;
+      padding:    4px;
+    }
+    .hamburger span {
+      display:       block;
+      width:         24px;
+      height:        2px;
+      background:    var(--text-secondary);
+      border-radius: 2px;
+      transition:    var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px)  rotate(45deg);  }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display:        none;
+      position:       fixed;
+      inset:          0;
+      background:     var(--bg-base);
+      z-index:        999;
+      flex-direction: column;
+      align-items:    center;
+      justify-content: center;
+      gap:            32px;
+      opacity:        0;
+      transition:     opacity .3s ease;
+    }
+    .mobile-menu.open { display: flex; opacity: 1; }
+    .mobile-menu a {
+      font-family: var(--font-display);
+      font-size:   2rem;
+      font-weight: 700;
+      color:       var(--text-primary);
+      transition:  color var(--transition);
+    }
+    .mobile-menu a:hover       { color: var(--accent); }
+    .mobile-menu .nav-cta {
+      font-family: var(--font-body);
+      font-size:   1rem;
+      padding:     14px 36px;
+    }
 
     /* ─── HERO ───────────────────────────────────────────────────── */
-    #hero{position:relative;min-height:100svh;display:flex;align-items:center;padding-top:calc(var(--nav-height) + env(safe-area-inset-top) + 40px);padding-bottom:80px;overflow:hidden}
-    #hero .hero-bg-split{position:absolute;inset:0;z-index:0;pointer-events:none}
-    #hero .hero-bg-split::before{content:'';position:absolute;inset:0;background:var(--bg-base)}
-    #hero .hero-bg-split::after{content:'';position:absolute;top:0;right:0;bottom:0;width:42%;background:linear-gradient(160deg,rgba(26,30,40,.95) 0%,rgba(20,23,32,.98) 100%);-webkit-mask-image:linear-gradient(to right,transparent 0%,black 18%);mask-image:linear-gradient(to right,transparent 0%,black 18%)}
-    #hero .hero-bg-glow{position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 55% 55% at 22% 55%,rgba(255,107,53,.11) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 0% 90%,rgba(0,201,167,.07) 0%,transparent 55%),radial-gradient(ellipse 50% 70% at 80% 45%,rgba(255,107,53,.06) 0%,transparent 55%)}
-    #hero .hero-bg-grid{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse 60% 75% at 28% 50%,black 30%,transparent 80%);mask-image:radial-gradient(ellipse 60% 75% at 28% 50%,black 30%,transparent 80%)}
-    #hero .hero-bg-divider{position:absolute;top:12%;bottom:12%;z-index:0;pointer-events:none;left:calc(50% + 116px);width:1px;background:linear-gradient(to bottom,transparent 0%,rgba(255,107,53,.18) 25%,rgba(255,107,53,.25) 50%,rgba(255,107,53,.18) 75%,transparent 100%)}
-    .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 420px;gap:72px;align-items:center}
-    .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--accent-subtle);border:1px solid rgba(255,107,53,.2);border-radius:var(--radius-pill);padding:6px 16px;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
-    .hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse-dot 2s ease-in-out infinite}
-    @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
-    .hero-headline{font-family:var(--font-display);font-size:clamp(2.8rem,5.5vw,4.4rem);font-weight:700;line-height:1.05;letter-spacing:-.03em;margin-bottom:24px;text-shadow:0 2px 40px rgba(0,0,0,.6)}
-    .hero-headline em{font-style:italic;color:var(--accent)}
-    .hero-underline{position:relative;display:inline-block}
-    .hero-underline::after{content:'';position:absolute;left:0;right:0;bottom:-4px;height:3px;background:linear-gradient(90deg,var(--accent),var(--teal));border-radius:2px;transform-origin:left;transform:scaleX(0);transition:transform 1s cubic-bezier(.4,0,.2,1) .8s}
-    .reveal.visible .hero-underline::after{transform:scaleX(1)}
-    .hero-subheadline{font-size:1.05rem;color:var(--text-secondary);line-height:1.82;font-weight:300;max-width:520px;margin-bottom:32px}
-    .hero-cta-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-    .btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;font-size:.9rem;font-weight:600;padding:15px 30px;border-radius:var(--radius-pill);border:none;transition:background .16s ease,transform .16s ease,box-shadow .16s ease;box-shadow:0 4px 20px rgba(255,107,53,.35)}
-    .btn-primary:hover{background:var(--accent-light);transform:translateY(-2px);box-shadow:var(--shadow-accent)}
-    .btn-outline{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border-strong);color:var(--text-secondary);font-size:.9rem;font-weight:500;padding:14px 28px;border-radius:var(--radius-pill);transition:border-color var(--transition),color var(--transition)}
-    .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
-    .hero-form-card{background:var(--bg-raised);border:1px solid rgba(255,255,255,.11);border-radius:var(--radius-lg);padding:36px 32px;box-shadow:0 0 0 1px rgba(255,107,53,.08),0 32px 80px rgba(0,0,0,.7),0 8px 32px rgba(0,0,0,.5);position:relative;overflow:hidden}
-    .hero-form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--teal))}
-    .hero-form-card::after{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(255,107,53,.14) 0%,transparent 65%);pointer-events:none}
-    .hero-form-title{font-family:var(--font-display);font-size:1.5rem;font-weight:700;margin-bottom:6px}
-    .hero-form-sub{font-size:.82rem;color:var(--text-muted);margin-bottom:18px;line-height:1.5}
-    .form-group{margin-bottom:14px;position:relative}
-    .form-group label{display:block;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
-    .form-group input,.form-group textarea{width:100%;background:var(--bg-highlight);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius);color:var(--text-primary);font-size:.9rem;padding:11px 14px;outline:none;transition:border-color .18s,background .18s,transform .18s,box-shadow .18s;appearance:none}
-    .form-group input::placeholder,.form-group textarea::placeholder{color:var(--text-muted)}
-    .form-group textarea{resize:vertical;min-height:80px}
-    .form-group input:focus,.form-group textarea:focus{border-color:var(--accent);background:rgba(255,107,53,.04);transform:scale(1.012);box-shadow:0 0 0 3px rgba(255,107,53,.12)}
-    .form-group.error input,.form-group.error textarea{border-color:var(--error);box-shadow:0 0 0 3px rgba(248,113,113,.1)}
-    .form-error-msg{font-size:.72rem;color:var(--error);margin-top:5px;display:none}
-    .form-group.error .form-error-msg{display:block}
-    .form-group.valid input,.form-group.valid textarea{border-color:var(--success);background:rgba(52,211,153,.04)}
-    .form-group.valid::after{content:'✓';position:absolute;right:13px;top:36px;color:var(--success);font-size:13px;font-weight:700;pointer-events:none}
-    .btn-submit{width:100%;background:var(--accent);color:#fff;font-size:.9rem;font-weight:700;padding:14px;border-radius:var(--radius-pill);border:none;cursor:pointer;transition:background .16s,transform .16s,box-shadow .16s;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px;box-shadow:0 4px 20px rgba(255,107,53,.3)}
-    .btn-submit:hover:not(:disabled){background:var(--accent-light);transform:translateY(-2px);box-shadow:var(--shadow-accent)}
-    .btn-submit:disabled{opacity:.7;cursor:not-allowed}
-    .spinner{display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .btn-submit.loading .spinner{display:block}
-    .btn-submit.loading .btn-text{display:none}
-    .form-inline-error{display:none;background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.2);border-radius:var(--radius);padding:16px 18px;margin-top:12px}
-    .form-inline-error.show{display:block}
-    .form-inline-error p{font-size:.82rem;color:var(--error);line-height:1.6;margin-bottom:12px}
-    .btn-mailto{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid rgba(248,113,113,.3);color:var(--error);font-size:.78rem;font-weight:600;padding:8px 18px;border-radius:var(--radius-pill);cursor:pointer;font-family:var(--font-body)}
-    @keyframes successScale{0%{opacity:0;transform:scale(.88) translateY(8px)}60%{transform:scale(1.03) translateY(-2px)}100%{opacity:1;transform:scale(1) translateY(0)}}
-    @keyframes successBounce{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.15)}80%{transform:scale(.95)}100%{transform:scale(1);opacity:1}}
-    .form-success{display:none;text-align:center;padding:20px 0}
-    .form-success.show{display:block;animation:successScale .45s cubic-bezier(.34,1.56,.64,1) forwards}
-    .form-success.show .success-icon{animation:successBounce .55s cubic-bezier(.34,1.56,.64,1) forwards}
-    .success-icon{width:64px;height:64px;background:rgba(52,211,153,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;border:1px solid rgba(52,211,153,.3)}
-    .form-success h3{font-family:var(--font-display);font-size:1.4rem;margin-bottom:8px}
-    .form-success p{font-size:.88rem;color:var(--text-muted);line-height:1.6}
+    #hero {
+      position:      relative;
+      min-height:    100svh;
+      display:       flex;
+      align-items:   center;
+      padding-top:   calc(var(--nav-height) + 40px);   /* no safe-area offset needed */
+      padding-bottom: 80px;
+      overflow:      hidden;
+    }
+
+    /* Backgrounds */
+    #hero .hero-bg-split { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    #hero .hero-bg-split::before {
+      content:    '';
+      position:   absolute;
+      inset:      0;
+      background: var(--bg-base);
+    }
+    #hero .hero-bg-split::after {
+      content:    '';
+      position:   absolute;
+      top: 0; right: 0; bottom: 0;
+      width:      42%;
+      background: linear-gradient(160deg, rgba(26,30,40,.95) 0%, rgba(20,23,32,.98) 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%);
+              mask-image: linear-gradient(to right, transparent 0%, black 18%);
+    }
+    #hero .hero-bg-glow {
+      position:       absolute;
+      inset:          0;
+      z-index:        0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 55% 55% at 22% 55%, rgba(255,107,53,.11) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 60% at  0% 90%, rgba(0,201,167,.07)  0%, transparent 55%),
+        radial-gradient(ellipse 50% 70% at 80% 45%, rgba(255,107,53,.06) 0%, transparent 55%);
+    }
+    #hero .hero-bg-grid {
+      position:       absolute;
+      inset:          0;
+      z-index:        0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      -webkit-mask-image: radial-gradient(ellipse 60% 75% at 28% 50%, black 30%, transparent 80%);
+              mask-image: radial-gradient(ellipse 60% 75% at 28% 50%, black 30%, transparent 80%);
+    }
+    #hero .hero-bg-divider {
+      position:       absolute;
+      top: 12%; bottom: 12%;
+      z-index:        0;
+      pointer-events: none;
+      left:           calc(50% + 116px);
+      width:          1px;
+      background:     linear-gradient(
+        to bottom,
+        transparent              0%,
+        rgba(255,107,53,.18)    25%,
+        rgba(255,107,53,.25)    50%,
+        rgba(255,107,53,.18)    75%,
+        transparent             100%
+      );
+    }
+
+    .hero-inner {
+      position:              relative;
+      z-index:               1;
+      display:               grid;
+      grid-template-columns: 1fr 420px;
+      gap:                   72px;
+      align-items:           center;
+    }
+
+    .hero-eyebrow {
+      display:         inline-flex;
+      align-items:     center;
+      gap:             8px;
+      background:      var(--accent-subtle);
+      border:          1px solid rgba(255,107,53,.2);
+      border-radius:   var(--radius-pill);
+      padding:         6px 16px;
+      font-size:       .75rem;
+      font-weight:     600;
+      letter-spacing:  .12em;
+      text-transform:  uppercase;
+      color:           var(--accent);
+      margin-bottom:   20px;
+    }
+    .hero-eyebrow-dot {
+      width:         6px;
+      height:        6px;
+      border-radius: 50%;
+      background:    var(--accent);
+      animation:     pulse-dot 2s ease-in-out infinite;
+    }
+
+    .hero-headline {
+      font-family:    var(--font-display);
+      font-size:      clamp(2.8rem, 5.5vw, 4.4rem);
+      font-weight:    700;
+      line-height:    1.05;
+      letter-spacing: -.03em;
+      margin-bottom:  24px;
+      text-shadow:    0 2px 40px rgba(0,0,0,.6);
+    }
+    .hero-headline em { font-style: italic; color: var(--accent); }
+
+    .hero-underline { position: relative; display: inline-block; }
+    .hero-underline::after {
+      content:          '';
+      position:         absolute;
+      left: 0; right: 0; bottom: -4px;
+      height:           3px;
+      background:       linear-gradient(90deg, var(--accent), var(--teal));
+      border-radius:    2px;
+      transform-origin: left;
+      transform:        scaleX(0);
+      transition:       transform 1s cubic-bezier(.4,0,.2,1) .8s;
+    }
+    .reveal.visible .hero-underline::after { transform: scaleX(1); }
+
+    .hero-subheadline {
+      font-size:     1.05rem;
+      color:         var(--text-secondary);
+      line-height:   1.82;
+      font-weight:   300;
+      max-width:     520px;
+      margin-bottom: 32px;
+    }
+
+    .hero-cta-row {
+      display:     flex;
+      align-items: center;
+      gap:         16px;
+      flex-wrap:   wrap;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           10px;
+      background:    var(--accent);
+      color:         #fff;
+      font-size:     .9rem;
+      font-weight:   600;
+      padding:       15px 30px;
+      border-radius: var(--radius-pill);
+      border:        none;
+      transition:    background .16s ease, transform .16s ease, box-shadow .16s ease;
+      box-shadow:    0 4px 20px rgba(255,107,53,.35);
+    }
+    .btn-primary:hover {
+      background:  var(--accent-light);
+      transform:   translateY(-2px);
+      box-shadow:  var(--shadow-accent);
+    }
+
+    .btn-outline {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           8px;
+      border:        1px solid var(--border-strong);
+      color:         var(--text-secondary);
+      font-size:     .9rem;
+      font-weight:   500;
+      padding:       14px 28px;
+      border-radius: var(--radius-pill);
+      transition:    border-color var(--transition), color var(--transition);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Hero form card */
+    .hero-form-card {
+      background:    var(--bg-raised);
+      border:        1px solid rgba(255,255,255,.11);
+      border-radius: var(--radius-lg);
+      padding:       36px 32px;
+      box-shadow:    0 0 0 1px rgba(255,107,53,.08), 0 32px 80px rgba(0,0,0,.7), 0 8px 32px rgba(0,0,0,.5);
+      position:      relative;
+      overflow:      hidden;
+    }
+    .hero-form-card::before {
+      content:    '';
+      position:   absolute;
+      top: 0; left: 0; right: 0;
+      height:     3px;
+      background: linear-gradient(90deg, var(--accent), var(--teal));
+    }
+    .hero-form-card::after {
+      content:        '';
+      position:       absolute;
+      top: -80px; right: -80px;
+      width:          240px;
+      height:         240px;
+      background:     radial-gradient(circle, rgba(255,107,53,.14) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-form-title {
+      font-family:   var(--font-display);
+      font-size:     1.5rem;
+      font-weight:   700;
+      margin-bottom: 6px;
+    }
+    .hero-form-sub {
+      font-size:     .82rem;
+      color:         var(--text-muted);
+      margin-bottom: 18px;
+      line-height:   1.5;
+    }
+
+    /* Form elements */
+    .form-group             { margin-bottom: 14px; position: relative; }
+    .form-group label {
+      display:         block;
+      font-size:       .72rem;
+      font-weight:     600;
+      letter-spacing:  .1em;
+      text-transform:  uppercase;
+      color:           var(--text-muted);
+      margin-bottom:   6px;
+    }
+    .form-group input,
+    .form-group textarea {
+      width:        100%;
+      background:   var(--bg-highlight);
+      border:       1px solid rgba(255,255,255,.09);
+      border-radius: var(--radius);
+      color:        var(--text-primary);
+      font-size:    .9rem;
+      padding:      11px 14px;
+      outline:      none;
+      transition:   border-color .18s, background .18s, transform .18s, box-shadow .18s;
+      appearance:   none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--text-muted); }
+    .form-group textarea              { resize: vertical; min-height: 80px; }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      background:   rgba(255,107,53,.04);
+      transform:    scale(1.012);
+      box-shadow:   0 0 0 3px rgba(255,107,53,.12);
+    }
+    .form-group.error input,
+    .form-group.error textarea {
+      border-color: var(--error);
+      box-shadow:   0 0 0 3px rgba(248,113,113,.1);
+    }
+    .form-error-msg               { font-size: .72rem; color: var(--error); margin-top: 5px; display: none; }
+    .form-group.error .form-error-msg { display: block; }
+    .form-group.valid input,
+    .form-group.valid textarea    { border-color: var(--success); background: rgba(52,211,153,.04); }
+    .form-group.valid::after {
+      content:        '✓';
+      position:       absolute;
+      right: 13px; top: 36px;
+      color:          var(--success);
+      font-size:      13px;
+      font-weight:    700;
+      pointer-events: none;
+    }
+
+    .btn-submit {
+      width:          100%;
+      background:     var(--accent);
+      color:          #fff;
+      font-size:      .9rem;
+      font-weight:    700;
+      padding:        14px;
+      border-radius:  var(--radius-pill);
+      border:         none;
+      cursor:         pointer;
+      transition:     background .16s, transform .16s, box-shadow .16s;
+      letter-spacing: .04em;
+      display:        flex;
+      align-items:    center;
+      justify-content: center;
+      gap:            8px;
+      margin-top:     6px;
+      box-shadow:     0 4px 20px rgba(255,107,53,.3);
+    }
+    .btn-submit:hover:not(:disabled) {
+      background:  var(--accent-light);
+      transform:   translateY(-2px);
+      box-shadow:  var(--shadow-accent);
+    }
+    .btn-submit:disabled { opacity: .7; cursor: not-allowed; }
+
+    .spinner {
+      display:       none;
+      width:         16px;
+      height:        16px;
+      border:        2px solid rgba(255,255,255,.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation:     spin .6s linear infinite;
+    }
+    .btn-submit.loading .spinner  { display: block; }
+    .btn-submit.loading .btn-text { display: none;  }
+
+    .form-inline-error {
+      display:       none;
+      background:    rgba(248,113,113,.06);
+      border:        1px solid rgba(248,113,113,.2);
+      border-radius: var(--radius);
+      padding:       16px 18px;
+      margin-top:    12px;
+    }
+    .form-inline-error.show { display: block; }
+    .form-inline-error p {
+      font-size:     .82rem;
+      color:         var(--error);
+      line-height:   1.6;
+      margin-bottom: 12px;
+    }
+
+    .btn-mailto {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           7px;
+      background:    transparent;
+      border:        1px solid rgba(248,113,113,.3);
+      color:         var(--error);
+      font-size:     .78rem;
+      font-weight:   600;
+      padding:       8px 18px;
+      border-radius: var(--radius-pill);
+      cursor:        pointer;
+      font-family:   var(--font-body);
+    }
+
+    .form-success { display: none; text-align: center; padding: 20px 0; }
+    .form-success.show {
+      display:   block;
+      animation: successScale .45s cubic-bezier(.34,1.56,.64,1) forwards;
+    }
+    .form-success.show .success-icon {
+      animation: successBounce .55s cubic-bezier(.34,1.56,.64,1) forwards;
+    }
+    .success-icon {
+      width:          64px;
+      height:         64px;
+      background:     rgba(52,211,153,.1);
+      border-radius:  50%;
+      display:        flex;
+      align-items:    center;
+      justify-content: center;
+      margin:         0 auto 16px;
+      border:         1px solid rgba(52,211,153,.3);
+    }
+    .form-success h3 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 8px; }
+    .form-success p  { font-size: .88rem; color: var(--text-muted); line-height: 1.6; }
 
     /* ─── ABOUT ──────────────────────────────────────────────────── */
-    #about{padding:var(--section-pad) 0;background:var(--bg-surface);position:relative;overflow:hidden}
-    #about::before{content:'';position:absolute;left:-300px;bottom:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(0,201,167,.04) 0%,transparent 65%);pointer-events:none}
-    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-    .about-image-wrap{position:relative}
-    .about-image-wrap img{width:100%;border-radius:var(--radius-lg);border:1px solid var(--border);display:block}
-    .about-badge{position:absolute;bottom:-18px;right:-18px;background:var(--accent);border-radius:var(--radius-lg);padding:16px 20px;box-shadow:var(--shadow-accent);text-align:center;z-index:1}
-    .about-badge-num{font-family:var(--font-display);font-size:1.8rem;font-weight:900;color:#fff;line-height:1}
-    .about-badge-text{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-top:3px}
-    .about-content h2{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;line-height:1.15;letter-spacing:-.02em;margin-bottom:20px}
-    .about-content p{font-size:.95rem;color:var(--text-secondary);line-height:1.82;margin-bottom:12px;font-weight:300}
-    .about-bullets{margin-top:28px;display:flex;flex-direction:column;gap:12px}
-    .about-bullet{display:flex;align-items:flex-start;gap:12px;font-size:.9rem;color:var(--text-secondary);line-height:1.65}
-    .bullet-icon{width:22px;height:22px;background:var(--accent-subtle);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;border:1px solid rgba(255,107,53,.15)}
+    #about {
+      padding:   var(--section-pad) 0;
+      background: var(--bg-surface);
+      position:  relative;
+      overflow:  hidden;
+    }
+    #about::before {
+      content:        '';
+      position:       absolute;
+      left: -300px; bottom: -200px;
+      width:          700px;
+      height:         700px;
+      background:     radial-gradient(circle, rgba(0,201,167,.04) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .about-grid {
+      display:               grid;
+      grid-template-columns: 1fr 1fr;
+      gap:                   80px;
+      align-items:           center;
+    }
+    .about-image-wrap          { position: relative; }
+    .about-image-wrap img {
+      width:         100%;
+      border-radius: var(--radius-lg);
+      border:        1px solid var(--border);
+      display:       block;
+    }
+    .about-badge {
+      position:      absolute;
+      bottom: -18px; right: -18px;
+      background:    var(--accent);
+      border-radius: var(--radius-lg);
+      padding:       16px 20px;
+      box-shadow:    var(--shadow-accent);
+      text-align:    center;
+      z-index:       1;
+    }
+    .about-badge-num  {
+      font-family:  var(--font-display);
+      font-size:    1.8rem;
+      font-weight:  900;
+      color:        #fff;
+      line-height:  1;
+    }
+    .about-badge-text {
+      font-size:      .7rem;
+      font-weight:    600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color:          rgba(255,255,255,.75);
+      margin-top:     3px;
+    }
+
+    .about-content h2 {
+      font-family:    var(--font-display);
+      font-size:      clamp(2rem, 3.5vw, 2.8rem);
+      font-weight:    700;
+      line-height:    1.15;
+      letter-spacing: -.02em;
+      margin-bottom:  20px;
+    }
+    .about-content p {
+      font-size:     .95rem;
+      color:         var(--text-secondary);
+      line-height:   1.82;
+      margin-bottom: 12px;
+      font-weight:   300;
+    }
+    .about-bullets {
+      margin-top:     28px;
+      display:        flex;
+      flex-direction: column;
+      gap:            12px;
+    }
+    .about-bullet {
+      display:     flex;
+      align-items: flex-start;
+      gap:         12px;
+      font-size:   .9rem;
+      color:       var(--text-secondary);
+      line-height: 1.65;
+    }
+    .bullet-icon {
+      width:          22px;
+      height:         22px;
+      background:     var(--accent-subtle);
+      border-radius:  50%;
+      display:        flex;
+      align-items:    center;
+      justify-content: center;
+      flex-shrink:    0;
+      margin-top:     1px;
+      border:         1px solid rgba(255,107,53,.15);
+    }
 
     /* ─── SERVICES ───────────────────────────────────────────────── */
-    #services{padding:var(--section-pad) 0;background:var(--bg-base)}
-    .section-header{text-align:center;max-width:620px;margin:0 auto 52px}
-    .section-header .section-label{justify-content:center}
-    .section-header .section-label::before{display:none}
-    .section-header .section-label::after{content:'';display:block;width:28px;height:2px;background:var(--accent);border-radius:2px}
-    .section-title{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:16px}
-    .section-sub{font-size:.95rem;color:var(--text-muted);line-height:1.7;font-weight:300}
-    .service-card{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 28px;position:relative;overflow:hidden;transition:transform var(--transition),border-color var(--transition),box-shadow var(--transition);cursor:pointer}
-    .service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform var(--transition)}
-    .service-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.02) 0%,transparent 60%);opacity:0;transition:opacity var(--transition)}
-    .service-card:hover{transform:translateY(-5px) scale(1.01);border-color:var(--border-strong);box-shadow:0 16px 48px rgba(0,0,0,.4)}
-    .service-card:hover::before{transform:scaleX(1)}
-    .service-card:hover::after{opacity:1}
-    .service-icon{width:52px;height:52px;background:var(--accent-subtle);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px;border:1px solid rgba(255,107,53,.2)}
-    .service-card h3{font-family:var(--font-display);font-size:1.2rem;font-weight:600;margin-bottom:10px}
-    .service-card p{font-size:.88rem;color:var(--text-muted);line-height:1.72}
+    #services {
+      padding:    var(--section-pad) 0;
+      background: var(--bg-base);
+    }
+
+    .section-header {
+      text-align:    center;
+      max-width:     620px;
+      margin:        0 auto 52px;
+    }
+    .section-header .section-label { justify-content: center; }
+    .section-header .section-label::before { display: none; }
+    .section-header .section-label::after  {
+      content:       '';
+      display:       block;
+      width:         28px;
+      height:        2px;
+      background:    var(--accent);
+      border-radius: 2px;
+    }
+    .section-title {
+      font-family:    var(--font-display);
+      font-size:      clamp(2rem, 3.5vw, 2.8rem);
+      font-weight:    700;
+      letter-spacing: -.02em;
+      line-height:    1.15;
+      margin-bottom:  16px;
+    }
+    .section-sub {
+      font-size:   .95rem;
+      color:       var(--text-muted);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .service-card {
+      background:    var(--bg-surface);
+      border:        1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding:       36px 28px;
+      position:      relative;
+      overflow:      hidden;
+      transition:    transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+      cursor:        pointer;
+    }
+    .service-card::before {
+      content:          '';
+      position:         absolute;
+      top: 0; left: 0; right: 0;
+      height:           2px;
+      background:       var(--accent);
+      transform:        scaleX(0);
+      transform-origin: left;
+      transition:       transform var(--transition);
+    }
+    .service-card::after {
+      content:    '';
+      position:   absolute;
+      inset:      0;
+      background: linear-gradient(135deg, rgba(255,255,255,.02) 0%, transparent 60%);
+      opacity:    0;
+      transition: opacity var(--transition);
+    }
+    .service-card:hover {
+      transform:    translateY(-5px) scale(1.01);
+      border-color: var(--border-strong);
+      box-shadow:   0 16px 48px rgba(0,0,0,.4);
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover::after  { opacity: 1; }
+
+    .service-icon {
+      width:          52px;
+      height:         52px;
+      background:     var(--accent-subtle);
+      border-radius:  12px;
+      display:        flex;
+      align-items:    center;
+      justify-content: center;
+      font-size:      22px;
+      margin-bottom:  20px;
+      border:         1px solid rgba(255,107,53,.2);
+    }
+    .service-card h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; }
+    .service-card p  { font-size: .88rem; color: var(--text-muted); line-height: 1.72; }
 
     /* ─── TESTIMONIALS ───────────────────────────────────────────── */
-    #testimonials{padding:var(--section-pad) 0;background:var(--bg-surface);position:relative;overflow:hidden}
-    #testimonials::before{content:'';position:absolute;right:-200px;top:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(255,107,53,.04) 0%,transparent 65%);pointer-events:none}
-    .testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-    .testimonial-card--featured{grid-column:1 / -1}
-    .testimonial-card{background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px 28px;position:relative;transition:transform var(--transition),border-color var(--transition),box-shadow var(--transition)}
-    .testimonial-card--featured{background:var(--bg-highlight);border-color:rgba(255,107,53,.18);padding:40px}
-    .testimonial-card:hover{transform:translateY(-3px);border-color:var(--border-strong);box-shadow:var(--shadow)}
-    .quote-mark{font-family:var(--font-display);font-size:5rem;color:var(--accent);line-height:.6;opacity:.25;margin-bottom:12px;display:block}
-    .testimonial-text{font-size:.95rem;color:var(--text-secondary);line-height:1.85;font-weight:300;margin-bottom:24px;font-style:italic}
-    .testimonial-card--featured .testimonial-text{font-size:1.1rem;line-height:1.9;margin-bottom:28px}
-    .testimonial-author{display:flex;align-items:center;gap:14px}
-    .author-avatar{width:44px;height:44px;border-radius:50%;background:var(--bg-highlight);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;border:2px solid var(--border-strong)}
-    .author-name{font-weight:600;font-size:.9rem;margin-bottom:2px}
-    .author-detail{font-size:.78rem;color:var(--text-muted)}
-    .stars{margin-left:auto;color:var(--accent);font-size:.9rem;letter-spacing:2px}
-    .verified-badge{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;font-weight:600;color:var(--teal);letter-spacing:.05em;margin-top:5px}
+    #testimonials {
+      padding:    var(--section-pad) 0;
+      background: var(--bg-surface);
+      position:   relative;
+      overflow:   hidden;
+    }
+    #testimonials::before {
+      content:        '';
+      position:       absolute;
+      right: -200px; top: -100px;
+      width:          600px;
+      height:         600px;
+      background:     radial-gradient(circle, rgba(255,107,53,.04) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .testimonials-grid {
+      display:               grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:                   20px;
+    }
+    .testimonial-card--featured { grid-column: 1 / -1; }
+
+    .testimonial-card {
+      background:    var(--bg-raised);
+      border:        1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding:       32px 28px;
+      position:      relative;
+      transition:    transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+    .testimonial-card--featured {
+      background:   var(--bg-highlight);
+      border-color: rgba(255,107,53,.18);
+      padding:      40px;
+    }
+    .testimonial-card:hover {
+      transform:    translateY(-3px);
+      border-color: var(--border-strong);
+      box-shadow:   var(--shadow);
+    }
+
+    .quote-mark {
+      font-family:   var(--font-display);
+      font-size:     5rem;
+      color:         var(--accent);
+      line-height:   .6;
+      opacity:       .25;
+      margin-bottom: 12px;
+      display:       block;
+    }
+    .testimonial-text {
+      font-size:     .95rem;
+      color:         var(--text-secondary);
+      line-height:   1.85;
+      font-weight:   300;
+      margin-bottom: 24px;
+      font-style:    italic;
+    }
+    .testimonial-card--featured .testimonial-text {
+      font-size:     1.1rem;
+      line-height:   1.9;
+      margin-bottom: 28px;
+    }
+
+    .testimonial-author {
+      display:     flex;
+      align-items: center;
+      gap:         14px;
+    }
+    .author-avatar {
+      width:          44px;
+      height:         44px;
+      border-radius:  50%;
+      background:     var(--bg-highlight);
+      display:        flex;
+      align-items:    center;
+      justify-content: center;
+      font-size:      1.1rem;
+      flex-shrink:    0;
+      border:         2px solid var(--border-strong);
+    }
+    .author-name   { font-weight: 600; font-size: .9rem;  margin-bottom: 2px; }
+    .author-detail { font-size: .78rem; color: var(--text-muted); }
+    .stars         { margin-left: auto; color: var(--accent); font-size: .9rem; letter-spacing: 2px; }
+    .verified-badge {
+      display:         inline-flex;
+      align-items:     center;
+      gap:             4px;
+      font-size:       .68rem;
+      font-weight:     600;
+      color:           var(--teal);
+      letter-spacing:  .05em;
+      margin-top:      5px;
+    }
 
     /* ─── CONTACT ────────────────────────────────────────────────── */
-    #contact{padding:var(--section-pad) 0;background:var(--bg-base);position:relative}
-    #contact::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 0%,rgba(255,107,53,.05) 0%,transparent 60%);pointer-events:none}
-    .contact-simple{position:relative;z-index:1;text-align:center;max-width:700px;margin:0 auto}
-    .contact-simple h2{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;line-height:1.15;letter-spacing:-.02em;margin-bottom:16px}
-    .contact-simple>p{font-size:.95rem;color:var(--text-muted);line-height:1.82;font-weight:300;margin-bottom:28px}
-    .contact-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:36px;max-width:640px;margin-left:auto;margin-right:auto}
-    .contact-card{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px 24px;text-align:center;transition:border-color var(--transition),transform var(--transition),box-shadow var(--transition)}
-    .contact-card:hover{border-color:rgba(255,107,53,.25);transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.3)}
-    .contact-card-icon{width:46px;height:46px;background:var(--accent-subtle);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;border:1px solid rgba(255,107,53,.15)}
-    .contact-card-icon svg{color:var(--accent)}
-    .contact-card-label{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
-    .contact-card-value{font-size:.92rem;font-weight:600;color:var(--text-primary)}
-    .contact-card-value a{color:inherit;transition:color var(--transition)}
-    .contact-card-value a:hover{color:var(--accent)}
+    #contact {
+      padding:    var(--section-pad) 0;
+      background: var(--bg-base);
+      position:   relative;
+    }
+    #contact::before {
+      content:        '';
+      position:       absolute;
+      inset:          0;
+      background:     radial-gradient(ellipse 60% 60% at 50% 0%, rgba(255,107,53,.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .contact-simple {
+      position:   relative;
+      z-index:    1;
+      text-align: center;
+      max-width:  700px;
+      margin:     0 auto;
+    }
+    .contact-simple h2 {
+      font-family:    var(--font-display);
+      font-size:      clamp(2rem, 3.5vw, 2.8rem);
+      font-weight:    700;
+      line-height:    1.15;
+      letter-spacing: -.02em;
+      margin-bottom:  16px;
+    }
+    .contact-simple > p {
+      font-size:     .95rem;
+      color:         var(--text-muted);
+      line-height:   1.82;
+      font-weight:   300;
+      margin-bottom: 28px;
+    }
+
+    .contact-cards {
+      display:               grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:                   16px;
+      margin-top:            36px;
+      max-width:             640px;
+      margin-left:           auto;
+      margin-right:          auto;
+    }
+    .contact-card {
+      background:    var(--bg-surface);
+      border:        1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding:       28px 24px;
+      text-align:    center;
+      transition:    border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .contact-card:hover {
+      border-color: rgba(255,107,53,.25);
+      transform:    translateY(-3px);
+      box-shadow:   0 8px 32px rgba(0,0,0,.3);
+    }
+    .contact-card-icon {
+      width:          46px;
+      height:         46px;
+      background:     var(--accent-subtle);
+      border-radius:  12px;
+      display:        flex;
+      align-items:    center;
+      justify-content: center;
+      margin:         0 auto 14px;
+      border:         1px solid rgba(255,107,53,.15);
+    }
+    .contact-card-icon svg { color: var(--accent); }
+    .contact-card-label {
+      font-size:      .7rem;
+      font-weight:    700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color:          var(--text-muted);
+      margin-bottom:  6px;
+    }
+    .contact-card-value { font-size: .92rem; font-weight: 600; color: var(--text-primary); }
+    .contact-card-value a { color: inherit; transition: color var(--transition); }
+    .contact-card-value a:hover { color: var(--accent); }
 
     /* ─── FOOTER ─────────────────────────────────────────────────── */
-    footer{background:var(--bg-surface);border-top:1px solid var(--border);padding:48px 0 24px}
-    .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;padding-bottom:32px;border-bottom:1px solid var(--border)}
-    .footer-brand p{font-size:.875rem;color:var(--text-muted);line-height:1.7;font-weight:300;margin-top:14px;max-width:260px}
-    .footer-col h4{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-primary);margin-bottom:14px}
-    .footer-col ul{display:flex;flex-direction:column;gap:8px}
-    .footer-col ul li a{font-size:.875rem;color:var(--text-muted);transition:color var(--transition);font-weight:300}
-    .footer-col ul li a:hover{color:var(--accent)}
-    .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;font-size:.78rem;color:var(--text-muted);flex-wrap:wrap;gap:10px}
-    .footer-bottom a{color:var(--accent)}
+    footer {
+      background:  var(--bg-surface);
+      border-top:  1px solid var(--border);
+      padding:     48px 0 24px;
+    }
+    .footer-top {
+      display:               grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap:                   32px;
+      padding-bottom:        32px;
+      border-bottom:         1px solid var(--border);
+    }
+    .footer-brand p {
+      font-size:     .875rem;
+      color:         var(--text-muted);
+      line-height:   1.7;
+      font-weight:   300;
+      margin-top:    14px;
+      max-width:     260px;
+    }
+    .footer-col h4 {
+      font-size:      .72rem;
+      font-weight:    700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color:          var(--text-primary);
+      margin-bottom:  14px;
+    }
+    .footer-col ul   { display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul li a {
+      font-size:   .875rem;
+      color:       var(--text-muted);
+      transition:  color var(--transition);
+      font-weight: 300;
+    }
+    .footer-col ul li a:hover { color: var(--accent); }
+
+    .footer-bottom {
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      padding-top:     24px;
+      font-size:       .78rem;
+      color:           var(--text-muted);
+      flex-wrap:       wrap;
+      gap:             10px;
+    }
+    .footer-bottom a { color: var(--accent); }
 
     /* ─── RESPONSIVE ─────────────────────────────────────────────── */
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-    @media(max-width:1024px){:root{--section-pad:72px}.hero-inner{grid-template-columns:1fr;gap:56px}.hero-form-card{max-width:540px}.about-grid{grid-template-columns:1fr;gap:52px}.about-image-wrap{max-width:480px}.about-badge{right:0}.footer-top{grid-template-columns:repeat(2,1fr)}#hero .hero-bg-split::after,#hero .hero-bg-divider{display:none}.services-grid{grid-template-columns:1fr!important}}
-    @media(max-width:768px){:root{--section-pad:56px}.nav-links{display:none}.hamburger{display:flex}.testimonials-grid{grid-template-columns:1fr}.testimonial-card--featured{grid-column:auto}.footer-top{grid-template-columns:1fr;gap:24px;padding-bottom:24px}.footer-bottom{flex-direction:column;align-items:flex-start}.contact-cards{grid-template-columns:1fr;max-width:340px}.hero-form-card{padding:32px 24px}.btn-primary,.btn-submit{min-height:52px}.form-group input,.form-group textarea{font-size:16px;padding:13px 14px}.services-grid{grid-template-columns:1fr!important;max-width:480px;margin-left:auto;margin-right:auto}}
-    @media(max-width:480px){.hero-headline{font-size:2.4rem}.hero-form-card{padding:28px 20px}.services-grid{max-width:100%}.hero-eyebrow{font-size:.58rem;letter-spacing:.06em;padding:5px 12px}}
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      :root { --section-pad: 72px; }
+      .hero-inner                          { grid-template-columns: 1fr; gap: 56px; }
+      .hero-form-card                      { max-width: 540px; }
+      .about-grid                          { grid-template-columns: 1fr; gap: 52px; }
+      .about-image-wrap                    { max-width: 480px; }
+      .about-badge                         { right: 0; }
+      .footer-top                          { grid-template-columns: repeat(2, 1fr); }
+      #hero .hero-bg-split::after,
+      #hero .hero-bg-divider               { display: none; }
+      .services-grid                       { grid-template-columns: 1fr !important; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --section-pad: 56px; }
+      .nav-links                           { display: none; }
+      .hamburger                           { display: flex; }
+      .testimonials-grid                   { grid-template-columns: 1fr; }
+      .testimonial-card--featured          { grid-column: auto; }
+      .footer-top                          { grid-template-columns: 1fr; gap: 24px; padding-bottom: 24px; }
+      .footer-bottom                       { flex-direction: column; align-items: flex-start; }
+      .contact-cards                       { grid-template-columns: 1fr; max-width: 340px; }
+      .hero-form-card                      { padding: 32px 24px; }
+      .btn-primary, .btn-submit            { min-height: 52px; }
+      .form-group input,
+      .form-group textarea                 { font-size: 16px; padding: 13px 14px; }
+      .services-grid                       { grid-template-columns: 1fr !important; max-width: 480px; margin-left: auto; margin-right: auto; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-headline    { font-size: 2.4rem; }
+      .hero-form-card   { padding: 28px 20px; }
+      .services-grid    { max-width: 100%; }
+      .hero-eyebrow     { font-size: .58rem; letter-spacing: .06em; padding: 5px 12px; }
+    }
   </style>
 </head>
 <body>
 
-<nav class="mobile-menu" id="mobileMenu">
-  <a href="#about" onclick="closeMobile()">About</a>
-  <a href="#services" onclick="closeMobile()">Packages</a>
-  <a href="#testimonials" onclick="closeMobile()">Results</a>
-  <a href="#contact" onclick="closeMobile()">Contact</a>
-  <a href="mailto:danieldebo18@gmail.com" class="nav-cta">Get Started</a>
-</nav>
+  <!-- ─── MOBILE MENU ─────────────────────────────────────────────── -->
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="#about"        onclick="closeMobile()">About</a>
+    <a href="#services"     onclick="closeMobile()">Packages</a>
+    <a href="#testimonials" onclick="closeMobile()">Results</a>
+    <a href="#contact"      onclick="closeMobile()">Contact</a>
+    <a href="mailto:danieldebo18@gmail.com" class="nav-cta">Get Started</a>
+  </nav>
 
-<header id="navbar">
-  <div class="container">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo" onclick="smoothScrollTo('hero');return false;">
-        <div class="nav-logo-icon">L</div>
-        <span>LeadGen Websites</span>
-      </a>
-      <nav class="nav-links">
-        <a href="#about">About</a>
-        <a href="#services">Packages</a>
-        <a href="#testimonials">Results</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-</header>
+  <!-- ─── NAVBAR ──────────────────────────────────────────────────── -->
+  <header id="navbar">
+    <div class="container">
+      <div class="nav-inner">
 
-<section id="hero">
-  <div class="hero-bg-split" aria-hidden="true"></div>
-  <div class="hero-bg-glow" aria-hidden="true"></div>
-  <div class="hero-bg-grid" aria-hidden="true"></div>
-  <div class="hero-bg-divider" aria-hidden="true"></div>
-  <div class="container">
-    <div class="hero-inner">
-      <div class="hero-content">
-        <div class="hero-eyebrow reveal">
-          <span class="hero-eyebrow-dot"></span>
-          Websites for Local Service Businesses
-        </div>
-        <h1 class="hero-headline reveal delay-1">
-          <em>High-Converting</em><br>
-          Websites That Bring<br>
-          <span class="hero-underline">More Customers</span>
-        </h1>
-        <p class="hero-subheadline reveal delay-2">
-          We build premium, done-for-you websites for HVAC, roofing, plumbing, and other local service businesses. Domain, hosting, security, and support — everything included so you can focus on running your business.
-        </p>
-        <div class="hero-cta-row reveal delay-4">
-          <a href="#" class="btn-primary" onclick="scrollToForm();return false;">
-            Get Your Website
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a href="#services" class="btn-outline">See Packages</a>
-          <a href="/hvac/" class="btn-outline" style="border-color:var(--teal);color:var(--teal);">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            See Live HVAC Demo
-          </a>
-        </div>
-      </div>
-      <div class="hero-form-card reveal delay-2">
-        <h2 class="hero-form-title">Request Your Website</h2>
-        <p class="hero-form-sub">Tell us about your business and we'll reach out within 24 hours to get started.</p>
-        <form id="heroForm" novalidate>
-          <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
-            <input type="text" id="hf-website" name="website" tabindex="-1" autocomplete="off" />
-          </div>
-          <div class="form-group" id="hf-name-group">
-            <label for="hf-name">Your Name *</label>
-            <input type="text" id="hf-name" name="name" placeholder="John Smith" required autocomplete="name" />
-            <span class="form-error-msg">Please enter your name.</span>
-          </div>
-          <div class="form-group" id="hf-email-group">
-            <label for="hf-email">Email Address *</label>
-            <input type="email" id="hf-email" name="email" placeholder="john@yourbusiness.com" required autocomplete="email" />
-            <span class="form-error-msg">Please enter a valid email address.</span>
-          </div>
-          <div class="form-group" id="hf-message-group">
-            <label for="hf-message">Tell Us About Your Business *</label>
-            <textarea id="hf-message" name="message" placeholder="E.g. I run an HVAC company in Dallas and need a website that generates more leads..." required></textarea>
-            <span class="form-error-msg">Please describe your business and what you need.</span>
-          </div>
-          <button type="submit" class="btn-submit" id="heroSubmitBtn">
-            <span class="btn-text">Send My Request</span>
-            <span class="spinner" aria-hidden="true"></span>
-          </button>
-          <div class="form-inline-error" id="heroInlineError">
-            <p>Something went wrong. Try again or reach out to us directly.</p>
-            <button type="button" class="btn-mailto" id="heroMailtoBtn">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              Email Us Directly
-            </button>
-          </div>
-        </form>
-        <div class="form-success" id="heroSuccess">
-          <div class="success-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <h3>Request Received!</h3>
-          <p>We'll reach out shortly to start building your website. Check your inbox within 24 hours.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="about">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-image-wrap reveal-left">
-        <img src="images/website.png" alt="Sample client website" />
-        <div class="about-badge">
-          <div class="about-badge-num">50+</div>
-          <div class="about-badge-text">Sites<br>Launched</div>
-        </div>
-      </div>
-      <div class="about-content reveal-right">
-        <span class="section-label">About Us</span>
-        <h2>Built for Businesses<br>That Want <em class="accent">Real Results</em></h2>
-        <p>We specialize in building high-converting websites exclusively for local service businesses — HVAC, roofing, plumbing, electrical, landscaping, and more. Every website we deliver is engineered to turn visitors into calls and bookings.</p>
-        <p>No bloated agencies, no mystery pricing. Just clean, fast, professional websites that work — delivered in days, not months.</p>
-        <ul class="about-bullets">
-          <li class="about-bullet reveal delay-1">
-            <div class="bullet-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <span><strong>Everything included</strong> — domain, hosting, SSL security, and ongoing support in one simple package.</span>
-          </li>
-          <li class="about-bullet reveal delay-2">
-            <div class="bullet-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <span><strong>Built to convert</strong> — optimized layouts, clear calls-to-action, and mobile-first design that drives inbound leads.</span>
-          </li>
-          <li class="about-bullet reveal delay-3">
-            <div class="bullet-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <span><strong>Fast turnaround</strong> — your professional website is live and generating leads within days of signing up.</span>
-          </li>
-          <li class="about-bullet reveal delay-4">
-            <div class="bullet-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <span><strong>Satisfaction guaranteed</strong> — if your site doesn't perform, we fix it. No questions asked.</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="services">
-  <div class="container">
-    <div class="section-header reveal">
-      <span class="section-label">Packages</span>
-      <h2 class="section-title">Choose Your <span class="accent">Plan</span></h2>
-      <p class="section-sub">Simple, transparent pricing. Every package includes everything you need to get online and start winning customers — no hidden fees, no surprises.</p>
-    </div>
-    <div class="services-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start;">
-
-      <div class="service-card reveal delay-1" style="display:flex;flex-direction:column;">
-        <div class="service-icon">🚀</div>
-        <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin-bottom:6px;">Starter</h3>
-        <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:24px;">Get online fast with a professional, high-converting website ready to bring in leads from day one.</p>
-        <ul style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px;flex:1;">
-          <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Premium website template</li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Custom domain included</li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Fast, reliable hosting</li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SSL security certificate</li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>6-month performance guarantee</li>
-        </ul>
-        <a href="#" class="btn-primary scroll-to-form" style="justify-content:center;width:100%;box-sizing:border-box;">Get Started</a>
-      </div>
-
-      <div class="service-card reveal delay-2" style="display:flex;flex-direction:column;border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 16px 48px rgba(255,107,53,.18);position:relative;">
-        <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;border-radius:var(--radius-pill);white-space:nowrap;">Most Popular</div>
-        <div class="service-icon" style="margin-top:28px;">📈</div>
-        <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin-bottom:6px;">Growth</h3>
-        <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:24px;">Everything in Starter, plus active maintenance and a full year of guaranteed performance.</p>
-        <ul style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px;flex:1;">
-          <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Everything in Starter</li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ongoing website maintenance</li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1-year performance guarantee</li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Priority support response</li>
-        </ul>
-        <a href="#" class="btn-primary scroll-to-form" style="justify-content:center;width:100%;box-sizing:border-box;">Get Started</a>
-      </div>
-
-      <div class="service-card reveal delay-3" style="display:flex;flex-direction:column;">
-        <div class="service-icon">💎</div>
-        <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin-bottom:6px;">Premium</h3>
-        <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:24px;">Everything in Growth, plus a fully custom design and unlimited edits — your brand, built exactly right.</p>
-        <ul style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px;flex:1;">
-          <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Everything in Growth</li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Fully custom design &amp; branding</li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited content edits</li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--text-secondary);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Conversion rate optimization</li>
-        </ul>
-        <a href="#" class="btn-primary scroll-to-form" style="justify-content:center;width:100%;box-sizing:border-box;">Get a Custom Quote</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section id="testimonials">
-  <div class="container">
-    <div class="section-header reveal">
-      <span class="section-label">Client Results</span>
-      <h2 class="section-title">What Business Owners <span class="accent">Are Saying</span></h2>
-      <p class="section-sub">Real results from real local businesses. These outcomes reflect what our clients experience after launching their new websites.</p>
-    </div>
-    <div class="testimonials-grid">
-      <div class="testimonial-card testimonial-card--featured reveal">
-        <span class="quote-mark" aria-hidden="true">"</span>
-        <p class="testimonial-text">After launching our new website, our phone started ringing within the first week. We went from zero online presence to booking out two weeks in advance. The site looks incredibly professional and our customers always mention they found us on Google. Honestly the best investment we've made in years.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">👤</div>
-          <div>
-            <div class="author-name">Marcus T.</div>
-            <div class="author-detail">Owner, Coastal HVAC — Houston, TX</div>
-            <div class="verified-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Verified Client Result</div>
-          </div>
-          <div class="stars">★★★★★</div>
-        </div>
-      </div>
-      <div class="testimonial-card reveal delay-1">
-        <span class="quote-mark" aria-hidden="true">"</span>
-        <p class="testimonial-text">We had a basic Facebook page and nothing else. After our new website launched, we tripled our service calls in the first month. The lead form alone paid for the entire package.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">👤</div>
-          <div>
-            <div class="author-name">Diana R.</div>
-            <div class="author-detail">Owner, Premier Roofing — San Antonio, TX</div>
-            <div class="verified-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Verified Client Result</div>
-          </div>
-          <div class="stars">★★★★★</div>
-        </div>
-      </div>
-      <div class="testimonial-card reveal delay-2">
-        <span class="quote-mark" aria-hidden="true">"</span>
-        <p class="testimonial-text">Fast, professional, and totally hands-off for me. They handled everything — the domain, the hosting, the content. I just showed up to a finished website ready to bring in customers.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">👤</div>
-          <div>
-            <div class="author-name">Jason M.</div>
-            <div class="author-detail">Owner, ProFlow Plumbing — Austin, TX</div>
-            <div class="verified-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Verified Client Result</div>
-          </div>
-          <div class="stars">★★★★★</div>
-        </div>
-      </div>
-      <div class="testimonial-card reveal delay-3" style="grid-column:1 / -1;">
-        <span class="quote-mark" aria-hidden="true">"</span>
-        <p class="testimonial-text">I was skeptical at first — I'd been burned by web designers before. But the demo experience showed me exactly what my site would look like before I committed. Six months in, we've gotten more leads from our website than from any other source. Worth every penny.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">👤</div>
-          <div>
-            <div class="author-name">Carla V.</div>
-            <div class="author-detail">Owner, ClearSpark Electric — Dallas, TX</div>
-            <div class="verified-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Verified Client Result</div>
-          </div>
-          <div class="stars">★★★★★</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="container">
-    <div class="contact-simple">
-      <span class="section-label reveal" style="justify-content:center;margin-bottom:16px;">Get in Touch</span>
-      <h2 class="reveal delay-1">Your New Website is <span class="accent">One Step Away</span></h2>
-      <p class="reveal delay-2">Ready to start attracting more customers? Send us a message and we'll put together the right package for your business.</p>
-      <div class="reveal delay-3">
-        <a class="btn-primary" style="margin:0 auto;display:inline-flex;" href="#" onclick="scrollToForm();return false;">
-          Get in Touch
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-      <div class="contact-cards">
-        <div class="contact-card reveal delay-1">
-          <div class="contact-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13 19.79 19.79 0 01.43 4.49 2 2 0 012.4 2.28h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.06 6.06l1.79-1.79a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2z"/></svg></div>
-          <div class="contact-card-label">Call or Text</div>
-          <div class="contact-card-value"><a href="tel:+17867168169">+1 (786) 716-8169</a></div>
-        </div>
-        <div class="contact-card reveal delay-2">
-          <div class="contact-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-          <div class="contact-card-label">Email Us</div>
-          <div class="contact-card-value" style="font-size:.82rem;">
-            <a href="mailto:danieldebo18@gmail.com">danieldebo18@gmail.com</a><br>
-            <a href="mailto:samuelrinconm@yahoo.com">samuelrinconm@yahoo.com</a>
-          </div>
-        </div>
-        <div class="contact-card reveal delay-3">
-          <div class="contact-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          <div class="contact-card-label">We Serve</div>
-          <div class="contact-card-value">Local Businesses Nationwide</div>
-        </div>
-        <div class="contact-card reveal delay-4">
-          <div class="contact-card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <div class="contact-card-label">Response Time</div>
-          <div class="contact-card-value" style="font-size:.82rem;">7 days a week<br>Usually within a few hours</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="container">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="nav-logo">
+        <a href="#" class="nav-logo" onclick="smoothScrollTo('hero'); return false;">
           <div class="nav-logo-icon">L</div>
           <span>LeadGen Websites</span>
+        </a>
+
+        <nav class="nav-links">
+          <a href="#about">About</a>
+          <a href="#services">Packages</a>
+          <a href="#testimonials">Results</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── HERO ────────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-bg-split"   aria-hidden="true"></div>
+    <div class="hero-bg-glow"    aria-hidden="true"></div>
+    <div class="hero-bg-grid"    aria-hidden="true"></div>
+    <div class="hero-bg-divider" aria-hidden="true"></div>
+
+    <div class="container">
+      <div class="hero-inner">
+
+        <!-- Left: copy -->
+        <div class="hero-content">
+          <div class="hero-eyebrow reveal">
+            <span class="hero-eyebrow-dot"></span>
+            Websites for Local Service Businesses
+          </div>
+
+          <h1 class="hero-headline reveal delay-1">
+            <em>High-Converting</em><br>
+            Websites That Bring<br>
+            <span class="hero-underline">More Customers</span>
+          </h1>
+
+          <p class="hero-subheadline reveal delay-2">
+            We build premium, done-for-you websites for HVAC, roofing, plumbing, and other local
+            service businesses. Domain, hosting, security, and support — everything included so you
+            can focus on running your business.
+          </p>
+
+          <div class="hero-cta-row reveal delay-4">
+            <a href="#" class="btn-primary" onclick="scrollToForm(); return false;">
+              Get Your Website
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+            <a href="#services" class="btn-outline">See Packages</a>
+            <a href="/hvac/" class="btn-outline" style="border-color:var(--teal); color:var(--teal);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              See Live HVAC Demo
+            </a>
+          </div>
         </div>
-        <p>Premium websites for local service businesses. Everything included — so you can focus on running your business, not your website.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Packages</h4>
-        <ul>
-          <li><a href="#services">Starter</a></li>
-          <li><a href="#services">Growth</a></li>
-          <li><a href="#services">Premium</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <ul>
-          <li><a href="mailto:danieldebo18@gmail.com">danieldebo18@gmail.com</a></li>
-          <li><a href="mailto:samuelrinconm@yahoo.com">samuelrinconm@yahoo.com</a></li>
-          <li><span style="color:var(--text-muted)">Serving businesses nationwide</span></li>
-          <li><span style="color:var(--text-muted)">7 days a week</span></li>
-        </ul>
+
+        <!-- Right: form card -->
+        <div class="hero-form-card reveal delay-2">
+          <h2 class="hero-form-title">Request Your Website</h2>
+          <p class="hero-form-sub">Tell us about your business and we'll reach out within 24 hours to get started.</p>
+
+          <form id="heroForm" novalidate>
+
+            <!-- Honeypot -->
+            <div style="position:absolute; left:-9999px; opacity:0; pointer-events:none;" aria-hidden="true">
+              <input type="text" id="hf-website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="form-group" id="hf-name-group">
+              <label for="hf-name">Your Name *</label>
+              <input type="text" id="hf-name" name="name" placeholder="John Smith" required autocomplete="name" />
+              <span class="form-error-msg">Please enter your name.</span>
+            </div>
+
+            <div class="form-group" id="hf-email-group">
+              <label for="hf-email">Email Address *</label>
+              <input type="email" id="hf-email" name="email" placeholder="john@yourbusiness.com" required autocomplete="email" />
+              <span class="form-error-msg">Please enter a valid email address.</span>
+            </div>
+
+            <div class="form-group" id="hf-message-group">
+              <label for="hf-message">Tell Us About Your Business *</label>
+              <textarea id="hf-message" name="message" placeholder="E.g. I run an HVAC company in Dallas and need a website that generates more leads..." required></textarea>
+              <span class="form-error-msg">Please describe your business and what you need.</span>
+            </div>
+
+            <button type="submit" class="btn-submit" id="heroSubmitBtn">
+              <span class="btn-text">Send My Request</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+
+            <div class="form-inline-error" id="heroInlineError">
+              <p>Something went wrong. Try again or reach out to us directly.</p>
+              <button type="button" class="btn-mailto" id="heroMailtoBtn">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+                Email Us Directly
+              </button>
+            </div>
+
+          </form>
+
+          <div class="form-success" id="heroSuccess">
+            <div class="success-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <h3>Request Received!</h3>
+            <p>We'll reach out shortly to start building your website. Check your inbox within 24 hours.</p>
+          </div>
+        </div>
+        <!-- /form card -->
+
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>&copy; <span id="footerYear"></span> Lead Website Service. All rights reserved.</span>
-      <span>Websites for Local Service Businesses</span>
+  </section>
+
+  <!-- ─── ABOUT ───────────────────────────────────────────────────── -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <div class="about-image-wrap reveal-left">
+          <img src="images/website.png" alt="Sample client website" />
+          <div class="about-badge">
+            <div class="about-badge-num">50+</div>
+            <div class="about-badge-text">Sites<br>Launched</div>
+          </div>
+        </div>
+
+        <div class="about-content reveal-right">
+          <span class="section-label">About Us</span>
+          <h2>Built for Businesses<br>That Want <em class="accent">Real Results</em></h2>
+          <p>We specialize in building high-converting websites exclusively for local service businesses — HVAC, roofing, plumbing, electrical, landscaping, and more. Every website we deliver is engineered to turn visitors into calls and bookings.</p>
+          <p>No bloated agencies, no mystery pricing. Just clean, fast, professional websites that work — delivered in days, not months.</p>
+
+          <ul class="about-bullets">
+            <li class="about-bullet reveal delay-1">
+              <div class="bullet-icon">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span><strong>Everything included</strong> — domain, hosting, SSL security, and ongoing support in one simple package.</span>
+            </li>
+            <li class="about-bullet reveal delay-2">
+              <div class="bullet-icon">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span><strong>Built to convert</strong> — optimized layouts, clear calls-to-action, and mobile-first design that drives inbound leads.</span>
+            </li>
+            <li class="about-bullet reveal delay-3">
+              <div class="bullet-icon">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span><strong>Fast turnaround</strong> — your professional website is live and generating leads within days of signing up.</span>
+            </li>
+            <li class="about-bullet reveal delay-4">
+              <div class="bullet-icon">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span><strong>Satisfaction guaranteed</strong> — if your site doesn't perform, we fix it. No questions asked.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
     </div>
-  </div>
-</footer>
+  </section>
 
-<script>
-'use strict';
-var CONTACT_EMAIL = 'danieldebo18@gmail.com';
-var navbar    = document.getElementById('navbar');
-var hamburger = document.getElementById('hamburger');
-var mobileMenu= document.getElementById('mobileMenu');
-var heroForm  = document.getElementById('heroForm');
-var heroSubmit= document.getElementById('heroSubmitBtn');
-var heroSuccess     = document.getElementById('heroSuccess');
-var heroInlineError = document.getElementById('heroInlineError');
-var heroMailtoBtn   = document.getElementById('heroMailtoBtn');
-var isSubmitting = false;
-var _pending = null;
+  <!-- ─── SERVICES ────────────────────────────────────────────────── -->
+  <section id="services">
+    <div class="container">
 
-function smoothScrollTo(id) {
-  var t = document.getElementById(id);
-  if (!t) return;
-  var y = t.getBoundingClientRect().top + window.scrollY - (navbar ? navbar.offsetHeight : 80) - 20;
-  window.scrollTo({ top: y, behavior: 'smooth' });
-}
-function scrollToForm() {
-  var form = document.querySelector('.hero-form-card');
-  if (!form) return;
-  var nb = document.getElementById('navbar');
-  var offset = nb ? nb.offsetHeight : 80;
-  var y = form.getBoundingClientRect().top + window.scrollY - offset - 10;
-  window.scrollTo({ top: y, behavior: 'smooth' });
-  setTimeout(function() { var input = document.getElementById('hf-name'); if (input) input.focus(); }, 500);
-}
-window.scrollToForm = scrollToForm;
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.scroll-to-form').forEach(function(btn){
-    btn.addEventListener('click', function(e){ e.preventDefault(); scrollToForm(); });
-  });
-});
-document.querySelectorAll('a[href^="#"]:not([href="#"]):not([onclick])').forEach(function(a) {
-  a.addEventListener('click', function(e) {
-    var id = this.getAttribute('href').slice(1);
+      <div class="section-header reveal">
+        <span class="section-label">Packages</span>
+        <h2 class="section-title">Choose Your <span class="accent">Plan</span></h2>
+        <p class="section-sub">Simple, transparent pricing. Every package includes everything you need to get online and start winning customers — no hidden fees, no surprises.</p>
+      </div>
+
+      <div class="services-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; align-items:start;">
+
+        <!-- Starter -->
+        <div class="service-card reveal delay-1" style="display:flex; flex-direction:column;">
+          <div class="service-icon">🚀</div>
+          <h3 style="font-family:var(--font-display); font-size:1.3rem; font-weight:700; margin-bottom:6px;">Starter</h3>
+          <p style="font-size:.82rem; color:var(--text-muted); margin-bottom:24px;">Get online fast with a professional, high-converting website ready to bring in leads from day one.</p>
+          <ul style="display:flex; flex-direction:column; gap:10px; margin-bottom:28px; flex:1;">
+            <li style="display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Premium website template
+            </li>
+            <li style="display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Custom domain included
+            </li>
+            <li style="display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Fast, reliable hosting
+            </li>
+            <li style="display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              SSL security certificate
+            </li>
+            <li style="display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              6-month performance guarantee
+            </li>
+          </ul>
+          <a href="#" class="btn-primary scroll-to-form" style="justify-content:center; width:100%; box-sizing:border-box;">Get Started</a>
+        </div>
+
+        <!-- Growth (featured) -->
+        <div class="service-card reveal delay-2" style="display:flex; flex-direction:column; border-color:var(--accent); box-shadow:0 0 0 1px var(--accent),0 16px 48px rgba(255,107,53,.18); position:relative;">
+          <div style="position:absolute; top:10px; left:50%; transform:translateX(-50%); background:var(--accent); color:#fff; font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:4px 14px; border-radius:var(--radius-pill); white-space:nowrap;">Most Popular</div>
+          <div class="service-icon" style="margin-top:28px;">📈</div>
+          <h3 style="font-family:var(--font-display); font-size:1.3rem; font-weight:700; margin-bottom:6px;">Growth</h3>
+          <p style="font-size:.82rem; color:var(--text-muted); margin-bottom:24px;">Everything in Starter, plus active maintenance and a full year of guaranteed performance.</p>
+          <ul style="display:flex; flex-direction:column; gap:10px; margin-bottom:28px; flex:1;">
+            <li style="display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Everything in Starter
+            </li>
+            <li style="display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Ongoing website maintenance
+            </li>
+            <li style="display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              1-year performance guarantee
+            </li>
+            <li style="display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Priority support response
+            </li>
+          </ul>
+          <a href="#" class="btn-primary scroll-to-form" style="justify-content:center; width:100%; box-sizing:border-box;">Get Started</a>
+        </div>
+
+        <!-- Premium -->
+        <div class="service-card reveal delay-3" style="display:flex; flex-direction:column;">
+          <div class="service-icon">💎</div>
+          <h3 style="font-family:var(--font-display); font-size:1.3rem; font-weight:700; margin-bottom:6px;">Premium</h3>
+          <p style="font-size:.82rem; color:var(--text-muted); margin-bottom:24px;">Everything in Growth, plus a fully custom design and unlimited edits — your brand, built exactly right.</p>
+          <ul style="display:flex; flex-direction:column; gap:10px; margin-bottom:28px; flex:1;">
+            <li style="display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Everything in Growth
+            </li>
+            <li style="display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Fully custom design &amp; branding
+            </li>
+            <li style="display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Unlimited content edits
+            </li>
+            <li style="display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Conversion rate optimization
+            </li>
+          </ul>
+          <a href="#" class="btn-primary scroll-to-form" style="justify-content:center; width:100%; box-sizing:border-box;">Get a Custom Quote</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TESTIMONIALS ─────────────────────────────────────────────── -->
+  <section id="testimonials">
+    <div class="container">
+
+      <div class="section-header reveal">
+        <span class="section-label">Client Results</span>
+        <h2 class="section-title">What Business Owners <span class="accent">Are Saying</span></h2>
+        <p class="section-sub">Real results from real local businesses. These outcomes reflect what our clients experience after launching their new websites.</p>
+      </div>
+
+      <div class="testimonials-grid">
+
+        <!-- Featured -->
+        <div class="testimonial-card testimonial-card--featured reveal">
+          <span class="quote-mark" aria-hidden="true">"</span>
+          <p class="testimonial-text">After launching our new website, our bookings increased almost immediately. Customers can now see our equipment, request quotes, and contact us easily. It made our business look much more professional and helped us close more events.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">👤</div>
+            <div>
+              <div class="author-name">Roberto</div>
+              <div class="author-detail">Aldea Music Corp — Spring, TX</div>
+              <div class="verified-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified Client Result
+              </div>
+            </div>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="testimonial-card reveal delay-1">
+          <span class="quote-mark" aria-hidden="true">"</span>
+          <p class="testimonial-text">Before the website, we relied only on word of mouth. Now we're getting consistent moving requests every week through the site. It's simple, clean, and actually brings in real customers.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">👤</div>
+            <div>
+              <div class="author-name">Gabriel</div>
+              <div class="author-detail">Out The Door Moving — Conroe, TX</div>
+              <div class="verified-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified Client Result
+              </div>
+            </div>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="testimonial-card reveal delay-2">
+          <span class="quote-mark" aria-hidden="true">"</span>
+          <p class="testimonial-text">The website helped us showcase our flooring work professionally. Customers now come in already trusting our brand because of how polished everything looks online.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">👤</div>
+            <div>
+              <div class="author-name">Marcelo</div>
+              <div class="author-detail">First Class Floors — Conroe, TX</div>
+              <div class="verified-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified Client Result
+              </div>
+            </div>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+
+        <!-- Card 4 — full width -->
+        <div class="testimonial-card reveal delay-3" style="grid-column: 1 / -1;">
+          <span class="quote-mark" aria-hidden="true">"</span>
+          <p class="testimonial-text">Our dance studio finally has an online presence that reflects our energy and professionalism. We've gotten more class sign-ups directly from the website than ever before.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">👤</div>
+            <div>
+              <div class="author-name">Bryan</div>
+              <div class="author-detail">The Woodlands Latin Dance — The Woodlands, TX</div>
+              <div class="verified-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified Client Result
+              </div>
+            </div>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ──────────────────────────────────────────────────── -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-simple">
+
+        <span class="section-label reveal" style="justify-content:center; margin-bottom:16px;">Get in Touch</span>
+        <h2 class="reveal delay-1">Your New Website is <span class="accent">One Step Away</span></h2>
+        <p class="reveal delay-2">Ready to start attracting more customers? Send us a message and we'll put together the right package for your business.</p>
+
+        <div class="reveal delay-3">
+          <a class="btn-primary" style="margin:0 auto; display:inline-flex;" href="#" onclick="scrollToForm(); return false;">
+            Get in Touch
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="contact-cards">
+
+          <div class="contact-card reveal delay-1">
+            <div class="contact-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13 19.79 19.79 0 01.43 4.49 2 2 0 012.4 2.28h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.06 6.06l1.79-1.79a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2z"/>
+              </svg>
+            </div>
+            <div class="contact-card-label">Call or Text</div>
+            <div class="contact-card-value"><a href="tel:+17867168169">+1 (786) 716-8169</a></div>
+          </div>
+
+          <div class="contact-card reveal delay-2">
+            <div class="contact-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div class="contact-card-label">Email Us</div>
+            <div class="contact-card-value" style="font-size:.82rem;">
+              <a href="mailto:danieldebo18@gmail.com">danieldebo18@gmail.com</a><br>
+              <a href="mailto:samuelrinconm@yahoo.com">samuelrinconm@yahoo.com</a>
+            </div>
+          </div>
+
+          <div class="contact-card reveal delay-3">
+            <div class="contact-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="contact-card-label">We Serve</div>
+            <div class="contact-card-value">Local Businesses Nationwide</div>
+          </div>
+
+          <div class="contact-card reveal delay-4">
+            <div class="contact-card-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div class="contact-card-label">Response Time</div>
+            <div class="contact-card-value" style="font-size:.82rem;">7 days a week<br>Usually within a few hours</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ───────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <div class="nav-logo-icon">L</div>
+            <span>LeadGen Websites</span>
+          </div>
+          <p>Premium websites for local service businesses. Everything included — so you can focus on running your business, not your website.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Packages</h4>
+          <ul>
+            <li><a href="#services">Starter</a></li>
+            <li><a href="#services">Growth</a></li>
+            <li><a href="#services">Premium</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:danieldebo18@gmail.com">danieldebo18@gmail.com</a></li>
+            <li><a href="mailto:samuelrinconm@yahoo.com">samuelrinconm@yahoo.com</a></li>
+            <li><span style="color:var(--text-muted)">Serving businesses nationwide</span></li>
+            <li><span style="color:var(--text-muted)">7 days a week</span></li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="footerYear"></span> Lead Website Service. All rights reserved.</span>
+        <span>Websites for Local Service Businesses</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── SCRIPTS ──────────────────────────────────────────────────── -->
+  <script>
+  'use strict';
+
+  var CONTACT_EMAIL   = 'danieldebo18@gmail.com';
+  var navbar          = document.getElementById('navbar');
+  var hamburger       = document.getElementById('hamburger');
+  var mobileMenu      = document.getElementById('mobileMenu');
+  var heroForm        = document.getElementById('heroForm');
+  var heroSubmit      = document.getElementById('heroSubmitBtn');
+  var heroSuccess     = document.getElementById('heroSuccess');
+  var heroInlineError = document.getElementById('heroInlineError');
+  var heroMailtoBtn   = document.getElementById('heroMailtoBtn');
+  var isSubmitting    = false;
+  var _pending        = null;
+
+  /* Smooth scroll helper */
+  function smoothScrollTo(id) {
     var t = document.getElementById(id);
     if (!t) return;
-    e.preventDefault();
-    if (mobileMenu && mobileMenu.classList.contains('open')) closeMobile();
-    smoothScrollTo(id);
-  });
-});
-window.addEventListener('scroll', function(){ navbar.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
-var navLinks = document.querySelectorAll('.nav-links a');
-var secObs = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) navLinks.forEach(function(l){ l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id); });
-  });
-}, { threshold: 0.35 });
-document.querySelectorAll('section[id]').forEach(function(s){ secObs.observe(s); });
-hamburger && hamburger.addEventListener('click', function() {
-  var open = hamburger.classList.toggle('open');
-  hamburger.setAttribute('aria-expanded', String(open));
-  mobileMenu && mobileMenu.classList.toggle('open', open);
-  document.body.style.overflow = open ? 'hidden' : '';
-});
-function closeMobile() {
-  hamburger && hamburger.classList.remove('open');
-  hamburger && hamburger.setAttribute('aria-expanded','false');
-  mobileMenu && mobileMenu.classList.remove('open');
-  document.body.style.overflow = '';
-}
-var revObs = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) { entry.target.classList.add('visible'); revObs.unobserve(entry.target); }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
-document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function(el){ revObs.observe(el); });
-document.getElementById('footerYear').textContent = new Date().getFullYear();
-var isValidEmail = function(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim()); };
-function setField(id, state) {
-  var g = document.getElementById(id); if (!g) return;
-  g.classList.remove('error','valid'); if (state) g.classList.add(state);
-}
-var hfName  = document.getElementById('hf-name');
-var hfEmail = document.getElementById('hf-email');
-var hfMsg   = document.getElementById('hf-message');
-hfName  && hfName.addEventListener('blur',  function(){ setField('hf-name-group',    hfName.value.trim()         ? 'valid':'error'); });
-hfEmail && hfEmail.addEventListener('blur', function(){ setField('hf-email-group',   isValidEmail(hfEmail.value) ? 'valid':'error'); });
-hfMsg   && hfMsg.addEventListener('blur',   function(){ setField('hf-message-group', hfMsg.value.trim()          ? 'valid':'error'); });
-heroForm && heroForm.addEventListener('input', function(){ heroInlineError && heroInlineError.classList.remove('show'); }, { passive: true });
-function validateHero() {
-  var ok = true;
-  if (!hfName.value.trim())         { setField('hf-name-group',    'error'); ok=false; } else setField('hf-name-group',    'valid');
-  if (!isValidEmail(hfEmail.value)) { setField('hf-email-group',   'error'); ok=false; } else setField('hf-email-group',   'valid');
-  if (!hfMsg.value.trim())          { setField('hf-message-group', 'error'); ok=false; } else setField('hf-message-group', 'valid');
-  return ok;
-}
-function mailtoFallback(p) {
-  var sub  = encodeURIComponent('Website request');
-  var body = encodeURIComponent('Name: '+p.name+'\nEmail: '+p.email+'\n\nMessage:\n'+p.message);
-  window.location.href = 'mailto:'+CONTACT_EMAIL+'?subject='+sub+'&body='+body;
-}
-heroMailtoBtn && heroMailtoBtn.addEventListener('click', function(){ if(_pending) mailtoFallback(_pending); });
-heroForm && heroForm.addEventListener('submit', async function(e) {
-  e.preventDefault();
-  if (isSubmitting) return;
-  if (!validateHero()) { var fe = heroForm.querySelector('.form-group.error input,.form-group.error textarea'); if(fe) fe.focus(); return; }
-  isSubmitting = true; heroSubmit.classList.add('loading'); heroSubmit.disabled = true;
-  var data = { name: hfName.value, email: hfEmail.value, message: hfMsg.value };
-  _pending = data;
-  try {
-    var res = await fetch('https://booking-proxy.samuelrincon8.workers.dev', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
-    if (res.ok) { heroForm.reset(); heroForm.style.display='none'; heroSuccess.classList.add('show'); }
-    else throw new Error('fail');
-  } catch(err) { heroInlineError.classList.add('show'); }
-  isSubmitting = false; heroSubmit.classList.remove('loading'); heroSubmit.disabled = false;
-});
-document.addEventListener('click', function(e) {
-  if (e.target.closest('.service-card')) {
-    e.preventDefault();
-    var form = document.querySelector('.hero-form-card');
-    if (!form) return;
-    var nb = document.getElementById('navbar');
-    var offset = nb ? nb.offsetHeight : 80;
-    var y = form.getBoundingClientRect().top + window.scrollY - offset - 10;
+    var y = t.getBoundingClientRect().top + window.scrollY - (navbar ? navbar.offsetHeight : 80) - 20;
     window.scrollTo({ top: y, behavior: 'smooth' });
-    setTimeout(function(){ var n = document.getElementById('hf-name'); if(n) n.focus(); }, 500);
   }
-});
-</script>
+
+  /* Scroll to form + focus */
+  function scrollToForm() {
+    var form   = document.querySelector('.hero-form-card');
+    if (!form) return;
+    var nb     = document.getElementById('navbar');
+    var offset = nb ? nb.offsetHeight : 80;
+    var y      = form.getBoundingClientRect().top + window.scrollY - offset - 10;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+    setTimeout(function () {
+      var input = document.getElementById('hf-name');
+      if (input) input.focus();
+    }, 500);
+  }
+  window.scrollToForm = scrollToForm;
+
+  /* Attach scroll-to-form on DOMContentLoaded */
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.scroll-to-form').forEach(function (btn) {
+      btn.addEventListener('click', function (e) { e.preventDefault(); scrollToForm(); });
+    });
+  });
+
+  /* Anchor smooth scroll */
+  document.querySelectorAll('a[href^="#"]:not([href="#"]):not([onclick])').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = this.getAttribute('href').slice(1);
+      var t  = document.getElementById(id);
+      if (!t) return;
+      e.preventDefault();
+      if (mobileMenu && mobileMenu.classList.contains('open')) closeMobile();
+      smoothScrollTo(id);
+    });
+  });
+
+  /* Navbar scroll class */
+  window.addEventListener('scroll', function () {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  /* Active nav link via IntersectionObserver */
+  var navLinks = document.querySelectorAll('.nav-links a');
+  var secObs   = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        navLinks.forEach(function (l) {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { threshold: 0.35 });
+  document.querySelectorAll('section[id]').forEach(function (s) { secObs.observe(s); });
+
+  /* Hamburger */
+  hamburger && hamburger.addEventListener('click', function () {
+    var open = hamburger.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', String(open));
+    mobileMenu && mobileMenu.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+
+  function closeMobile() {
+    hamburger && hamburger.classList.remove('open');
+    hamburger && hamburger.setAttribute('aria-expanded', 'false');
+    mobileMenu && mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* Reveal on scroll */
+  var revObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function (el) { revObs.observe(el); });
+
+  /* Footer year */
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+  /* Form validation helpers */
+  var isValidEmail = function (e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim()); };
+
+  function setField(id, state) {
+    var g = document.getElementById(id);
+    if (!g) return;
+    g.classList.remove('error', 'valid');
+    if (state) g.classList.add(state);
+  }
+
+  var hfName  = document.getElementById('hf-name');
+  var hfEmail = document.getElementById('hf-email');
+  var hfMsg   = document.getElementById('hf-message');
+
+  hfName  && hfName.addEventListener('blur',  function () { setField('hf-name-group',    hfName.value.trim()          ? 'valid' : 'error'); });
+  hfEmail && hfEmail.addEventListener('blur', function () { setField('hf-email-group',   isValidEmail(hfEmail.value)  ? 'valid' : 'error'); });
+  hfMsg   && hfMsg.addEventListener('blur',   function () { setField('hf-message-group', hfMsg.value.trim()           ? 'valid' : 'error'); });
+
+  heroForm && heroForm.addEventListener('input', function () {
+    heroInlineError && heroInlineError.classList.remove('show');
+  }, { passive: true });
+
+  function validateHero() {
+    var ok = true;
+    if (!hfName.value.trim())         { setField('hf-name-group',    'error'); ok = false; } else setField('hf-name-group',    'valid');
+    if (!isValidEmail(hfEmail.value)) { setField('hf-email-group',   'error'); ok = false; } else setField('hf-email-group',   'valid');
+    if (!hfMsg.value.trim())          { setField('hf-message-group', 'error'); ok = false; } else setField('hf-message-group', 'valid');
+    return ok;
+  }
+
+  /* Mailto fallback */
+  function mailtoFallback(p) {
+    var sub  = encodeURIComponent('Website request');
+    var body = encodeURIComponent('Name: ' + p.name + '\nEmail: ' + p.email + '\n\nMessage:\n' + p.message);
+    window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + sub + '&body=' + body;
+  }
+  heroMailtoBtn && heroMailtoBtn.addEventListener('click', function () { if (_pending) mailtoFallback(_pending); });
+
+  /* Form submit */
+  heroForm && heroForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    if (isSubmitting) return;
+    if (!validateHero()) {
+      var fe = heroForm.querySelector('.form-group.error input, .form-group.error textarea');
+      if (fe) fe.focus();
+      return;
+    }
+
+    isSubmitting = true;
+    heroSubmit.classList.add('loading');
+    heroSubmit.disabled = true;
+
+    var data = { name: hfName.value, email: hfEmail.value, message: hfMsg.value };
+    _pending  = data;
+
+    try {
+      var res = await fetch('https://booking-proxy.samuelrincon8.workers.dev', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(data)
+      });
+      if (res.ok) {
+        heroForm.reset();
+        heroForm.style.display = 'none';
+        heroSuccess.classList.add('show');
+      } else {
+        throw new Error('fail');
+      }
+    } catch (err) {
+      heroInlineError.classList.add('show');
+    }
+
+    isSubmitting = false;
+    heroSubmit.classList.remove('loading');
+    heroSubmit.disabled = false;
+  });
+
+  /* Service card click → scroll to form */
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('.service-card')) {
+      e.preventDefault();
+      var form   = document.querySelector('.hero-form-card');
+      if (!form) return;
+      var nb     = document.getElementById('navbar');
+      var offset = nb ? nb.offsetHeight : 80;
+      var y      = form.getBoundingClientRect().top + window.scrollY - offset - 10;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      setTimeout(function () { var n = document.getElementById('hf-name'); if (n) n.focus(); }, 500);
+    }
+  });
+  </script>
+
 </body>
 </html>
