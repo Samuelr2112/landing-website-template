@@ -1631,7 +1631,7 @@
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   'use strict';
 
-  var CONTACT_EMAIL   = 'danieldebo18@gmail.com';
+  var CONTACT_EMAIL   = 'samuelrinconm@yahoo.com';
   var navbar          = document.getElementById('navbar');
   var hamburger       = document.getElementById('hamburger');
   var mobileMenu      = document.getElementById('mobileMenu');
@@ -1784,7 +1784,7 @@
     heroSubmit.classList.add('loading');
     heroSubmit.disabled = true;
 
-    var data = { name: hfName.value, email: hfEmail.value, message: hfMsg.value };
+    var data = { name: hfName.value, email: hfEmail.value, message: hfMsg.value, website: document.getElementById('hf-website').value };
     _pending  = data;
 
     try {
@@ -1793,12 +1793,13 @@
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(data)
       });
-      if (res.ok) {
+      var result = await res.json();
+      if (res.ok && result.success) {
         heroForm.reset();
         heroForm.style.display = 'none';
         heroSuccess.classList.add('show');
       } else {
-        throw new Error('fail');
+        throw new Error(result.error || 'fail');
       }
     } catch (err) {
       heroInlineError.classList.add('show');
