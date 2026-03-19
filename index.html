@@ -141,7 +141,7 @@
     /* ─── NAVBAR ────────────────────────────────────────────────── */
     #navbar {
       position:                fixed;
-      top:                     0;
+      top:                     env(safe-area-inset-top);
       left:                    0;
       right:                   0;
       z-index:                 1000;
@@ -153,25 +153,10 @@
       transition:              padding var(--transition), background var(--transition), box-shadow var(--transition);
     }
 
-    /* Este pseudo-elemento llena el espacio del notch/Dynamic Island
-       extendiéndose hacia ARRIBA desde el navbar */
-    #navbar::before {
-      content:    '';
-      position:   absolute;
-      top:        calc(-1 * env(safe-area-inset-top));
-      left:       0;
-      right:      0;
-      height:     env(safe-area-inset-top);
-      background: rgba(13,15,20,0.95);
-    }
-
     #navbar.scrolled {
       background:  rgba(13,15,20,0.97);
       padding:     14px 0;
       box-shadow:  0 2px 20px rgba(0,0,0,0.3);
-    }
-    #navbar.scrolled::before {
-      background: rgba(13,15,20,0.97);
     }
 
     .nav-inner {
@@ -1120,6 +1105,9 @@
     <a href="#contact"      onclick="closeMobile()">Contact</a>
     <a href="/cdn-cgi/l/email-protection#3f5b5e51565a535b5a5d500e077f58525e5653115c5052" class="nav-cta">Get Started</a>
   </nav>
+
+  <!-- Cubre el safe area del notch/Dynamic Island independientemente del navbar -->
+  <div style="position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:rgba(13,15,20,0.97);z-index:1001;"></div>
 
   <!-- ─── NAVBAR ──────────────────────────────────────────────────── -->
   <header id="navbar">
