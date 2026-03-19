@@ -167,7 +167,7 @@
 
     #navbar {
       position: fixed;
-      top: calc(env(safe-area-inset-top) + 28px);
+      top: env(safe-area-inset-top);
       left: 0;
       right: 0;
       z-index: 1000;
@@ -1173,23 +1173,16 @@
     <a href="/cdn-cgi/l/email-protection#3f5b5e51565a535b5a5d500e077f58525e5653115c5052" class="nav-cta">Get Started</a>
   </nav>
 
-  <!-- Top Bar (safe area spacer + branding strip) -->
+  <!-- Safe area spacer (fills notch/Dynamic Island on iOS, no visible content) -->
   <div id="top-bar" style="
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(13, 15, 20, 0.97);
-    color: rgba(255, 255, 255, 0.4);
-    text-align: center;
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: calc(env(safe-area-inset-top) + 6px) 10px 6px;
+    background: var(--bg-base);
+    padding: calc(env(safe-area-inset-top) + 6px) 0 6px;
     z-index: 10000;
-    letter-spacing: 0.02em;
-    line-height: 1.4;
-  ">
-  </div>
+  "></div>
 
   <!-- Navbar -->
   <header id="navbar">
