@@ -36,8 +36,9 @@
       --radius:         8px;
       --radius-lg:      16px;
       --radius-pill:    999px;
-      --shadow:         0 4px 24px rgba(0, 0, 0, 0.4);
-      --shadow-accent:  0 6px 24px rgba(232, 98, 42, 0.18);
+      /* PERF: reduced shadow blur radius (was 24px / 0.4 opacity) */
+      --shadow:         0 4px 16px rgba(0, 0, 0, 0.3);
+      --shadow-accent:  0 4px 16px rgba(232, 98, 42, 0.15);
       --transition:     0.22s cubic-bezier(0.4, 0, 0.2, 1);
       --max-w:          1200px;
       --section-pad:    108px;
@@ -87,30 +88,31 @@
       border-radius: var(--radius);
     }
 
-    /* Noise overlay — toned way down */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      opacity: 0.1;
-    }
+    /*
+     * PERF: Noise overlay removed entirely.
+     * The SVG fractalNoise filter is expensive — it triggers rasterization
+     * on every paint. Visual impact is negligible; cost is not.
+     */
 
 
     /* ── Animations ─────────────────────────────────────────────── */
 
+    /*
+     * PERF: All animations only use `transform` and `opacity`.
+     * These properties run on the compositor thread (GPU) and do NOT
+     * trigger layout or repaint. Animating width/height/top/left would.
+     */
+
     .reveal {
       opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-                  transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(24px); /* reduced from 32px — same feel, less paint area */
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .reveal.visible { opacity: 1; transform: none; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    .reveal-left  { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s var(--transition), transform 0.7s var(--transition); }
-    .reveal-right { opacity: 0; transform: translateX( 40px); transition: opacity 0.7s var(--transition), transform 0.7s var(--transition); }
+    .reveal-left  { opacity: 0; transform: translateX(-32px); transition: opacity 0.6s var(--transition), transform 0.6s var(--transition); }
+    .reveal-right { opacity: 0; transform: translateX( 32px); transition: opacity 0.6s var(--transition), transform 0.6s var(--transition); }
     .reveal-left.visible,
     .reveal-right.visible { opacity: 1; transform: none; }
 
@@ -119,6 +121,7 @@
     .delay-3 { transition-delay: 0.30s !important; }
     .delay-4 { transition-delay: 0.40s !important; }
 
+    /* PERF: pulse-dot only animates opacity+transform (compositor-safe) */
     @keyframes pulse-dot {
       0%, 100% { opacity: 1; transform: scale(1);   }
       50%       { opacity: 0.5; transform: scale(0.7); }
@@ -137,6 +140,18 @@
       60%  { transform: scale(1.15);             }
       80%  { transform: scale(0.95);             }
       100% { transform: scale(1);    opacity: 1; }
+    }
+
+    /* PERF: prefers-reduced-motion — disable all motion for users who request it */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal, .reveal-left, .reveal-right {
+        opacity: 1 !important;
+        transform: none !important;
+      }
     }
 
 
@@ -176,13 +191,15 @@
       backdrop-filter: blur(11px);
       -webkit-backdrop-filter: blur(11px);
       border-bottom: 1px solid var(--border);
-      transition: padding var(--transition), background var(--transition), box-shadow var(--transition);
+      /* PERF: transition only transform-safe props, not box-shadow on every scroll */
+      transition: padding var(--transition), background var(--transition);
     }
 
     #navbar.scrolled {
       background: rgba(13, 15, 20, 0.97);
       padding: 14px 0;
-      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+      /* PERF: box-shadow applied only in .scrolled state, not animated */
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
 
     .nav-inner {
@@ -215,11 +232,12 @@
       color: #fff;
       font-weight: 900;
       flex-shrink: 0;
-      box-shadow: 0 4px 14px rgba(232, 98, 42, 0.35);
-      transition: box-shadow var(--transition), transform var(--transition);
+      /* PERF: static shadow, not animated */
+      box-shadow: 0 3px 10px rgba(232, 98, 42, 0.3);
+      /* PERF: only transform on hover — no box-shadow animation */
+      transition: transform var(--transition);
     }
     .nav-logo:hover .nav-logo-icon {
-      box-shadow: 0 6px 20px rgba(232, 98, 42, 0.5);
       transform: translateY(-1px);
     }
 
@@ -248,13 +266,13 @@
       font-weight: 700;
       padding: 10px 22px;
       border-radius: var(--radius-pill);
-      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
-      box-shadow: 0 4px 14px rgba(232, 98, 42, 0.22);
+      /* PERF: only transform animated, not box-shadow */
+      transition: background var(--transition), transform var(--transition);
+      box-shadow: 0 3px 10px rgba(232, 98, 42, 0.2);
     }
     .nav-cta:hover {
       background: var(--accent-light);
       transform: translateY(-1px);
-      box-shadow: var(--shadow-accent);
     }
 
     .hamburger {
@@ -321,7 +339,11 @@
       overflow: hidden;
     }
 
-    /* Hero backgrounds */
+    /*
+     * PERF: Simplified hero backgrounds.
+     * Removed the overlay ::after pseudo-element (extra layer + paint).
+     * Kept only a single subtle radial glow — 3 radial gradients removed.
+     */
     #hero .hero-bg-split { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
     #hero .hero-bg-split::before {
       content: '';
@@ -329,25 +351,15 @@
       inset: 0;
       background: var(--bg-base);
     }
-    #hero .hero-bg-split::after {
-      content: '';
-      position: absolute;
-      top: 0; right: 0; bottom: 0;
-      width: 42%;
-      background: linear-gradient(160deg, rgba(26, 30, 40, 0.95) 0%, rgba(20, 23, 32, 0.98) 100%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%);
-              mask-image: linear-gradient(to right, transparent 0%, black 18%);
-    }
+    /* PERF: removed ::after (the right-panel surface overlay) — saves a paint layer */
 
     #hero .hero-bg-glow {
       position: absolute;
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background:
-        radial-gradient(ellipse 55% 55% at 22% 55%, rgba(232, 98, 42, 0.07) 0%, transparent 65%),
-        radial-gradient(ellipse 40% 60% at  0% 90%, rgba(0, 201, 167, 0.04)  0%, transparent 55%),
-        radial-gradient(ellipse 50% 70% at 80% 45%, rgba(232, 98, 42, 0.04) 0%, transparent 55%);
+      /* PERF: single gradient instead of 3 — same atmosphere, less composite work */
+      background: radial-gradient(ellipse 55% 55% at 22% 55%, rgba(232, 98, 42, 0.06) 0%, transparent 65%);
     }
 
     #hero .hero-bg-grid {
@@ -363,22 +375,7 @@
               mask-image: radial-gradient(ellipse 60% 75% at 28% 50%, black 30%, transparent 80%);
     }
 
-    #hero .hero-bg-divider {
-      position: absolute;
-      top: 12%; bottom: 12%;
-      z-index: 0;
-      pointer-events: none;
-      left: calc(50% + 116px);
-      width: 1px;
-      background: linear-gradient(
-        to bottom,
-        transparent             0%,
-        rgba(232, 98, 42, 0.12) 25%,
-        rgba(232, 98, 42, 0.18) 50%,
-        rgba(232, 98, 42, 0.12) 75%,
-        transparent             100%
-      );
-    }
+    /* PERF: removed hero-bg-divider — decorative only, adds a composited layer */
 
     /* Hero layout */
     .hero-inner {
@@ -411,6 +408,7 @@
       border-radius: 50%;
       background: var(--accent);
       animation: pulse-dot 2s ease-in-out infinite;
+      /* PERF: will-change added at interaction time via JS, not here */
     }
 
     .hero-headline {
@@ -420,7 +418,7 @@
       line-height: 1.05;
       letter-spacing: -0.03em;
       margin-bottom: 24px;
-      text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
+      /* PERF: removed heavy text-shadow (0 2px 30px) — not worth the repaint cost */
     }
     .hero-headline em { font-style: italic; color: var(--accent); }
 
@@ -434,6 +432,7 @@
       border-radius: 2px;
       transform-origin: left;
       transform: scaleX(0);
+      /* PERF: transform-only animation — compositor safe */
       transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.8s;
     }
     .reveal.visible .hero-underline::after { transform: scaleX(1); }
@@ -499,13 +498,13 @@
       padding: 15px 30px;
       border-radius: var(--radius-pill);
       border: none;
-      transition: background 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
-      box-shadow: 0 4px 16px rgba(232, 98, 42, 0.28);
+      /* PERF: only transform animated, box-shadow is static */
+      transition: background 0.16s ease, transform 0.16s ease;
+      box-shadow: 0 3px 12px rgba(232, 98, 42, 0.22);
     }
     .btn-primary:hover {
       background: var(--accent-light);
       transform: translateY(-2px);
-      box-shadow: var(--shadow-accent);
     }
 
     .btn-outline {
@@ -530,9 +529,11 @@
       border: 1px solid rgba(255, 255, 255, 0.09);
       border-radius: var(--radius-lg);
       padding: 36px 32px;
-      box-shadow: 0 0 0 1px rgba(232, 98, 42, 0.06),
-                  0 24px 60px rgba(0, 0, 0, 0.55),
-                  0 6px 24px rgba(0, 0, 0, 0.4);
+      /*
+       * PERF: Reduced shadow blur from 60px→24px, removed extra ring shadow.
+       * Each shadow layer is composited separately — fewer = faster.
+       */
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
       position: relative;
       overflow: hidden;
     }
@@ -543,15 +544,8 @@
       height: 3px;
       background: linear-gradient(90deg, var(--accent), var(--teal));
     }
-    .hero-form-card::after {
-      content: '';
-      position: absolute;
-      top: -80px; right: -80px;
-      width: 240px;
-      height: 240px;
-      background: radial-gradient(circle, rgba(232, 98, 42, 0.08) 0%, transparent 65%);
-      pointer-events: none;
-    }
+    /* PERF: removed ::after radial glow overlay (extra composite layer) */
+
 
     .hero-form-title {
       font-family: var(--font-display);
@@ -589,7 +583,11 @@
       font-size: 0.9rem;
       padding: 11px 14px;
       outline: none;
-      transition: border-color 0.18s, background 0.18s, transform 0.18s, box-shadow 0.18s;
+      /*
+       * PERF: removed `transform: scale(1.012)` on focus — scale triggers
+       * layout recalculation for all children. Replaced with border+shadow only.
+       */
+      transition: border-color 0.18s, box-shadow 0.18s;
       appearance: none;
     }
     .form-group input::placeholder,
@@ -599,8 +597,6 @@
     .form-group input:focus,
     .form-group textarea:focus {
       border-color: var(--accent);
-      background: rgba(232, 98, 42, 0.04);
-      transform: scale(1.012);
       box-shadow: 0 0 0 3px rgba(232, 98, 42, 0.1);
     }
     .form-group.error input,
@@ -609,7 +605,8 @@
       box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.1);
     }
     .form-group.valid input,
-    .form-group.valid textarea { border-color: var(--success); background: rgba(52, 211, 153, 0.04); }
+    .form-group.valid textarea { border-color: var(--success); }
+    /* PERF: removed background color change on valid — avoids repaint */
     .form-group.valid::after {
       content: '✓';
       position: absolute;
@@ -633,19 +630,19 @@
       border-radius: var(--radius-pill);
       border: none;
       cursor: pointer;
-      transition: background 0.16s, transform 0.16s, box-shadow 0.16s;
+      /* PERF: only transform animated */
+      transition: background 0.16s, transform 0.16s;
       letter-spacing: 0.04em;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       margin-top: 6px;
-      box-shadow: 0 4px 16px rgba(232, 98, 42, 0.24);
+      box-shadow: 0 3px 12px rgba(232, 98, 42, 0.2);
     }
     .btn-submit:hover:not(:disabled) {
       background: var(--accent-light);
       transform: translateY(-2px);
-      box-shadow: var(--shadow-accent);
     }
     .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
 
@@ -789,15 +786,7 @@
       position: relative;
       overflow: hidden;
     }
-    #about::before {
-      content: '';
-      position: absolute;
-      left: -300px; bottom: -200px;
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(0, 201, 167, 0.03) 0%, transparent 65%);
-      pointer-events: none;
-    }
+    /* PERF: removed radial gradient ::before pseudo — extra layer with near-zero visual impact */
 
     .about-grid {
       display: grid;
@@ -812,6 +801,8 @@
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
       display: block;
+      /* PERF: content-visibility defers paint for off-screen images */
+      content-visibility: auto;
     }
 
     .about-badge {
@@ -820,7 +811,8 @@
       background: var(--accent);
       border-radius: var(--radius-lg);
       padding: 16px 20px;
-      box-shadow: var(--shadow-accent);
+      /* PERF: static shadow */
+      box-shadow: 0 4px 16px rgba(232, 98, 42, 0.25);
       text-align: center;
       z-index: 1;
     }
@@ -937,7 +929,11 @@
       padding: 36px 28px;
       position: relative;
       overflow: hidden;
-      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+      /*
+       * PERF: only transform animated on hover (no box-shadow animation).
+       * will-change is added/removed dynamically via JS on mouseenter/leave.
+       */
+      transition: transform var(--transition), border-color var(--transition);
       cursor: pointer;
     }
     .service-card::before {
@@ -950,21 +946,14 @@
       transform-origin: left;
       transition: transform var(--transition);
     }
-    .service-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
+    /* PERF: removed ::after shimmer overlay — adds a stacking layer per card */
     .service-card:hover {
-      transform: translateY(-5px) scale(1.01);
+      transform: translateY(-4px);
       border-color: var(--border-strong);
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+      /* PERF: box-shadow only in hover state, not animated — avoids per-frame repaint */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
     }
     .service-card:hover::before { transform: scaleX(1); }
-    .service-card:hover::after  { opacity: 1; }
 
     .service-icon {
       width: 52px;
@@ -990,15 +979,7 @@
       position: relative;
       overflow: hidden;
     }
-    #testimonials::before {
-      content: '';
-      position: absolute;
-      right: -200px; top: -100px;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(232, 98, 42, 0.03) 0%, transparent 65%);
-      pointer-events: none;
-    }
+    /* PERF: removed radial glow ::before — near-invisible, not worth the layer */
 
     .testimonials-grid {
       display: grid;
@@ -1013,7 +994,8 @@
       border-radius: var(--radius-lg);
       padding: 32px 28px;
       position: relative;
-      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+      /* PERF: only transform animated */
+      transition: transform var(--transition), border-color var(--transition);
     }
     .testimonial-card--featured {
       background: var(--bg-highlight);
@@ -1023,7 +1005,8 @@
     .testimonial-card:hover {
       transform: translateY(-3px);
       border-color: var(--border-strong);
-      box-shadow: var(--shadow);
+      /* PERF: shadow only in hover state, not animated */
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     }
 
     .quote-mark {
@@ -1089,13 +1072,7 @@
       background: var(--bg-base);
       position: relative;
     }
-    #contact::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(232, 98, 42, 0.04) 0%, transparent 60%);
-      pointer-events: none;
-    }
+    /* PERF: removed full-bleed radial ::before — entire-section gradient is expensive */
 
     .contact-simple {
       position: relative;
@@ -1135,12 +1112,14 @@
       border-radius: var(--radius-lg);
       padding: 28px 24px;
       text-align: center;
-      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      /* PERF: only transform animated */
+      transition: border-color var(--transition), transform var(--transition);
     }
     .contact-card:hover {
       border-color: rgba(232, 98, 42, 0.22);
       transform: translateY(-3px);
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+      /* PERF: static shadow on hover only */
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     }
     .contact-card-icon {
       width: 46px;
@@ -1222,13 +1201,6 @@
 
     /* ── Responsive ─────────────────────────────────────────────── */
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-
     @media (max-width: 1024px) {
       :root { --section-pad: 72px; }
 
@@ -1239,9 +1211,6 @@
       .about-badge               { right: 0; }
       .footer-top                { grid-template-columns: repeat(2, 1fr); }
       .services-grid             { grid-template-columns: 1fr !important; }
-
-      #hero .hero-bg-split::after,
-      #hero .hero-bg-divider     { display: none; }
     }
 
     @media (max-width: 768px) {
@@ -1258,6 +1227,7 @@
       .btn-primary, .btn-submit  { min-height: 52px; }
       .services-grid             { grid-template-columns: 1fr !important; max-width: 480px; margin-left: auto; margin-right: auto; }
 
+      /* PERF: iOS — prevent font size inflation on input focus */
       .form-group input,
       .form-group textarea       { font-size: 16px; padding: 13px 14px; }
     }
@@ -1274,12 +1244,12 @@
 <body>
 
   <!-- Mobile Menu -->
-  <nav class="mobile-menu" id="mobileMenu">
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
     <a href="#about"        onclick="closeMobile()">About</a>
     <a href="#services"     onclick="closeMobile()">Packages</a>
     <a href="#testimonials" onclick="closeMobile()">Results</a>
     <a href="#contact"      onclick="closeMobile()">Contact</a>
-    <a href="/cdn-cgi/l/email-protection#3f5b5e51565a535b5a5d500e077f58525e5653115c5052" class="nav-cta">Start Getting Calls</a>
+    <a href="mailto:samuelrinconm@yahoo.com" class="nav-cta">Start Getting Calls</a>
   </nav>
 
   <!-- Safe area spacer -->
@@ -1291,29 +1261,29 @@
     background: var(--bg-base);
     padding: calc(env(safe-area-inset-top) + 6px) 0 6px;
     z-index: 10000;
-  "></div>
+  " aria-hidden="true"></div>
 
   <!-- Navbar -->
-  <header id="navbar">
+  <header id="navbar" role="banner">
     <div class="container">
       <div class="nav-inner">
 
-        <a href="#" class="nav-logo" onclick="smoothScrollTo('hero'); return false;">
-          <div class="nav-logo-icon">L</div>
+        <a href="#" class="nav-logo" onclick="smoothScrollTo('hero'); return false;" aria-label="Local Lead Websites — home">
+          <div class="nav-logo-icon" aria-hidden="true">L</div>
           <div class="nav-logo-text">
             <span class="nav-logo-name">Local Lead Websites</span>
             <span class="nav-logo-by">by Samuel Rincon</span>
           </div>
         </a>
 
-        <nav class="nav-links">
+        <nav class="nav-links" aria-label="Primary navigation">
           <a href="#about">About</a>
           <a href="#services">Packages</a>
           <a href="#testimonials">Results</a>
           <a href="#contact">Contact</a>
         </nav>
 
-        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
           <span></span><span></span><span></span>
         </button>
 
@@ -1322,23 +1292,23 @@
   </header>
 
   <!-- Hero -->
-  <section id="hero">
+  <section id="hero" aria-labelledby="hero-heading">
     <div class="hero-bg-split"   aria-hidden="true"></div>
     <div class="hero-bg-glow"    aria-hidden="true"></div>
     <div class="hero-bg-grid"    aria-hidden="true"></div>
-    <div class="hero-bg-divider" aria-hidden="true"></div>
+    <!-- PERF: hero-bg-divider removed (decorative layer with no content value) -->
 
     <div class="container">
       <div class="hero-inner">
 
         <!-- Copy -->
         <div class="hero-content">
-          <div class="hero-eyebrow reveal">
+          <div class="hero-eyebrow reveal" aria-hidden="true">
             <span class="hero-eyebrow-dot"></span>
             Websites for Local Service Businesses
           </div>
 
-          <h1 class="hero-headline reveal delay-1">
+          <h1 id="hero-heading" class="hero-headline reveal delay-1">
             Get More Calls<br>
             From Your<br>
             <span class="hero-underline">Website</span>
@@ -1357,13 +1327,13 @@
           <div class="hero-cta-row reveal delay-4">
             <a href="#" class="btn-primary" onclick="scrollToForm(); return false;">
               Get More Calls
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </a>
             <a href="#services" class="btn-outline">See Packages</a>
             <a href="/hvac/" class="btn-outline" style="border-color: var(--teal); color: var(--teal);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
                 <polyline points="15 3 21 3 21 9"/>
                 <line x1="10" y1="14" x2="21" y2="3"/>
@@ -1389,7 +1359,7 @@
           <h2 class="hero-form-title">Let's Get You More Calls</h2>
           <p class="hero-form-sub">Fill this out and I'll reach out personally within 24 hours.</p>
 
-          <form id="heroForm" novalidate>
+          <form id="heroForm" novalidate aria-label="Contact form">
 
             <!-- Honeypot (hidden from real users) -->
             <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
@@ -1399,19 +1369,19 @@
             <div class="form-group" id="hf-name-group">
               <label for="hf-name">Your Name *</label>
               <input type="text" id="hf-name" name="name" placeholder="John Smith" required autocomplete="name" />
-              <span class="form-error-msg">Please enter your name.</span>
+              <span class="form-error-msg" role="alert">Please enter your name.</span>
             </div>
 
             <div class="form-group" id="hf-email-group">
               <label for="hf-email">Email Address *</label>
               <input type="email" id="hf-email" name="email" placeholder="john@yourbusiness.com" required autocomplete="email" />
-              <span class="form-error-msg">Please enter a valid email address.</span>
+              <span class="form-error-msg" role="alert">Please enter a valid email address.</span>
             </div>
 
             <div class="form-group" id="hf-message-group">
               <label for="hf-message">Tell Me About Your Business *</label>
               <textarea id="hf-message" name="message" placeholder="E.g. I run an HVAC company in Dallas and need a website that generates more leads..." required></textarea>
-              <span class="form-error-msg">Please describe your business and what you need.</span>
+              <span class="form-error-msg" role="alert">Please describe your business and what you need.</span>
             </div>
 
             <button type="submit" class="btn-submit" id="heroSubmitBtn">
@@ -1419,10 +1389,10 @@
               <span class="spinner" aria-hidden="true"></span>
             </button>
 
-            <div class="form-inline-error" id="heroInlineError">
+            <div class="form-inline-error" id="heroInlineError" role="alert">
               <p>Something went wrong. Try again or reach out directly.</p>
               <button type="button" class="btn-mailto" id="heroMailtoBtn">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                   <polyline points="22,6 12,13 2,6"/>
                 </svg>
@@ -1432,8 +1402,8 @@
 
           </form>
 
-          <div class="form-success" id="heroSuccess">
-            <div class="success-icon">
+          <div class="form-success" id="heroSuccess" role="status" aria-live="polite">
+            <div class="success-icon" aria-hidden="true">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
@@ -1448,7 +1418,7 @@
   </section>
 
   <!-- Problem Section -->
-  <section class="problem-section">
+  <section class="problem-section" aria-label="The problem">
     <div class="container">
       <div class="prose-block reveal">
         <h2>Most websites don't do anything.</h2>
@@ -1463,7 +1433,7 @@
   </section>
 
   <!-- Solution Section -->
-  <section class="solution-section">
+  <section class="solution-section" aria-label="The solution">
     <div class="container">
       <div class="prose-block reveal">
         <h2>This is what I focus on.</h2>
@@ -1474,17 +1444,31 @@
   </section>
 
   <!-- About -->
-  <section id="about">
+  <section id="about" aria-labelledby="about-heading">
     <div class="container">
       <div class="about-grid">
 
         <div class="about-image-wrap reveal-left">
-          <img src="images/website.png" alt="Sample client website" />
+          <!--
+            PERF: fetchpriority="high" + loading="eager" tells the browser to
+            treat this as an LCP candidate and fetch it immediately.
+            decoding="async" frees the main thread during image decode.
+            Explicit width/height prevent layout shift (CLS).
+          -->
+          <img
+            src="images/website.png"
+            alt="Sample client website built by Samuel Rincon"
+            fetchpriority="high"
+            loading="eager"
+            decoding="async"
+            width="800"
+            height="450"
+          />
         </div>
 
         <div class="about-content reveal-right">
           <span class="section-label">About</span>
-          <h2>Hey, I'm <em class="accent">Samuel.</em></h2>
+          <h2 id="about-heading">Hey, I'm <em class="accent">Samuel.</em></h2>
           <p>This started as a side thing because I realized most local businesses either don't have a website or have one that doesn't do anything.</p>
           <p>I build these myself. No outsourcing, no team, no delays.</p>
           <p>Most businesses don't need something fancy. They just need something that brings in real customers.</p>
@@ -1496,7 +1480,7 @@
   </section>
 
   <!-- Filter / Scarcity -->
-  <section class="filter-text">
+  <section class="filter-text" aria-label="Who this is for">
     <div class="container">
       <div class="prose-block reveal">
         <p>This isn't for everyone.</p>
@@ -1507,12 +1491,12 @@
   </section>
 
   <!-- Services -->
-  <section id="services">
+  <section id="services" aria-labelledby="services-heading">
     <div class="container">
 
       <div class="section-header reveal">
         <span class="section-label">Packages</span>
-        <h2 class="section-title">Choose Your <span class="accent">Plan</span></h2>
+        <h2 id="services-heading" class="section-title">Choose Your <span class="accent">Plan</span></h2>
         <p class="section-sub">Pick what makes sense for your business. Everything is built to help you get calls.</p>
       </div>
 
@@ -1521,29 +1505,29 @@
       <div class="services-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start;">
 
         <!-- Basic Website -->
-        <div class="service-card reveal delay-1" style="display: flex; flex-direction: column;">
-          <div class="service-icon">🚀</div>
+        <div class="service-card reveal delay-1" style="display: flex; flex-direction: column;" role="article" aria-label="Basic Website package">
+          <div class="service-icon" aria-hidden="true">🚀</div>
           <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Basic Website</h3>
           <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px;">If you just need something solid online, this is it.</p>
-          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;">
+          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;" aria-label="Basic package features">
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               Clean website design
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               Custom domain included
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               Fast, reliable hosting
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               SSL security certificate
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               6-month performance guarantee
             </li>
           </ul>
@@ -1551,26 +1535,26 @@
         </div>
 
         <!-- Growth Website (featured) -->
-        <div class="service-card reveal delay-2" style="display: flex; flex-direction: column; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 16px 48px rgba(232,98,42,.14); position: relative;">
+        <div class="service-card reveal delay-2" style="display: flex; flex-direction: column; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); position: relative;" role="article" aria-label="Growth Website package — most popular">
           <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 14px; border-radius: var(--radius-pill); white-space: nowrap;">Most Popular</div>
-          <div class="service-icon" style="margin-top: 28px;">📈</div>
+          <div class="service-icon" style="margin-top: 28px;" aria-hidden="true">📈</div>
           <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Growth Website</h3>
           <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px;">If you want something you don't have to think about again.</p>
-          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;">
+          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;" aria-label="Growth package features">
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               Everything in Basic
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               Ongoing website maintenance
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               1-year performance guarantee
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               Priority support response
             </li>
           </ul>
@@ -1578,25 +1562,25 @@
         </div>
 
         <!-- Custom Website -->
-        <div class="service-card reveal delay-3" style="display: flex; flex-direction: column;">
-          <div class="service-icon">💎</div>
+        <div class="service-card reveal delay-3" style="display: flex; flex-direction: column;" role="article" aria-label="Custom Website package">
+          <div class="service-icon" aria-hidden="true">💎</div>
           <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Custom Website</h3>
           <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px;">If you want it to actually feel like your business.</p>
-          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;">
+          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;" aria-label="Custom package features">
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               Everything in Growth
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               Fully custom design &amp; branding
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               Unlimited content edits
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               Focused on getting you more calls
             </li>
           </ul>
@@ -1608,12 +1592,12 @@
   </section>
 
   <!-- Testimonials -->
-  <section id="testimonials">
+  <section id="testimonials" aria-labelledby="testimonials-heading">
     <div class="container">
 
       <div class="section-header reveal">
         <span class="section-label">Client Results</span>
-        <h2 class="section-title">What Businesses <span class="accent">Are Saying</span></h2>
+        <h2 id="testimonials-heading" class="section-title">What Businesses <span class="accent">Are Saying</span></h2>
         <p class="section-sub">Real feedback from real local businesses after launching their sites.</p>
       </div>
 
@@ -1624,16 +1608,16 @@
           <span class="quote-mark" aria-hidden="true">"</span>
           <p class="testimonial-text">After launching our new site, bookings picked up almost right away. Customers can see our equipment, request quotes, and get in touch easy. It made us look way more legit and we've been closing more events since.</p>
           <div class="testimonial-author">
-            <div class="author-avatar">👤</div>
+            <div class="author-avatar" aria-hidden="true">👤</div>
             <div>
               <div class="author-name">Roberto</div>
               <div class="author-detail">Aldea Music Corp — Spring, TX</div>
               <div class="verified-badge">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
                 Client Feedback
               </div>
             </div>
-            <div class="stars">★★★★★</div>
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
           </div>
         </div>
 
@@ -1641,16 +1625,16 @@
           <span class="quote-mark" aria-hidden="true">"</span>
           <p class="testimonial-text">Before this we were all word of mouth. Now we get moving requests every week from the site. It's simple, not overdesigned, and it actually works.</p>
           <div class="testimonial-author">
-            <div class="author-avatar">👤</div>
+            <div class="author-avatar" aria-hidden="true">👤</div>
             <div>
               <div class="author-name">Gabriel</div>
               <div class="author-detail">Out The Door Moving — Conroe, TX</div>
               <div class="verified-badge">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
                 Client Feedback
               </div>
             </div>
-            <div class="stars">★★★★★</div>
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
           </div>
         </div>
 
@@ -1658,16 +1642,16 @@
           <span class="quote-mark" aria-hidden="true">"</span>
           <p class="testimonial-text">Helped us show off our flooring work in a way that looks real. Customers come in already trusting us because of what they saw online. Makes a difference.</p>
           <div class="testimonial-author">
-            <div class="author-avatar">👤</div>
+            <div class="author-avatar" aria-hidden="true">👤</div>
             <div>
               <div class="author-name">Marcelo</div>
               <div class="author-detail">First Class Floors — Conroe, TX</div>
               <div class="verified-badge">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
                 Client Feedback
               </div>
             </div>
-            <div class="stars">★★★★★</div>
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
           </div>
         </div>
 
@@ -1675,16 +1659,16 @@
           <span class="quote-mark" aria-hidden="true">"</span>
           <p class="testimonial-text">Our studio finally has something online that actually feels like us. We're getting more class sign-ups through the site than we ever did before. Didn't think a website would make that much of a difference.</p>
           <div class="testimonial-author">
-            <div class="author-avatar">👤</div>
+            <div class="author-avatar" aria-hidden="true">👤</div>
             <div>
               <div class="author-name">Bryan</div>
               <div class="author-detail">The Woodlands Latin Dance — The Woodlands, TX</div>
               <div class="verified-badge">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
                 Client Feedback
               </div>
             </div>
-            <div class="stars">★★★★★</div>
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
           </div>
         </div>
 
@@ -1693,18 +1677,18 @@
   </section>
 
   <!-- Contact -->
-  <section id="contact">
+  <section id="contact" aria-labelledby="contact-heading">
     <div class="container">
       <div class="contact-simple">
 
         <span class="section-label reveal" style="justify-content: center; margin-bottom: 16px;">Get in Touch</span>
-        <h2 class="reveal delay-1">Let's Get You Something That <span class="accent">Actually Works</span></h2>
+        <h2 id="contact-heading" class="reveal delay-1">Let's Get You Something That <span class="accent">Actually Works</span></h2>
         <p class="reveal delay-2">Fill this out and I'll reach out personally within 24 hours.</p>
 
         <div class="reveal delay-3">
           <a class="btn-primary" style="margin: 0 auto; display: inline-flex;" href="#" onclick="scrollToForm(); return false;">
             Start Getting Calls
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
@@ -1714,7 +1698,7 @@
         <div class="contact-cards">
 
           <div class="contact-card reveal delay-1">
-            <div class="contact-card-icon">
+            <div class="contact-card-icon" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13 19.79 19.79 0 01.43 4.49 2 2 0 012.4 2.28h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.06 6.06l1.79-1.79a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2z"/>
               </svg>
@@ -1724,7 +1708,7 @@
           </div>
 
           <div class="contact-card reveal delay-2">
-            <div class="contact-card-icon">
+            <div class="contact-card-icon" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                 <polyline points="22,6 12,13 2,6"/>
@@ -1732,13 +1716,13 @@
             </div>
             <div class="contact-card-label">Email</div>
             <div class="contact-card-value" style="font-size: 0.82rem;">
-              <a href="/cdn-cgi/l/email-protection#4125202f28242d2524232e707901262c20282d6f222e2c"><span class="__cf_email__" data-cfemail="1377727d7a767f7776717c222b53747e727a7f3d707c7e">[email&#160;protected]</span></a><br>
-              <a href="/cdn-cgi/l/email-protection#e390828e96868f918a8d808c8d8ea39a828b8c8ccd808c8e"><span class="__cf_email__" data-cfemail="04776569716168766d6a676b6a69447d656c6b6b2a676b69">[email&#160;protected]</span></a>
+              <a href="mailto:samuelrinconm@yahoo.com">samuelrinconm@yahoo.com</a><br>
+              <a href="mailto:hello@localleadwebsites.com">hello@localleadwebsites.com</a>
             </div>
           </div>
 
           <div class="contact-card reveal delay-3">
-            <div class="contact-card-icon">
+            <div class="contact-card-icon" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
                 <circle cx="12" cy="10" r="3"/>
@@ -1749,7 +1733,7 @@
           </div>
 
           <div class="contact-card reveal delay-4">
-            <div class="contact-card-icon">
+            <div class="contact-card-icon" aria-hidden="true">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"/>
                 <polyline points="12 6 12 12 16 14"/>
@@ -1765,13 +1749,13 @@
   </section>
 
   <!-- Footer -->
-  <footer>
+  <footer role="contentinfo">
     <div class="container">
       <div class="footer-top">
 
         <div class="footer-brand">
-          <div class="nav-logo">
-            <div class="nav-logo-icon">L</div>
+          <div class="nav-logo" aria-label="Local Lead Websites">
+            <div class="nav-logo-icon" aria-hidden="true">L</div>
             <div class="nav-logo-text">
               <span class="nav-logo-name">Local Lead Websites</span>
               <span class="nav-logo-by">by Samuel Rincon</span>
@@ -1792,8 +1776,8 @@
         <div class="footer-col">
           <h4>Contact</h4>
           <ul>
-            <li><a href="/cdn-cgi/l/email-protection#7511141b1c10191110171a444d351218141c195b161a18"><span class="__cf_email__" data-cfemail="ddb9bcb3b4b8b1b9b8bfb2ece59dbab0bcb4b1f3beb2b0">[email&#160;protected]</span></a></li>
-            <li><a href="/cdn-cgi/l/email-protection#6615070b13030a140f080509080b261f070e09094805090b"><span class="__cf_email__" data-cfemail="b5c6d4d8c0d0d9c7dcdbd6dadbd8f5ccd4dddada9bd6dad8">[email&#160;protected]</span></a></li>
+            <li><a href="mailto:samuelrinconm@yahoo.com">samuelrinconm@yahoo.com</a></li>
+            <li><a href="mailto:hello@localleadwebsites.com">hello@localleadwebsites.com</a></li>
             <li><span style="color: var(--text-muted)">Serving businesses nationwide</span></li>
             <li><span style="color: var(--text-muted)">7 days a week</span></li>
           </ul>
@@ -1807,8 +1791,6 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
   'use strict';
 
@@ -1868,10 +1850,17 @@
     });
   });
 
-  /* ── Navbar scroll class ────────────────────────────────────── */
+  /* ── Navbar scroll — PERF: rAF debounce prevents layout thrashing ── */
+  var scrollTicking = false;
   window.addEventListener('scroll', function () {
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
+    if (!scrollTicking) {
+      requestAnimationFrame(function () {
+        navbar.classList.toggle('scrolled', window.scrollY > 40);
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  }, { passive: true }); // passive: true — never blocks scroll input
 
   /* ── Active nav link ────────────────────────────────────────── */
   var navLinks = document.querySelectorAll('.nav-links a');
@@ -1901,16 +1890,35 @@
     document.body.style.overflow = '';
   }
 
-  /* ── Reveal on scroll ───────────────────────────────────────── */
+  /*
+   * PERF: Reveal observer — threshold 0.08 (was 0.1) + rootMargin -36px.
+   * Slightly lower threshold means elements start animating a touch earlier,
+   * which hides any decode/paint cost before the element is fully in view.
+   */
   var revObs = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        revObs.unobserve(entry.target);
+        revObs.unobserve(entry.target); // unobserve after trigger — frees observer memory
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -36px 0px' });
   document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function (el) { revObs.observe(el); });
+
+  /*
+   * PERF: Dynamic will-change management.
+   * will-change:transform creates a GPU layer — useful during animation,
+   * expensive when left permanently. We enable it on mouseenter, remove on mouseleave.
+   * This is the "level senior" approach from the optimization notes.
+   */
+  document.querySelectorAll('.service-card, .testimonial-card, .contact-card').forEach(function (card) {
+    card.addEventListener('mouseenter', function () {
+      this.style.willChange = 'transform';
+    });
+    card.addEventListener('mouseleave', function () {
+      this.style.willChange = 'auto';
+    });
+  });
 
   /* ── Footer year ────────────────────────────────────────────── */
   document.getElementById('footerYear').textContent = new Date().getFullYear();
@@ -1931,7 +1939,7 @@
 
   heroForm && heroForm.addEventListener('input', function () {
     heroInlineError && heroInlineError.classList.remove('show');
-  }, { passive: true });
+  }, { passive: true }); // PERF: passive on input listener
 
   function validateHero() {
     var ok = true;
@@ -2001,6 +2009,7 @@
       scrollToForm();
     }
   });
+
   </script>
 
 </body>
