@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Lead Website Services for Local Businesses</title>
-  <meta name="description" content="We build premium, high-converting websites for local service businesses." />
-  <meta property="og:title" content="Lead Website Services for Local Businesses" />
+  <title>Local Lead Websites — Simple Websites That Bring in Calls</title>
+  <meta name="description" content="I build simple websites for local service businesses that turn visitors into real calls and booked jobs." />
+  <meta property="og:title" content="Local Lead Websites by Samuel Rincon" />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,9 +25,9 @@
       --text-primary:   #f0eee8;
       --text-secondary: #9ba3b8;
       --text-muted:     #606880;
-      --accent:         #ff6b35;
-      --accent-light:   #ff8c5a;
-      --accent-subtle:  rgba(255, 107, 53, 0.08);
+      --accent:         #d3542a;
+      --accent-light:   #e06a3a;
+      --accent-subtle:  rgba(232, 98, 42, 0.07);
       --teal:           #00c9a7;
       --success:        #34d399;
       --error:          #f87171;
@@ -36,11 +36,11 @@
       --radius:         8px;
       --radius-lg:      16px;
       --radius-pill:    999px;
-      --shadow:         0 4px 32px rgba(0, 0, 0, 0.5);
-      --shadow-accent:  0 8px 32px rgba(255, 107, 53, 0.25);
+      --shadow:         0 4px 24px rgba(0, 0, 0, 0.4);
+      --shadow-accent:  0 6px 24px rgba(232, 98, 42, 0.18);
       --transition:     0.22s cubic-bezier(0.4, 0, 0.2, 1);
       --max-w:          1200px;
-      --section-pad:    96px;
+      --section-pad:    108px;
       --nav-height:     72px;
     }
 
@@ -87,7 +87,7 @@
       border-radius: var(--radius);
     }
 
-    /* Noise overlay */
+    /* Noise overlay — toned way down */
     body::after {
       content: '';
       position: fixed;
@@ -95,7 +95,7 @@
       z-index: 9999;
       pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      opacity: 0.35;
+      opacity: 0.1;
     }
 
 
@@ -173,8 +173,8 @@
       z-index: 1000;
       padding: 22px 0;
       background: rgba(13, 15, 20, 0.95);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(11px);
+      -webkit-backdrop-filter: blur(11px);
       border-bottom: 1px solid var(--border);
       transition: padding var(--transition), background var(--transition), box-shadow var(--transition);
     }
@@ -182,7 +182,7 @@
     #navbar.scrolled {
       background: rgba(13, 15, 20, 0.97);
       padding: 14px 0;
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
     }
 
     .nav-inner {
@@ -196,7 +196,7 @@
       align-items: center;
       gap: 11px;
       font-family: var(--font-display);
-      font-size: 1.35rem;
+      font-size: 1.2rem;
       font-weight: 700;
       letter-spacing: -0.025em;
       transition: opacity var(--transition);
@@ -215,13 +215,17 @@
       color: #fff;
       font-weight: 900;
       flex-shrink: 0;
-      box-shadow: 0 4px 20px rgba(255, 107, 53, 0.55);
+      box-shadow: 0 4px 14px rgba(232, 98, 42, 0.35);
       transition: box-shadow var(--transition), transform var(--transition);
     }
     .nav-logo:hover .nav-logo-icon {
-      box-shadow: 0 6px 28px rgba(255, 107, 53, 0.75);
+      box-shadow: 0 6px 20px rgba(232, 98, 42, 0.5);
       transform: translateY(-1px);
     }
+
+    .nav-logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .nav-logo-name { font-size: 1rem; font-weight: 700; }
+    .nav-logo-by   { font-size: 0.68rem; font-weight: 400; color: var(--text-muted); font-family: var(--font-body); letter-spacing: 0.02em; }
 
     .nav-links { display: flex; align-items: center; gap: 36px; }
     .nav-links a {
@@ -245,7 +249,7 @@
       padding: 10px 22px;
       border-radius: var(--radius-pill);
       transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
-      box-shadow: 0 4px 14px rgba(255, 107, 53, 0.30);
+      box-shadow: 0 4px 14px rgba(232, 98, 42, 0.22);
     }
     .nav-cta:hover {
       background: var(--accent-light);
@@ -341,9 +345,9 @@
       z-index: 0;
       pointer-events: none;
       background:
-        radial-gradient(ellipse 55% 55% at 22% 55%, rgba(255, 107, 53, 0.11) 0%, transparent 65%),
-        radial-gradient(ellipse 40% 60% at  0% 90%, rgba(0, 201, 167, 0.07)  0%, transparent 55%),
-        radial-gradient(ellipse 50% 70% at 80% 45%, rgba(255, 107, 53, 0.06) 0%, transparent 55%);
+        radial-gradient(ellipse 55% 55% at 22% 55%, rgba(232, 98, 42, 0.07) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 60% at  0% 90%, rgba(0, 201, 167, 0.04)  0%, transparent 55%),
+        radial-gradient(ellipse 50% 70% at 80% 45%, rgba(232, 98, 42, 0.04) 0%, transparent 55%);
     }
 
     #hero .hero-bg-grid {
@@ -352,8 +356,8 @@
       z-index: 0;
       pointer-events: none;
       background-image:
-        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
       background-size: 60px 60px;
       -webkit-mask-image: radial-gradient(ellipse 60% 75% at 28% 50%, black 30%, transparent 80%);
               mask-image: radial-gradient(ellipse 60% 75% at 28% 50%, black 30%, transparent 80%);
@@ -369,9 +373,9 @@
       background: linear-gradient(
         to bottom,
         transparent             0%,
-        rgba(255, 107, 53, 0.18) 25%,
-        rgba(255, 107, 53, 0.25) 50%,
-        rgba(255, 107, 53, 0.18) 75%,
+        rgba(232, 98, 42, 0.12) 25%,
+        rgba(232, 98, 42, 0.18) 50%,
+        rgba(232, 98, 42, 0.12) 75%,
         transparent             100%
       );
     }
@@ -391,7 +395,7 @@
       align-items: center;
       gap: 8px;
       background: var(--accent-subtle);
-      border: 1px solid rgba(255, 107, 53, 0.2);
+      border: 1px solid rgba(232, 98, 42, 0.18);
       border-radius: var(--radius-pill);
       padding: 6px 16px;
       font-size: 0.75rem;
@@ -416,7 +420,7 @@
       line-height: 1.05;
       letter-spacing: -0.03em;
       margin-bottom: 24px;
-      text-shadow: 0 2px 40px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
     }
     .hero-headline em { font-style: italic; color: var(--accent); }
 
@@ -440,7 +444,14 @@
       line-height: 1.82;
       font-weight: 300;
       max-width: 520px;
+      margin-bottom: 10px;
+    }
+
+    .hero-industries {
+      font-size: 0.88rem;
+      color: var(--text-muted);
       margin-bottom: 32px;
+      font-weight: 300;
     }
 
     .hero-cta-row {
@@ -448,6 +459,30 @@
       align-items: center;
       gap: 16px;
       flex-wrap: wrap;
+    }
+
+    .hero-cta-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+
+    .hero-human-statement {
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .hero-human-statement p {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .hero-human-statement p + p {
+      margin-top: 4px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
     }
 
 
@@ -465,7 +500,7 @@
       border-radius: var(--radius-pill);
       border: none;
       transition: background 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
-      box-shadow: 0 4px 20px rgba(255, 107, 53, 0.35);
+      box-shadow: 0 4px 16px rgba(232, 98, 42, 0.28);
     }
     .btn-primary:hover {
       background: var(--accent-light);
@@ -492,12 +527,12 @@
 
     .hero-form-card {
       background: var(--bg-raised);
-      border: 1px solid rgba(255, 255, 255, 0.11);
+      border: 1px solid rgba(255, 255, 255, 0.09);
       border-radius: var(--radius-lg);
       padding: 36px 32px;
-      box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.08),
-                  0 32px 80px rgba(0, 0, 0, 0.7),
-                  0 8px 32px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 0 1px rgba(232, 98, 42, 0.06),
+                  0 24px 60px rgba(0, 0, 0, 0.55),
+                  0 6px 24px rgba(0, 0, 0, 0.4);
       position: relative;
       overflow: hidden;
     }
@@ -514,7 +549,7 @@
       top: -80px; right: -80px;
       width: 240px;
       height: 240px;
-      background: radial-gradient(circle, rgba(255, 107, 53, 0.14) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(232, 98, 42, 0.08) 0%, transparent 65%);
       pointer-events: none;
     }
 
@@ -564,9 +599,9 @@
     .form-group input:focus,
     .form-group textarea:focus {
       border-color: var(--accent);
-      background: rgba(255, 107, 53, 0.04);
+      background: rgba(232, 98, 42, 0.04);
       transform: scale(1.012);
-      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12);
+      box-shadow: 0 0 0 3px rgba(232, 98, 42, 0.1);
     }
     .form-group.error input,
     .form-group.error textarea {
@@ -605,7 +640,7 @@
       justify-content: center;
       gap: 8px;
       margin-top: 6px;
-      box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+      box-shadow: 0 4px 16px rgba(232, 98, 42, 0.24);
     }
     .btn-submit:hover:not(:disabled) {
       background: var(--accent-light);
@@ -680,6 +715,72 @@
     .form-success p  { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
 
 
+    /* ── Inline content sections ────────────────────────────────── */
+
+    .problem-section,
+    .solution-section {
+      padding: 72px 0;
+      position: relative;
+    }
+
+    .problem-section {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .solution-section {
+      background: var(--bg-base);
+    }
+
+    .prose-block {
+      max-width: 580px;
+    }
+
+    .prose-block h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .prose-block p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.82;
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+
+    .filter-text {
+      padding: 48px 0;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .filter-text p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .scarcity-line {
+      margin-top: 28px;
+      font-size: 0.88rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .trust-line {
+      margin-top: 16px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+
     /* ── About ──────────────────────────────────────────────────── */
 
     #about {
@@ -694,7 +795,7 @@
       left: -300px; bottom: -200px;
       width: 700px;
       height: 700px;
-      background: radial-gradient(circle, rgba(0, 201, 167, 0.04) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(0, 201, 167, 0.03) 0%, transparent 65%);
       pointer-events: none;
     }
 
@@ -751,7 +852,7 @@
       font-size: 0.95rem;
       color: var(--text-secondary);
       line-height: 1.82;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       font-weight: 300;
     }
 
@@ -779,7 +880,7 @@
       justify-content: center;
       flex-shrink: 0;
       margin-top: 1px;
-      border: 1px solid rgba(255, 107, 53, 0.15);
+      border: 1px solid rgba(232, 98, 42, 0.15);
     }
 
 
@@ -819,6 +920,14 @@
       color: var(--text-muted);
       line-height: 1.7;
       font-weight: 300;
+    }
+
+    .services-intro {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      font-style: italic;
     }
 
     .service-card {
@@ -867,7 +976,7 @@
       justify-content: center;
       font-size: 22px;
       margin-bottom: 20px;
-      border: 1px solid rgba(255, 107, 53, 0.2);
+      border: 1px solid rgba(232, 98, 42, 0.18);
     }
     .service-card h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; }
     .service-card p  { font-size: 0.88rem; color: var(--text-muted); line-height: 1.72; }
@@ -887,7 +996,7 @@
       right: -200px; top: -100px;
       width: 600px;
       height: 600px;
-      background: radial-gradient(circle, rgba(255, 107, 53, 0.04) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(232, 98, 42, 0.03) 0%, transparent 65%);
       pointer-events: none;
     }
 
@@ -908,7 +1017,7 @@
     }
     .testimonial-card--featured {
       background: var(--bg-highlight);
-      border-color: rgba(255, 107, 53, 0.18);
+      border-color: rgba(232, 98, 42, 0.15);
       padding: 40px;
     }
     .testimonial-card:hover {
@@ -922,7 +1031,7 @@
       font-size: 5rem;
       color: var(--accent);
       line-height: 0.6;
-      opacity: 0.25;
+      opacity: 0.2;
       margin-bottom: 12px;
       display: block;
     }
@@ -984,7 +1093,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(255, 107, 53, 0.05) 0%, transparent 60%);
+      background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(232, 98, 42, 0.04) 0%, transparent 60%);
       pointer-events: none;
     }
 
@@ -1029,9 +1138,9 @@
       transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
     }
     .contact-card:hover {
-      border-color: rgba(255, 107, 53, 0.25);
+      border-color: rgba(232, 98, 42, 0.22);
       transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
     }
     .contact-card-icon {
       width: 46px;
@@ -1042,7 +1151,7 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 14px;
-      border: 1px solid rgba(255, 107, 53, 0.15);
+      border: 1px solid rgba(232, 98, 42, 0.15);
     }
     .contact-card-icon svg { color: var(--accent); }
     .contact-card-label {
@@ -1170,10 +1279,10 @@
     <a href="#services"     onclick="closeMobile()">Packages</a>
     <a href="#testimonials" onclick="closeMobile()">Results</a>
     <a href="#contact"      onclick="closeMobile()">Contact</a>
-    <a href="/cdn-cgi/l/email-protection#3f5b5e51565a535b5a5d500e077f58525e5653115c5052" class="nav-cta">Get Started</a>
+    <a href="/cdn-cgi/l/email-protection#3f5b5e51565a535b5a5d500e077f58525e5653115c5052" class="nav-cta">Start Getting Calls</a>
   </nav>
 
-  <!-- Safe area spacer (fills notch/Dynamic Island on iOS, no visible content) -->
+  <!-- Safe area spacer -->
   <div id="top-bar" style="
     position: fixed;
     top: 0;
@@ -1191,7 +1300,10 @@
 
         <a href="#" class="nav-logo" onclick="smoothScrollTo('hero'); return false;">
           <div class="nav-logo-icon">L</div>
-          <span>LeadGen Websites</span>
+          <div class="nav-logo-text">
+            <span class="nav-logo-name">Local Lead Websites</span>
+            <span class="nav-logo-by">by Samuel Rincon</span>
+          </div>
         </a>
 
         <nav class="nav-links">
@@ -1227,20 +1339,24 @@
           </div>
 
           <h1 class="hero-headline reveal delay-1">
-            <em>High-Converting</em><br>
-            Websites That Bring<br>
-            <span class="hero-underline">More Customers</span>
+            Get More Calls<br>
+            From Your<br>
+            <span class="hero-underline">Website</span>
           </h1>
 
           <p class="hero-subheadline reveal delay-2">
-            We build premium, done-for-you websites for HVAC, roofing, plumbing, and other local
-            service businesses. Domain, hosting, security, and support — everything included so you
-            can focus on running your business.
+            I build simple websites for local service businesses that turn visitors into real calls and booked jobs.
+            No agencies. No long timelines.
+            Just a website that actually does something.
+          </p>
+
+          <p class="hero-industries reveal delay-3">
+            Built for local businesses like HVAC, landscaping, moving, flooring, or event services.
           </p>
 
           <div class="hero-cta-row reveal delay-4">
             <a href="#" class="btn-primary" onclick="scrollToForm(); return false;">
-              Get Your Website
+              Get More Calls
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
@@ -1255,12 +1371,23 @@
               See Live HVAC Demo
             </a>
           </div>
+
+          <p class="hero-cta-note reveal delay-4">Takes less than a minute</p>
+
+          <div class="hero-human-statement reveal delay-4">
+            <p>A website should bring you calls.</p>
+            <p>If it doesn't, it's broken.</p>
+            <p>I see it all the time.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: var(--text-muted);">
+              Most sites just sit there. This one shouldn't.
+            </p>
+          </div>
         </div>
 
         <!-- Form Card -->
         <div class="hero-form-card reveal delay-2">
-          <h2 class="hero-form-title">Request Your Website</h2>
-          <p class="hero-form-sub">Tell us about your business and we'll reach out within 24 hours to get started.</p>
+          <h2 class="hero-form-title">Let's Get You More Calls</h2>
+          <p class="hero-form-sub">Fill this out and I'll reach out personally within 24 hours.</p>
 
           <form id="heroForm" novalidate>
 
@@ -1282,24 +1409,24 @@
             </div>
 
             <div class="form-group" id="hf-message-group">
-              <label for="hf-message">Tell Us About Your Business *</label>
+              <label for="hf-message">Tell Me About Your Business *</label>
               <textarea id="hf-message" name="message" placeholder="E.g. I run an HVAC company in Dallas and need a website that generates more leads..." required></textarea>
               <span class="form-error-msg">Please describe your business and what you need.</span>
             </div>
 
             <button type="submit" class="btn-submit" id="heroSubmitBtn">
-              <span class="btn-text">Send My Request</span>
+              <span class="btn-text">Get My Website</span>
               <span class="spinner" aria-hidden="true"></span>
             </button>
 
             <div class="form-inline-error" id="heroInlineError">
-              <p>Something went wrong. Try again or reach out to us directly.</p>
+              <p>Something went wrong. Try again or reach out directly.</p>
               <button type="button" class="btn-mailto" id="heroMailtoBtn">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                   <polyline points="22,6 12,13 2,6"/>
                 </svg>
-                Email Us Directly
+                Email Me Directly
               </button>
             </div>
 
@@ -1311,11 +1438,37 @@
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
             </div>
-            <h3>Request Received!</h3>
-            <p>We'll reach out shortly to start building your website. Check your inbox within 24 hours.</p>
+            <h3>Got it!</h3>
+            <p>I'll reach out personally within 24 hours. Check your inbox.</p>
           </div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="problem-section">
+    <div class="container">
+      <div class="prose-block reveal">
+        <h2>Most websites don't do anything.</h2>
+        <p>They just sit there.</p>
+        <p>They look fine, but no one calls. No clear next step. No real reason to trust the business.</p>
+        <p>That's the problem.</p>
+        <p style="margin-top: 18px; color: var(--accent); font-weight: 500;">
+          If that sounds familiar, you're probably losing customers right now.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="solution-section">
+    <div class="container">
+      <div class="prose-block reveal">
+        <h2>This is what I focus on.</h2>
+        <p>Simple websites that make it easy for people to call you, message you, or book.</p>
+        <p>Nothing complicated. Just something that works.</p>
       </div>
     </div>
   </section>
@@ -1327,46 +1480,28 @@
 
         <div class="about-image-wrap reveal-left">
           <img src="images/website.png" alt="Sample client website" />
-          <div class="about-badge">
-            <div class="about-badge-num">50+</div>
-            <div class="about-badge-text">Sites<br>Launched</div>
-          </div>
         </div>
 
         <div class="about-content reveal-right">
-          <span class="section-label">About Us</span>
-          <h2>Built for Businesses<br>That Want <em class="accent">Real Results</em></h2>
-          <p>We specialize in building high-converting websites exclusively for local service businesses — HVAC, roofing, plumbing, electrical, landscaping, and more. Every website we deliver is engineered to turn visitors into calls and bookings.</p>
-          <p>No bloated agencies, no mystery pricing. Just clean, fast, professional websites that work — delivered in days, not months.</p>
-
-          <ul class="about-bullets">
-            <li class="about-bullet reveal delay-1">
-              <div class="bullet-icon">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
-              <span><strong>Everything included</strong> — domain, hosting, SSL security, and ongoing support in one simple package.</span>
-            </li>
-            <li class="about-bullet reveal delay-2">
-              <div class="bullet-icon">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
-              <span><strong>Built to convert</strong> — optimized layouts, clear calls-to-action, and mobile-first design that drives inbound leads.</span>
-            </li>
-            <li class="about-bullet reveal delay-3">
-              <div class="bullet-icon">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
-              <span><strong>Fast turnaround</strong> — your professional website is live and generating leads within days of signing up.</span>
-            </li>
-            <li class="about-bullet reveal delay-4">
-              <div class="bullet-icon">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              </div>
-              <span><strong>Satisfaction guaranteed</strong> — if your site doesn't perform, we fix it. No questions asked.</span>
-            </li>
-          </ul>
+          <span class="section-label">About</span>
+          <h2>Hey, I'm <em class="accent">Samuel.</em></h2>
+          <p>This started as a side thing because I realized most local businesses either don't have a website or have one that doesn't do anything.</p>
+          <p>I build these myself. No outsourcing, no team, no delays.</p>
+          <p>Most businesses don't need something fancy. They just need something that brings in real customers.</p>
+          <p>That's what I do.</p>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter / Scarcity -->
+  <section class="filter-text">
+    <div class="container">
+      <div class="prose-block reveal">
+        <p>This isn't for everyone.</p>
+        <p>If you just want the cheapest thing possible, this probably isn't it.</p>
+        <p class="scarcity-line">I only take a few projects at a time.</p>
       </div>
     </div>
   </section>
@@ -1378,20 +1513,22 @@
       <div class="section-header reveal">
         <span class="section-label">Packages</span>
         <h2 class="section-title">Choose Your <span class="accent">Plan</span></h2>
-        <p class="section-sub">Simple, transparent pricing. Every package includes everything you need to get online and start winning customers — no hidden fees, no surprises.</p>
+        <p class="section-sub">Pick what makes sense for your business. Everything is built to help you get calls.</p>
       </div>
+
+      <p class="services-intro reveal">Every site is built around your business. Not a generic template.</p>
 
       <div class="services-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start;">
 
-        <!-- Starter -->
+        <!-- Basic Website -->
         <div class="service-card reveal delay-1" style="display: flex; flex-direction: column;">
           <div class="service-icon">🚀</div>
-          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Starter</h3>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px;">Get online fast with a professional, high-converting website ready to bring in leads from day one.</p>
+          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Basic Website</h3>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px;">If you just need something solid online, this is it.</p>
           <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;">
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Premium website template
+              Clean website design
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1410,19 +1547,19 @@
               6-month performance guarantee
             </li>
           </ul>
-          <a href="#" class="btn-primary scroll-to-form" style="justify-content: center; width: 100%; box-sizing: border-box;">Get Started</a>
+          <a href="#" class="btn-primary scroll-to-form" style="justify-content: center; width: 100%; box-sizing: border-box;">Start Getting Calls</a>
         </div>
 
-        <!-- Growth (featured) -->
-        <div class="service-card reveal delay-2" style="display: flex; flex-direction: column; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 16px 48px rgba(255,107,53,.18); position: relative;">
+        <!-- Growth Website (featured) -->
+        <div class="service-card reveal delay-2" style="display: flex; flex-direction: column; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 16px 48px rgba(232,98,42,.14); position: relative;">
           <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 14px; border-radius: var(--radius-pill); white-space: nowrap;">Most Popular</div>
           <div class="service-icon" style="margin-top: 28px;">📈</div>
-          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Growth</h3>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px;">Everything in Starter, plus active maintenance and a full year of guaranteed performance.</p>
+          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Growth Website</h3>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px;">If you want something you don't have to think about again.</p>
           <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;">
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Everything in Starter
+              Everything in Basic
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1437,14 +1574,14 @@
               Priority support response
             </li>
           </ul>
-          <a href="#" class="btn-primary scroll-to-form" style="justify-content: center; width: 100%; box-sizing: border-box;">Get Started</a>
+          <a href="#" class="btn-primary scroll-to-form" style="justify-content: center; width: 100%; box-sizing: border-box;">Start Getting Calls</a>
         </div>
 
-        <!-- Premium -->
+        <!-- Custom Website -->
         <div class="service-card reveal delay-3" style="display: flex; flex-direction: column;">
           <div class="service-icon">💎</div>
-          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Premium</h3>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px;">Everything in Growth, plus a fully custom design and unlimited edits — your brand, built exactly right.</p>
+          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Custom Website</h3>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px;">If you want it to actually feel like your business.</p>
           <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;">
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1460,10 +1597,10 @@
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Conversion rate optimization
+              Focused on getting you more calls
             </li>
           </ul>
-          <a href="#" class="btn-primary scroll-to-form" style="justify-content: center; width: 100%; box-sizing: border-box;">Get a Custom Quote</a>
+          <a href="#" class="btn-primary scroll-to-form" style="justify-content: center; width: 100%; box-sizing: border-box;">Start Getting Calls</a>
         </div>
 
       </div>
@@ -1476,8 +1613,8 @@
 
       <div class="section-header reveal">
         <span class="section-label">Client Results</span>
-        <h2 class="section-title">What Business Owners <span class="accent">Are Saying</span></h2>
-        <p class="section-sub">Real results from real local businesses. These outcomes reflect what our clients experience after launching their new websites.</p>
+        <h2 class="section-title">What Businesses <span class="accent">Are Saying</span></h2>
+        <p class="section-sub">Real feedback from real local businesses after launching their sites.</p>
       </div>
 
       <div class="testimonials-grid">
@@ -1485,7 +1622,7 @@
         <!-- Featured testimonial -->
         <div class="testimonial-card testimonial-card--featured reveal">
           <span class="quote-mark" aria-hidden="true">"</span>
-          <p class="testimonial-text">After launching our new website, our bookings increased almost immediately. Customers can now see our equipment, request quotes, and contact us easily. It made our business look much more professional and helped us close more events.</p>
+          <p class="testimonial-text">After launching our new site, bookings picked up almost right away. Customers can see our equipment, request quotes, and get in touch easy. It made us look way more legit and we've been closing more events since.</p>
           <div class="testimonial-author">
             <div class="author-avatar">👤</div>
             <div>
@@ -1493,7 +1630,7 @@
               <div class="author-detail">Aldea Music Corp — Spring, TX</div>
               <div class="verified-badge">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                Verified Client Result
+                Client Feedback
               </div>
             </div>
             <div class="stars">★★★★★</div>
@@ -1502,7 +1639,7 @@
 
         <div class="testimonial-card reveal delay-1">
           <span class="quote-mark" aria-hidden="true">"</span>
-          <p class="testimonial-text">Before the website, we relied only on word of mouth. Now we're getting consistent moving requests every week through the site. It's simple, clean, and actually brings in real customers.</p>
+          <p class="testimonial-text">Before this we were all word of mouth. Now we get moving requests every week from the site. It's simple, not overdesigned, and it actually works.</p>
           <div class="testimonial-author">
             <div class="author-avatar">👤</div>
             <div>
@@ -1510,7 +1647,7 @@
               <div class="author-detail">Out The Door Moving — Conroe, TX</div>
               <div class="verified-badge">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                Verified Client Result
+                Client Feedback
               </div>
             </div>
             <div class="stars">★★★★★</div>
@@ -1519,7 +1656,7 @@
 
         <div class="testimonial-card reveal delay-2">
           <span class="quote-mark" aria-hidden="true">"</span>
-          <p class="testimonial-text">The website helped us showcase our flooring work professionally. Customers now come in already trusting our brand because of how polished everything looks online.</p>
+          <p class="testimonial-text">Helped us show off our flooring work in a way that looks real. Customers come in already trusting us because of what they saw online. Makes a difference.</p>
           <div class="testimonial-author">
             <div class="author-avatar">👤</div>
             <div>
@@ -1527,7 +1664,7 @@
               <div class="author-detail">First Class Floors — Conroe, TX</div>
               <div class="verified-badge">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                Verified Client Result
+                Client Feedback
               </div>
             </div>
             <div class="stars">★★★★★</div>
@@ -1536,7 +1673,7 @@
 
         <div class="testimonial-card reveal delay-3" style="grid-column: 1 / -1;">
           <span class="quote-mark" aria-hidden="true">"</span>
-          <p class="testimonial-text">Our dance studio finally has an online presence that reflects our energy and professionalism. We've gotten more class sign-ups directly from the website than ever before.</p>
+          <p class="testimonial-text">Our studio finally has something online that actually feels like us. We're getting more class sign-ups through the site than we ever did before. Didn't think a website would make that much of a difference.</p>
           <div class="testimonial-author">
             <div class="author-avatar">👤</div>
             <div>
@@ -1544,7 +1681,7 @@
               <div class="author-detail">The Woodlands Latin Dance — The Woodlands, TX</div>
               <div class="verified-badge">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                Verified Client Result
+                Client Feedback
               </div>
             </div>
             <div class="stars">★★★★★</div>
@@ -1561,16 +1698,17 @@
       <div class="contact-simple">
 
         <span class="section-label reveal" style="justify-content: center; margin-bottom: 16px;">Get in Touch</span>
-        <h2 class="reveal delay-1">Your New Website is <span class="accent">One Step Away</span></h2>
-        <p class="reveal delay-2">Ready to start attracting more customers? Send us a message and we'll put together the right package for your business.</p>
+        <h2 class="reveal delay-1">Let's Get You Something That <span class="accent">Actually Works</span></h2>
+        <p class="reveal delay-2">Fill this out and I'll reach out personally within 24 hours.</p>
 
         <div class="reveal delay-3">
           <a class="btn-primary" style="margin: 0 auto; display: inline-flex;" href="#" onclick="scrollToForm(); return false;">
-            Get in Touch
+            Start Getting Calls
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
+          <p class="trust-line">If it doesn't feel right, I fix it. Simple as that.</p>
         </div>
 
         <div class="contact-cards">
@@ -1592,7 +1730,7 @@
                 <polyline points="22,6 12,13 2,6"/>
               </svg>
             </div>
-            <div class="contact-card-label">Email Us</div>
+            <div class="contact-card-label">Email</div>
             <div class="contact-card-value" style="font-size: 0.82rem;">
               <a href="/cdn-cgi/l/email-protection#4125202f28242d2524232e707901262c20282d6f222e2c"><span class="__cf_email__" data-cfemail="1377727d7a767f7776717c222b53747e727a7f3d707c7e">[email&#160;protected]</span></a><br>
               <a href="/cdn-cgi/l/email-protection#e390828e96868f918a8d808c8d8ea39a828b8c8ccd808c8e"><span class="__cf_email__" data-cfemail="04776569716168766d6a676b6a69447d656c6b6b2a676b69">[email&#160;protected]</span></a>
@@ -1634,17 +1772,20 @@
         <div class="footer-brand">
           <div class="nav-logo">
             <div class="nav-logo-icon">L</div>
-            <span>LeadGen Websites</span>
+            <div class="nav-logo-text">
+              <span class="nav-logo-name">Local Lead Websites</span>
+              <span class="nav-logo-by">by Samuel Rincon</span>
+            </div>
           </div>
-          <p>Premium websites for local service businesses. Everything included — so you can focus on running your business, not your website.</p>
+          <p>Simple websites built to help you get more calls.</p>
         </div>
 
         <div class="footer-col">
           <h4>Packages</h4>
           <ul>
-            <li><a href="#services">Starter</a></li>
-            <li><a href="#services">Growth</a></li>
-            <li><a href="#services">Premium</a></li>
+            <li><a href="#services">Basic Website</a></li>
+            <li><a href="#services">Growth Website</a></li>
+            <li><a href="#services">Custom Website</a></li>
           </ul>
         </div>
 
@@ -1660,7 +1801,7 @@
 
       </div>
       <div class="footer-bottom">
-        <span>&copy; <span id="footerYear"></span> Lead Website Service. All rights reserved.</span>
+        <span>&copy; <span id="footerYear"></span> Local Lead Websites. All rights reserved.</span>
         <span>Websites for Local Service Businesses</span>
       </div>
     </div>
