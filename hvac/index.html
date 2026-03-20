@@ -116,29 +116,18 @@
       background: var(--teal); border-radius: 2px;
     }
 
-    /* ─── AMBIENT GRAIN OVERLAY ──────────────────────────────────────────── */
-    body::after {
-      content: '';
-      position: fixed; inset: 0; z-index: 9999;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
-      opacity: 0.18;
-    }
+    /* noise overlay removed for performance */
 
     /* ─── NAVBAR ─────────────────────────────────────────────────────────── */
     #navbar {
       position: fixed; top: 0; left: 0; right: 0;
       z-index: 1000; padding: 22px 0;
-      background: rgba(255,255,255,0.82);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.95);
       border-bottom: 1px solid var(--border);
       transition: padding var(--transition), background var(--transition), box-shadow var(--transition);
     }
     #navbar.scrolled {
       background: rgba(255,255,255,0.97);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
       padding: 14px 0;
       border-bottom: 1px solid var(--border);
       box-shadow: 0 2px 20px rgba(13,31,60,0.08);
@@ -229,6 +218,7 @@
       mask-image: linear-gradient(to right, transparent 0%, black 18%);
     }
     #hero .hero-bg-glow {
+      display: none;
       position: absolute; inset: 0; z-index: 0; pointer-events: none;
       background:
         radial-gradient(ellipse 55% 55% at 18% 50%, rgba(21,101,192,0.10) 0%, transparent 65%),
@@ -236,6 +226,7 @@
         radial-gradient(ellipse 50% 70% at 82% 45%, rgba(224,32,32,0.07) 0%, transparent 55%);
     }
     #hero .hero-bg-grid {
+      display: none;
       position: absolute; inset: 0; z-index: 0; pointer-events: none;
       background-image:
         linear-gradient(rgba(21,101,192,0.06) 1px, transparent 1px),
@@ -321,7 +312,7 @@
     .hero-form-card {
       background: #ffffff; border: 1px solid var(--border-strong);
       border-radius: var(--radius-lg); padding: 36px 32px;
-      box-shadow: 0 0 0 1px rgba(21,101,192,0.06), 0 24px 60px rgba(13,31,60,0.12), 0 6px 20px rgba(13,31,60,0.07);
+      box-shadow: 0 0 0 1px rgba(21,101,192,0.06), 0 10px 24px rgba(13,31,60,0.10);
       position: relative; overflow: hidden;
     }
     .hero-form-card::before {
@@ -352,7 +343,7 @@
       border: 1.5px solid var(--border-strong); border-radius: var(--radius);
       color: var(--text-primary); font-size: 0.9rem;
       padding: 11px 14px; outline: none;
-      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+      transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
       appearance: none;
     }
     .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); }
@@ -364,7 +355,6 @@
     .form-group textarea { resize: vertical; min-height: 80px; }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
       border-color: var(--teal); background: rgba(21,101,192,0.03);
-      transform: scale(1.012);
       box-shadow: 0 0 0 3px rgba(21,101,192,0.12), 0 2px 10px rgba(21,101,192,0.07);
     }
     .form-group.error input, .form-group.error select, .form-group.error textarea {
@@ -516,19 +506,18 @@
       transition: transform var(--transition);
     }
     .service-card::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, transparent 60%);
-      opacity: 0; transition: opacity var(--transition);
+      display: none;
     }
-    .service-card:hover { transform: translateY(-5px) scale(1.01); border-color: var(--border-strong); box-shadow: 0 16px 40px rgba(13,31,60,0.12); }
+    .service-card:hover { transform: translateY(-5px); border-color: var(--border-strong); box-shadow: 0 10px 24px rgba(13,31,60,0.10); }
     .service-card:hover::before { transform: scaleX(1); }
-    .service-card:hover::after  { opacity: 1; }
-    .service-card:active { transform: scale(0.97); }
+    .service-card:active { opacity: 0.88; }
     .service-icon {
       width: 52px; height: 52px;
+      background: rgba(21,101,192,0.08); /* fallback */
       background: color-mix(in srgb, var(--card-accent) 10%, transparent);
       border-radius: 12px; display: flex; align-items: center; justify-content: center;
       font-size: 22px; margin-bottom: 20px;
+      border: 1px solid rgba(21,101,192,0.15); /* fallback */
       border: 1px solid color-mix(in srgb, var(--card-accent) 18%, transparent);
     }
     .service-card h3  { font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 10px; color: var(--text-primary); }
@@ -569,7 +558,7 @@
       background: linear-gradient(135deg, #e8f0fc 0%, #f0f6ff 100%);
       border-color: rgba(21,101,192,0.18); padding: 40px 40px;
     }
-    .testimonial-card:hover { transform: translateY(-3px); border-color: var(--border-strong); box-shadow: var(--shadow); }
+    .testimonial-card:hover { transform: translateY(-2px); border-color: var(--border-strong); box-shadow: var(--shadow); }
     .quote-mark { font-family: var(--font-display); font-size: 5rem; color: var(--teal); line-height: 0.6; opacity: 0.25; margin-bottom: 12px; display: block; }
     .testimonial-text { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.85; font-weight: 400; margin-bottom: 24px; font-style: italic; }
     .testimonial-card--featured .testimonial-text { font-size: 1.1rem; line-height: 1.9; margin-bottom: 28px; color: var(--text-primary); }
@@ -657,15 +646,8 @@
     }
 
     /* ─── TEMPLATE NOTICE BAR ───────────────────────────────────────── */
-    .template-bar {
-      position: fixed; top: 0; left: 0; width: 100%;
-      background: linear-gradient(90deg, #1565c0, #1976d2);
-      color: #fff; text-align: center; font-size: 0.75rem; font-weight: 500;
-      padding: 4px 10px; z-index: 10000; letter-spacing: 0.02em; line-height: 1.4;
-    }
-    .template-bar a { color: #fff; text-decoration: underline; font-weight: 600; }
-    @media (max-width: 600px) { .template-bar { font-size: 0.7rem; padding: 6px 10px; } }
-    #navbar { top: 28px; }
+    .template-bar { display: none; }
+    #navbar { top: 0; }
   </style>
 
   <script type="application/ld+json">
@@ -742,7 +724,7 @@
   <!-- ── HERO ───────────────────────────────────────────────────────────── -->
   <section id="hero" aria-labelledby="hero-headline">
     <div class="hero-bg-split"   aria-hidden="true"></div>
-    <img src="images/hvac3.png" alt="" aria-hidden="true" loading="eager" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.05;z-index:0;pointer-events:none;" />
+    <img src="images/hvac3.webp" alt="" aria-hidden="true" loading="eager" decoding="async" fetchpriority="high" width="800" height="450" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.04;z-index:0;pointer-events:none;" />
     <div class="hero-bg-glow"    aria-hidden="true"></div>
     <div class="hero-bg-grid"    aria-hidden="true"></div>
     <div class="hero-bg-divider" aria-hidden="true"></div>
@@ -810,6 +792,7 @@
                 <span class="btn-text">Get My Free Estimate</span>
                 <span class="spinner" aria-hidden="true"></span>
               </button>
+              <p style="font-size:0.68rem; color:var(--text-muted); text-align:center; margin-top:10px; opacity:0.75;">Demo form — no data is collected or sent.</p>
             </div>
             <div class="form-inline-error" id="heroInlineError" role="alert">
               <p>Something went wrong. Please try again.</p>
@@ -840,10 +823,7 @@
           <div class="about-image-placeholder" role="img" aria-label="Houston Cooling & Heating Pros team photo">
             <img src="images/hvac1.png" alt="Houston Cooling & Heating Pros team on the job" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px;" />
           </div>
-          <!-- CHANGE 2: Added image caption below the about photo -->
-          <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px; text-align: center;">
-            Demo project. Built to show how a simple site can turn visitors into calls.
-          </p>
+          
           <div class="about-badge">
             <div class="about-badge-num">10+</div>
             <div class="about-badge-text">Years<br>Experience</div>
@@ -856,9 +836,8 @@
             About<br>
             <em class="accent">Houston Cooling & Heating Pros</em>
           </h2>
-          <!-- CHANGE 1: Added demo disclosure line below the About heading -->
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
-            This is a demo website I built to show how a local HVAC business can get more calls.
+            Proudly serving Houston homeowners with fast, reliable HVAC solutions.
           </p>
           <p>We're a family-owned and operated HVAC company proudly serving Houston homeowners for over a decade. We know Texas heat like no one else — and we know how fast a broken AC can turn a Houston summer into a real emergency.</p>
           <p>From routine maintenance to emergency same-day repairs, our licensed and insured technicians are ready to restore your comfort quickly and honestly — with upfront pricing and no surprise fees.</p>
@@ -1007,9 +986,10 @@
       <div class="reviews-footer">
         <div class="google-badge reveal" role="complementary" aria-label="Google reviews badge">
           <div class="google-g" aria-hidden="true">G</div>
-          <span>5.0 Stars · 120+ Google Reviews</span>
+          <span>Example rating display</span>
         </div>
       </div>
+      <p style="font-size:0.7rem; color:var(--text-muted); text-align:center; margin-top:16px; opacity:0.6;">Sample reviews for demonstration purposes.</p>
     </div>
   </section>
 
@@ -1088,6 +1068,7 @@
         <span>© <span id="footerYear"></span> Houston Cooling & Heating Pros. All rights reserved.</span>
         <span>Houston, TX</span>
         <span>Licensed &amp; Insured HVAC Services</span>
+        <span style="font-size:0.7rem; opacity:0.5;">Demo website created for portfolio purposes.</span>
       </div>
     </div>
   </footer>
@@ -1135,8 +1116,15 @@
   });
 
   /* ── Navbar scroll state ──────────────────────────────────────────── */
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        navbar.classList.toggle('scrolled', window.scrollY > 40);
+        ticking = false;
+      });
+      ticking = true;
+    }
   }, { passive: true });
 
   /* ── Active nav link ──────────────────────────────────────────────── */
@@ -1175,7 +1163,7 @@
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
   document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => revealObserver.observe(el));
 
   /* ── Footer year ──────────────────────────────────────────────────── */
@@ -1237,15 +1225,21 @@
 
   heroForm?.addEventListener('submit', e => { e.preventDefault(); handleFormSubmit(); });
 
+  /* ── Dynamic will-change for cards ───────────────────────────────── */
+  document.querySelectorAll('.service-card, .hero-form-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { el.style.willChange = 'transform'; });
+    el.addEventListener('mouseleave', () => { el.style.willChange = ''; });
+  });
+
   /* ── Service card interactions ────────────────────────────────────── */
   document.querySelectorAll('.service-card[data-service]').forEach(card => {
     function activateCard() {
-      card.style.transform = 'scale(0.98)';
-      setTimeout(() => { card.style.transform = ''; }, 120);
+      card.style.opacity = '0.85';
+      setTimeout(() => { card.style.opacity = ''; }, 120);
 
       const formCard = document.querySelector('.hero-form-card');
       if (formCard) {
-        formCard.style.boxShadow = '0 0 0 2px var(--accent), 0 24px 64px rgba(0,0,0,0.6)';
+        formCard.style.boxShadow = '0 0 0 2px var(--accent), 0 12px 28px rgba(13,31,60,0.18)';
         setTimeout(() => { formCard.style.boxShadow = ''; }, 500);
       }
 
