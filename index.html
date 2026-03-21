@@ -36,7 +36,6 @@
       --radius:         8px;
       --radius-lg:      16px;
       --radius-pill:    999px;
-      /* PERF: reduced shadow blur radius (was 24px / 0.4 opacity) */
       --shadow:         0 4px 16px rgba(0, 0, 0, 0.3);
       --shadow-accent:  0 4px 16px rgba(232, 98, 42, 0.15);
       --transition:     0.22s cubic-bezier(0.4, 0, 0.2, 1);
@@ -44,9 +43,6 @@
       --section-pad:    108px;
       --nav-height:     72px;
     }
-
-
-    /* ── Reset ──────────────────────────────────────────────────── */
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -70,9 +66,6 @@
     button, input, textarea { font-family: inherit; }
     button          { cursor: pointer; }
 
-
-    /* ── Utilities ──────────────────────────────────────────────── */
-
     .container {
       width: 100%;
       max-width: var(--max-w);
@@ -88,24 +81,9 @@
       border-radius: var(--radius);
     }
 
-    /*
-     * PERF: Noise overlay removed entirely.
-     * The SVG fractalNoise filter is expensive — it triggers rasterization
-     * on every paint. Visual impact is negligible; cost is not.
-     */
-
-
-    /* ── Animations ─────────────────────────────────────────────── */
-
-    /*
-     * PERF: All animations only use `transform` and `opacity`.
-     * These properties run on the compositor thread (GPU) and do NOT
-     * trigger layout or repaint. Animating width/height/top/left would.
-     */
-
     .reveal {
       opacity: 0;
-      transform: translateY(24px); /* reduced from 32px — same feel, less paint area */
+      transform: translateY(24px);
       transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
                   transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -121,7 +99,6 @@
     .delay-3 { transition-delay: 0.30s !important; }
     .delay-4 { transition-delay: 0.40s !important; }
 
-    /* PERF: pulse-dot only animates opacity+transform (compositor-safe) */
     @keyframes pulse-dot {
       0%, 100% { opacity: 1; transform: scale(1);   }
       50%       { opacity: 0.5; transform: scale(0.7); }
@@ -142,7 +119,6 @@
       100% { transform: scale(1);    opacity: 1; }
     }
 
-    /* PERF: prefers-reduced-motion — disable all motion for users who request it */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -153,9 +129,6 @@
         transform: none !important;
       }
     }
-
-
-    /* ── Section Label ──────────────────────────────────────────── */
 
     .section-label {
       display: inline-flex;
@@ -177,9 +150,6 @@
       border-radius: 2px;
     }
 
-
-    /* ── Navbar ─────────────────────────────────────────────────── */
-
     #navbar {
       position: fixed;
       top: env(safe-area-inset-top);
@@ -191,14 +161,12 @@
       backdrop-filter: blur(11px);
       -webkit-backdrop-filter: blur(11px);
       border-bottom: 1px solid var(--border);
-      /* PERF: transition only transform-safe props, not box-shadow on every scroll */
       transition: padding var(--transition), background var(--transition);
     }
 
     #navbar.scrolled {
       background: rgba(13, 15, 20, 0.97);
       padding: 14px 0;
-      /* PERF: box-shadow applied only in .scrolled state, not animated */
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
 
@@ -232,14 +200,10 @@
       color: #fff;
       font-weight: 900;
       flex-shrink: 0;
-      /* PERF: static shadow, not animated */
       box-shadow: 0 3px 10px rgba(232, 98, 42, 0.3);
-      /* PERF: only transform on hover — no box-shadow animation */
       transition: transform var(--transition);
     }
-    .nav-logo:hover .nav-logo-icon {
-      transform: translateY(-1px);
-    }
+    .nav-logo:hover .nav-logo-icon { transform: translateY(-1px); }
 
     .nav-logo-text { display: flex; flex-direction: column; line-height: 1.2; }
     .nav-logo-name { font-size: 1rem; font-weight: 700; }
@@ -266,14 +230,10 @@
       font-weight: 700;
       padding: 10px 22px;
       border-radius: var(--radius-pill);
-      /* PERF: only transform animated, not box-shadow */
       transition: background var(--transition), transform var(--transition);
       box-shadow: 0 3px 10px rgba(232, 98, 42, 0.2);
     }
-    .nav-cta:hover {
-      background: var(--accent-light);
-      transform: translateY(-1px);
-    }
+    .nav-cta:hover { background: var(--accent-light); transform: translateY(-1px); }
 
     .hamburger {
       display: none;
@@ -294,9 +254,6 @@
     .hamburger.open span:nth-child(1) { transform: translateY(7px)  rotate(45deg);  }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-
-    /* ── Mobile Menu ────────────────────────────────────────────── */
 
     .mobile-menu {
       display: none;
@@ -320,14 +277,7 @@
       transition: color var(--transition);
     }
     .mobile-menu a:hover { color: var(--accent); }
-    .mobile-menu .nav-cta {
-      font-family: var(--font-body);
-      font-size: 1rem;
-      padding: 14px 36px;
-    }
-
-
-    /* ── Hero ───────────────────────────────────────────────────── */
+    .mobile-menu .nav-cta { font-family: var(--font-body); font-size: 1rem; padding: 14px 36px; }
 
     #hero {
       position: relative;
@@ -339,11 +289,6 @@
       overflow: hidden;
     }
 
-    /*
-     * PERF: Simplified hero backgrounds.
-     * Removed the overlay ::after pseudo-element (extra layer + paint).
-     * Kept only a single subtle radial glow — 3 radial gradients removed.
-     */
     #hero .hero-bg-split { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
     #hero .hero-bg-split::before {
       content: '';
@@ -351,14 +296,12 @@
       inset: 0;
       background: var(--bg-base);
     }
-    /* PERF: removed ::after (the right-panel surface overlay) — saves a paint layer */
 
     #hero .hero-bg-glow {
       position: absolute;
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      /* PERF: single gradient instead of 3 — same atmosphere, less composite work */
       background: radial-gradient(ellipse 55% 55% at 22% 55%, rgba(232, 98, 42, 0.06) 0%, transparent 65%);
     }
 
@@ -375,9 +318,6 @@
               mask-image: radial-gradient(ellipse 60% 75% at 28% 50%, black 30%, transparent 80%);
     }
 
-    /* PERF: removed hero-bg-divider — decorative only, adds a composited layer */
-
-    /* Hero layout */
     .hero-inner {
       position: relative;
       z-index: 1;
@@ -408,7 +348,6 @@
       border-radius: 50%;
       background: var(--accent);
       animation: pulse-dot 2s ease-in-out infinite;
-      /* PERF: will-change added at interaction time via JS, not here */
     }
 
     .hero-headline {
@@ -418,7 +357,6 @@
       line-height: 1.05;
       letter-spacing: -0.03em;
       margin-bottom: 24px;
-      /* PERF: removed heavy text-shadow (0 2px 30px) — not worth the repaint cost */
     }
     .hero-headline em { font-style: italic; color: var(--accent); }
 
@@ -432,7 +370,6 @@
       border-radius: 2px;
       transform-origin: left;
       transform: scaleX(0);
-      /* PERF: transform-only animation — compositor safe */
       transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.8s;
     }
     .reveal.visible .hero-underline::after { transform: scaleX(1); }
@@ -460,11 +397,7 @@
       flex-wrap: wrap;
     }
 
-    .hero-cta-note {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 10px;
-    }
+    .hero-cta-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 10px; }
 
     .hero-human-statement {
       margin-top: 40px;
@@ -478,14 +411,7 @@
       color: var(--text-secondary);
       line-height: 1.6;
     }
-    .hero-human-statement p + p {
-      margin-top: 4px;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-
-    /* ── Buttons ────────────────────────────────────────────────── */
+    .hero-human-statement p + p { margin-top: 4px; color: var(--text-muted); font-size: 0.9rem; }
 
     .btn-primary {
       display: inline-flex;
@@ -498,14 +424,10 @@
       padding: 15px 30px;
       border-radius: var(--radius-pill);
       border: none;
-      /* PERF: only transform animated, box-shadow is static */
       transition: background 0.16s ease, transform 0.16s ease;
       box-shadow: 0 3px 12px rgba(232, 98, 42, 0.22);
     }
-    .btn-primary:hover {
-      background: var(--accent-light);
-      transform: translateY(-2px);
-    }
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); }
 
     .btn-outline {
       display: inline-flex;
@@ -521,18 +443,11 @@
     }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
-
-    /* ── Hero Form Card ─────────────────────────────────────────── */
-
     .hero-form-card {
       background: var(--bg-raised);
       border: 1px solid rgba(255, 255, 255, 0.09);
       border-radius: var(--radius-lg);
       padding: 36px 32px;
-      /*
-       * PERF: Reduced shadow blur from 60px→24px, removed extra ring shadow.
-       * Each shadow layer is composited separately — fewer = faster.
-       */
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
       position: relative;
       overflow: hidden;
@@ -544,24 +459,9 @@
       height: 3px;
       background: linear-gradient(90deg, var(--accent), var(--teal));
     }
-    /* PERF: removed ::after radial glow overlay (extra composite layer) */
 
-
-    .hero-form-title {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .hero-form-sub {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 18px;
-      line-height: 1.5;
-    }
-
-
-    /* ── Form Elements ──────────────────────────────────────────── */
+    .hero-form-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+    .hero-form-sub { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5; }
 
     .form-group { margin-bottom: 14px; position: relative; }
     .form-group label {
@@ -583,10 +483,6 @@
       font-size: 0.9rem;
       padding: 11px 14px;
       outline: none;
-      /*
-       * PERF: removed `transform: scale(1.012)` on focus — scale triggers
-       * layout recalculation for all children. Replaced with border+shadow only.
-       */
       transition: border-color 0.18s, box-shadow 0.18s;
       appearance: none;
     }
@@ -595,18 +491,11 @@
     .form-group textarea              { resize: vertical; min-height: 80px; }
 
     .form-group input:focus,
-    .form-group textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(232, 98, 42, 0.1);
-    }
+    .form-group textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(232, 98, 42, 0.1); }
     .form-group.error input,
-    .form-group.error textarea {
-      border-color: var(--error);
-      box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.1);
-    }
+    .form-group.error textarea { border-color: var(--error); box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.1); }
     .form-group.valid input,
     .form-group.valid textarea { border-color: var(--success); }
-    /* PERF: removed background color change on valid — avoids repaint */
     .form-group.valid::after {
       content: '✓';
       position: absolute;
@@ -630,7 +519,6 @@
       border-radius: var(--radius-pill);
       border: none;
       cursor: pointer;
-      /* PERF: only transform animated */
       transition: background 0.16s, transform 0.16s;
       letter-spacing: 0.04em;
       display: flex;
@@ -640,10 +528,7 @@
       margin-top: 6px;
       box-shadow: 0 3px 12px rgba(232, 98, 42, 0.2);
     }
-    .btn-submit:hover:not(:disabled) {
-      background: var(--accent-light);
-      transform: translateY(-2px);
-    }
+    .btn-submit:hover:not(:disabled) { background: var(--accent-light); transform: translateY(-2px); }
     .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
 
     .spinner {
@@ -667,12 +552,7 @@
       margin-top: 12px;
     }
     .form-inline-error.show { display: block; }
-    .form-inline-error p {
-      font-size: 0.82rem;
-      color: var(--error);
-      line-height: 1.6;
-      margin-bottom: 12px;
-    }
+    .form-inline-error p { font-size: 0.82rem; color: var(--error); line-height: 1.6; margin-bottom: 12px; }
 
     .btn-mailto {
       display: inline-flex;
@@ -694,9 +574,7 @@
       display: block;
       animation: successScale 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
-    .form-success.show .success-icon {
-      animation: successBounce 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    }
+    .form-success.show .success-icon { animation: successBounce 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
     .success-icon {
       width: 64px;
       height: 64px;
@@ -711,28 +589,12 @@
     .form-success h3 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 8px; }
     .form-success p  { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
 
-
-    /* ── Inline content sections ────────────────────────────────── */
-
     .problem-section,
-    .solution-section {
-      padding: 72px 0;
-      position: relative;
-    }
+    .solution-section { padding: 72px 0; position: relative; }
+    .problem-section { background: var(--bg-surface); border-top: 1px solid var(--border); }
+    .solution-section { background: var(--bg-base); }
 
-    .problem-section {
-      background: var(--bg-surface);
-      border-top: 1px solid var(--border);
-    }
-
-    .solution-section {
-      background: var(--bg-base);
-    }
-
-    .prose-block {
-      max-width: 580px;
-    }
-
+    .prose-block { max-width: 580px; }
     .prose-block h2 {
       font-family: var(--font-display);
       font-size: clamp(1.6rem, 2.8vw, 2.2rem);
@@ -741,14 +603,7 @@
       letter-spacing: -0.02em;
       margin-bottom: 20px;
     }
-
-    .prose-block p {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      line-height: 1.82;
-      font-weight: 300;
-      margin-bottom: 12px;
-    }
+    .prose-block p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.82; font-weight: 300; margin-bottom: 12px; }
 
     .filter-text {
       padding: 48px 0;
@@ -756,27 +611,119 @@
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
+    .filter-text p { font-size: 0.9rem; color: var(--text-muted); font-style: italic; }
+    .scarcity-line { margin-top: 28px; font-size: 0.88rem; color: var(--accent); font-weight: 600; }
+    .trust-line { margin-top: 16px; font-size: 0.88rem; color: var(--text-muted); font-style: italic; }
 
-    .filter-text p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      font-style: italic;
+    /* ── How It Works ───────────────────────────────────────────── */
+
+    #how-it-works {
+      padding: var(--section-pad) 0;
+      background: var(--bg-base);
+      border-top: 1px solid var(--border);
     }
 
-    .scarcity-line {
-      margin-top: 28px;
-      font-size: 0.88rem;
+    .how-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .how-steps { display: flex; flex-direction: column; gap: 0; }
+
+    .how-step { display: flex; gap: 20px; position: relative; }
+
+    .how-step-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+
+    .how-step-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent-subtle);
+      border: 1px solid rgba(232, 98, 42, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
       color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .how-step-line {
+      width: 1px;
+      flex: 1;
+      background: linear-gradient(to bottom, rgba(232, 98, 42, 0.2), transparent);
+      margin: 6px 0;
+      min-height: 32px;
+    }
+
+    .how-step:last-child .how-step-line { display: none; }
+
+    .how-step-content { padding-bottom: 36px; }
+
+    .how-step-content h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
       font-weight: 600;
+      margin-bottom: 6px;
+      line-height: 1.3;
     }
 
-    .trust-line {
-      margin-top: 16px;
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      font-style: italic;
+    .how-step-content p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.75; font-weight: 300; }
+
+    .how-trust-col { display: flex; flex-direction: column; gap: 16px; }
+
+    .trust-block {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 22px;
+      transition: border-color var(--transition), transform var(--transition);
     }
 
+    .trust-block:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+
+    .trust-block-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .trust-block p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.75; font-weight: 300; }
+
+    .trust-block-demo {
+      border-color: rgba(0, 201, 167, 0.15);
+      background: rgba(0, 201, 167, 0.03);
+    }
+
+    .trust-block-demo .trust-block-label { color: var(--teal); }
+
+    .demo-cta-row { display: flex; align-items: center; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+
+    .btn-demo {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid rgba(0, 201, 167, 0.35);
+      color: var(--teal);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: var(--radius-pill);
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .btn-demo:hover { background: rgba(0, 201, 167, 0.07); border-color: var(--teal); }
+
+    @media (max-width: 1024px) {
+      .how-grid { grid-template-columns: 1fr; gap: 52px; }
+    }
 
     /* ── About ──────────────────────────────────────────────────── */
 
@@ -786,22 +733,14 @@
       position: relative;
       overflow: hidden;
     }
-    /* PERF: removed radial gradient ::before pseudo — extra layer with near-zero visual impact */
 
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
     .about-image-wrap { position: relative; }
     .about-image-wrap img {
       width: 100%;
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
       display: block;
-      /* PERF: content-visibility defers paint for off-screen images */
       content-visibility: auto;
     }
 
@@ -811,116 +750,31 @@
       background: var(--accent);
       border-radius: var(--radius-lg);
       padding: 16px 20px;
-      /* PERF: static shadow */
       box-shadow: 0 4px 16px rgba(232, 98, 42, 0.25);
       text-align: center;
       z-index: 1;
     }
-    .about-badge-num {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: #fff;
-      line-height: 1;
-    }
-    .about-badge-text {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.75);
-      margin-top: 3px;
-    }
+    .about-badge-num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; color: #fff; line-height: 1; }
+    .about-badge-text { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-top: 3px; }
 
-    .about-content h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 20px;
-    }
-    .about-content p {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      line-height: 1.82;
-      margin-bottom: 14px;
-      font-weight: 300;
-    }
+    .about-content h2 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 20px; }
+    .about-content p  { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.82; margin-bottom: 14px; font-weight: 300; }
 
-    .about-bullets {
-      margin-top: 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .about-bullet {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
-    .bullet-icon {
-      width: 22px;
-      height: 22px;
-      background: var(--accent-subtle);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 1px;
-      border: 1px solid rgba(232, 98, 42, 0.15);
-    }
+    .about-bullets { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+    .about-bullet { display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; }
+    .bullet-icon { width: 22px; height: 22px; background: var(--accent-subtle); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; border: 1px solid rgba(232,98,42,0.15); }
 
+    #services { padding: var(--section-pad) 0; background: var(--bg-base); }
 
-    /* ── Services ───────────────────────────────────────────────── */
-
-    #services {
-      padding: var(--section-pad) 0;
-      background: var(--bg-base);
-    }
-
-    .section-header {
-      text-align: center;
-      max-width: 620px;
-      margin: 0 auto 52px;
-    }
+    .section-header { text-align: center; max-width: 620px; margin: 0 auto 52px; }
     .section-header .section-label { justify-content: center; }
     .section-header .section-label::before { display: none; }
-    .section-header .section-label::after {
-      content: '';
-      display: block;
-      width: 28px;
-      height: 2px;
-      background: var(--accent);
-      border-radius: 2px;
-    }
+    .section-header .section-label::after { content: ''; display: block; width: 28px; height: 2px; background: var(--accent); border-radius: 2px; }
 
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-      margin-bottom: 16px;
-    }
-    .section-sub {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-      font-weight: 300;
-    }
+    .section-title { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 16px; }
+    .section-sub { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; font-weight: 300; }
 
-    .services-intro {
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 32px;
-      font-style: italic;
-    }
+    .services-intro { text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 32px; font-style: italic; }
 
     .service-card {
       background: var(--bg-surface);
@@ -929,10 +783,6 @@
       padding: 36px 28px;
       position: relative;
       overflow: hidden;
-      /*
-       * PERF: only transform animated on hover (no box-shadow animation).
-       * will-change is added/removed dynamically via JS on mouseenter/leave.
-       */
       transition: transform var(--transition), border-color var(--transition);
       cursor: pointer;
     }
@@ -946,264 +796,64 @@
       transform-origin: left;
       transition: transform var(--transition);
     }
-    /* PERF: removed ::after shimmer overlay — adds a stacking layer per card */
-    .service-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--border-strong);
-      /* PERF: box-shadow only in hover state, not animated — avoids per-frame repaint */
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    }
+    .service-card:hover { transform: translateY(-4px); border-color: var(--border-strong); box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
     .service-card:hover::before { transform: scaleX(1); }
 
-    .service-icon {
-      width: 52px;
-      height: 52px;
-      background: var(--accent-subtle);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(232, 98, 42, 0.18);
-    }
+    .service-icon { width: 52px; height: 52px; background: var(--accent-subtle); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; border: 1px solid rgba(232,98,42,0.18); }
     .service-card h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; }
     .service-card p  { font-size: 0.88rem; color: var(--text-muted); line-height: 1.72; }
 
+    #testimonials { padding: var(--section-pad) 0; background: var(--bg-surface); position: relative; overflow: hidden; }
 
-    /* ── Testimonials ───────────────────────────────────────────── */
-
-    #testimonials {
-      padding: var(--section-pad) 0;
-      background: var(--bg-surface);
-      position: relative;
-      overflow: hidden;
-    }
-    /* PERF: removed radial glow ::before — near-invisible, not worth the layer */
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
     .testimonial-card--featured { grid-column: 1 / -1; }
 
-    .testimonial-card {
-      background: var(--bg-raised);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 32px 28px;
-      position: relative;
-      /* PERF: only transform animated */
-      transition: transform var(--transition), border-color var(--transition);
-    }
-    .testimonial-card--featured {
-      background: var(--bg-highlight);
-      border-color: rgba(232, 98, 42, 0.15);
-      padding: 40px;
-    }
-    .testimonial-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--border-strong);
-      /* PERF: shadow only in hover state, not animated */
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    }
+    .testimonial-card { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px 28px; position: relative; transition: transform var(--transition), border-color var(--transition); }
+    .testimonial-card--featured { background: var(--bg-highlight); border-color: rgba(232,98,42,0.15); padding: 40px; }
+    .testimonial-card:hover { transform: translateY(-3px); border-color: var(--border-strong); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
 
-    .quote-mark {
-      font-family: var(--font-display);
-      font-size: 5rem;
-      color: var(--accent);
-      line-height: 0.6;
-      opacity: 0.2;
-      margin-bottom: 12px;
-      display: block;
-    }
-    .testimonial-text {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      line-height: 1.85;
-      font-weight: 300;
-      margin-bottom: 24px;
-      font-style: italic;
-    }
-    .testimonial-card--featured .testimonial-text {
-      font-size: 1.1rem;
-      line-height: 1.9;
-      margin-bottom: 28px;
-    }
+    .quote-mark { font-family: var(--font-display); font-size: 5rem; color: var(--accent); line-height: 0.6; opacity: 0.2; margin-bottom: 12px; display: block; }
+    .testimonial-text { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.85; font-weight: 300; margin-bottom: 24px; font-style: italic; }
+    .testimonial-card--featured .testimonial-text { font-size: 1.1rem; line-height: 1.9; margin-bottom: 28px; }
 
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .author-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--bg-highlight);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-      border: 2px solid var(--border-strong);
-    }
+    .testimonial-author { display: flex; align-items: center; gap: 14px; }
+    .author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-highlight); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; border: 2px solid var(--border-strong); }
     .author-name   { font-weight: 600; font-size: 0.9rem; margin-bottom: 2px; }
     .author-detail { font-size: 0.78rem; color: var(--text-muted); }
     .stars         { margin-left: auto; color: var(--accent); font-size: 0.9rem; letter-spacing: 2px; }
 
-    .verified-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.68rem;
-      font-weight: 600;
-      color: var(--teal);
-      letter-spacing: 0.05em;
-      margin-top: 5px;
-    }
+    .verified-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.68rem; font-weight: 600; color: var(--teal); letter-spacing: 0.05em; margin-top: 5px; }
 
+    #contact { padding: var(--section-pad) 0; background: var(--bg-base); position: relative; }
 
-    /* ── Contact ────────────────────────────────────────────────── */
+    .contact-simple { position: relative; z-index: 1; text-align: center; max-width: 700px; margin: 0 auto; }
+    .contact-simple h2 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .contact-simple > p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.82; font-weight: 300; margin-bottom: 28px; }
 
-    #contact {
-      padding: var(--section-pad) 0;
-      background: var(--bg-base);
-      position: relative;
-    }
-    /* PERF: removed full-bleed radial ::before — entire-section gradient is expensive */
-
-    .contact-simple {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .contact-simple h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
-    }
-    .contact-simple > p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.82;
-      font-weight: 300;
-      margin-bottom: 28px;
-    }
-
-    .contact-cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-top: 36px;
-      max-width: 640px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .contact-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 28px 24px;
-      text-align: center;
-      /* PERF: only transform animated */
-      transition: border-color var(--transition), transform var(--transition);
-    }
-    .contact-card:hover {
-      border-color: rgba(232, 98, 42, 0.22);
-      transform: translateY(-3px);
-      /* PERF: static shadow on hover only */
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    }
-    .contact-card-icon {
-      width: 46px;
-      height: 46px;
-      background: var(--accent-subtle);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 14px;
-      border: 1px solid rgba(232, 98, 42, 0.15);
-    }
+    .contact-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 36px; max-width: 640px; margin-left: auto; margin-right: auto; }
+    .contact-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 24px; text-align: center; transition: border-color var(--transition), transform var(--transition); }
+    .contact-card:hover { border-color: rgba(232,98,42,0.22); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+    .contact-card-icon { width: 46px; height: 46px; background: var(--accent-subtle); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; border: 1px solid rgba(232,98,42,0.15); }
     .contact-card-icon svg { color: var(--accent); }
-    .contact-card-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
+    .contact-card-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
     .contact-card-value { font-size: 0.92rem; font-weight: 600; color: var(--text-primary); }
     .contact-card-value a { color: inherit; transition: color var(--transition); }
     .contact-card-value a:hover { color: var(--accent); }
 
+    footer { background: var(--bg-surface); border-top: 1px solid var(--border); padding: 48px 0 24px; }
 
-    /* ── Footer ─────────────────────────────────────────────────── */
-
-    footer {
-      background: var(--bg-surface);
-      border-top: 1px solid var(--border);
-      padding: 48px 0 24px;
-    }
-
-    .footer-top {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
-      gap: 32px;
-      padding-bottom: 32px;
-      border-bottom: 1px solid var(--border);
-    }
-    .footer-brand p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-      font-weight: 300;
-      margin-top: 14px;
-      max-width: 260px;
-    }
-    .footer-col h4 {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-primary);
-      margin-bottom: 14px;
-    }
-    .footer-col ul   { display: flex; flex-direction: column; gap: 8px; }
-    .footer-col ul li a {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      transition: color var(--transition);
-      font-weight: 300;
-    }
+    .footer-top { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+    .footer-brand p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; font-weight: 300; margin-top: 14px; max-width: 260px; }
+    .footer-col h4 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-primary); margin-bottom: 14px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul li a { font-size: 0.875rem; color: var(--text-muted); transition: color var(--transition); font-weight: 300; }
     .footer-col ul li a:hover { color: var(--accent); }
 
-    .footer-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 24px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; font-size: 0.78rem; color: var(--text-muted); flex-wrap: wrap; gap: 10px; }
     .footer-bottom a { color: var(--accent); }
-
-
-    /* ── Responsive ─────────────────────────────────────────────── */
 
     @media (max-width: 1024px) {
       :root { --section-pad: 72px; }
-
       .hero-inner                { grid-template-columns: 1fr; gap: 56px; }
       .hero-form-card            { max-width: 540px; }
       .about-grid                { grid-template-columns: 1fr; gap: 52px; }
@@ -1215,7 +865,6 @@
 
     @media (max-width: 768px) {
       :root { --section-pad: 56px; }
-
       .nav-links                 { display: none; }
       .hamburger                 { display: flex; }
       .testimonials-grid         { grid-template-columns: 1fr; }
@@ -1226,8 +875,6 @@
       .hero-form-card            { padding: 32px 24px; }
       .btn-primary, .btn-submit  { min-height: 52px; }
       .services-grid             { grid-template-columns: 1fr !important; max-width: 480px; margin-left: auto; margin-right: auto; }
-
-      /* PERF: iOS — prevent font size inflation on input focus */
       .form-group input,
       .form-group textarea       { font-size: 16px; padding: 13px 14px; }
     }
@@ -1296,7 +943,6 @@
     <div class="hero-bg-split"   aria-hidden="true"></div>
     <div class="hero-bg-glow"    aria-hidden="true"></div>
     <div class="hero-bg-grid"    aria-hidden="true"></div>
-    <!-- PERF: hero-bg-divider removed (decorative layer with no content value) -->
 
     <div class="container">
       <div class="hero-inner">
@@ -1449,12 +1095,6 @@
       <div class="about-grid">
 
         <div class="about-image-wrap reveal-left">
-          <!--
-            PERF: fetchpriority="high" + loading="eager" tells the browser to
-            treat this as an LCP candidate and fetch it immediately.
-            decoding="async" frees the main thread during image decode.
-            Explicit width/height prevent layout shift (CLS).
-          -->
           <img
             src="images/website.png"
             alt="Sample client website built by Samuel Rincon"
@@ -1490,6 +1130,92 @@
     </div>
   </section>
 
+  <!-- How It Works -->
+  <section id="how-it-works" aria-labelledby="how-heading">
+    <div class="container">
+
+      <div class="section-header reveal" style="margin-bottom: 52px;">
+        <span class="section-label">How It Works</span>
+        <h2 id="how-heading" class="section-title">Simple Process.<br><span class="accent">Real Results.</span></h2>
+        <p class="section-sub">Every site is built with one goal: turning visitors into real calls. Clear structure, strong messaging, and simple contact flows — so people don't just visit, they reach out.</p>
+      </div>
+
+      <div class="how-grid">
+
+        <!-- Steps -->
+        <div class="how-steps reveal-left">
+
+          <div class="how-step">
+            <div class="how-step-left">
+              <div class="how-step-num">1</div>
+              <div class="how-step-line"></div>
+            </div>
+            <div class="how-step-content">
+              <h4>You tell me about your business</h4>
+              <p>You fill out a quick form with a few details about your business, your customers, and what you're looking for. We review everything and follow up with the best approach for your situation — no back and forth, no wasted time.</p>
+            </div>
+          </div>
+
+          <div class="how-step">
+            <div class="how-step-left">
+              <div class="how-step-num">2</div>
+              <div class="how-step-line"></div>
+            </div>
+            <div class="how-step-content">
+              <h4>I build your site</h4>
+              <p>I handle everything — design, copy, hosting, domain. Built around getting you calls, not just looking good.</p>
+            </div>
+          </div>
+
+          <div class="how-step">
+            <div class="how-step-left">
+              <div class="how-step-num">3</div>
+              <div class="how-step-line"></div>
+            </div>
+            <div class="how-step-content">
+              <h4>Your phone starts ringing</h4>
+              <p>Visitors land on your site, see exactly what they need, and call or message you directly. That's the whole point.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Trust blocks -->
+        <div class="how-trust-col">
+
+          <div class="trust-block reveal delay-1">
+            <div class="trust-block-label">Why it works</div>
+            <p>I work with a small number of local businesses so every site gets real attention. I'm not rushing through dozens of projects — I focus on doing it right.</p>
+            <p style="margin-top: 10px;">That means your site isn't a template with your name swapped in. It's built around how your customers think and what makes them pick up the phone.</p>
+          </div>
+
+          <div class="trust-block trust-block-demo reveal delay-2">
+            <div class="trust-block-label">See it before you commit</div>
+            <p>Want to see what this looks like in action? I can show you a real example of how your website would look and work — before we even start.</p>
+            <div class="demo-cta-row">
+              <a href="/hvac/" class="btn-demo">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                View Live Demo
+              </a>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Real HVAC site example</span>
+            </div>
+          </div>
+
+          <div class="trust-block reveal delay-3">
+            <div class="trust-block-label">No guesswork</div>
+            <p>You see the site before it goes live. If something doesn't feel right, I fix it. Simple as that.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- Services -->
   <section id="services" aria-labelledby="services-heading">
     <div class="container">
@@ -1504,84 +1230,96 @@
 
       <div class="services-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start;">
 
-        <!-- Basic Website -->
-        <div class="service-card reveal delay-1" style="display: flex; flex-direction: column;" role="article" aria-label="Basic Website package">
+        <!-- Starter Lead Page -->
+        <div class="service-card reveal delay-1" style="display: flex; flex-direction: column;" role="article" aria-label="Starter Lead Page package">
           <div class="service-icon" aria-hidden="true">🚀</div>
-          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Basic Website</h3>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px;">If you just need something solid online, this is it.</p>
-          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;" aria-label="Basic package features">
+          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Starter Lead Page</h3>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;">A simple, high-converting page designed to turn visitors into real calls — without overcomplicating things.</p>
+          <p style="font-size: 0.88rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Starting at $600</p>
+          <p style="font-size: 0.78rem; color: var(--accent); font-weight: 600; margin-bottom: 16px;">Limited availability — only taking a few new clients this month</p>
+          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;" aria-label="Starter Lead Page features">
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Clean website design
+              1 high-converting landing page
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Custom domain included
+              Call + form lead capture system
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Fast, reliable hosting
+              Mobile-optimized design
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              SSL security certificate
+              Fast hosting + SSL
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              6-month performance guarantee
+              Basic local SEO structure
             </li>
           </ul>
           <a href="#" class="btn-primary scroll-to-form" style="justify-content: center; width: 100%; box-sizing: border-box;">Start Getting Calls</a>
         </div>
 
-        <!-- Growth Website (featured) -->
-        <div class="service-card reveal delay-2" style="display: flex; flex-direction: column; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); position: relative;" role="article" aria-label="Growth Website package — most popular">
-          <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 14px; border-radius: var(--radius-pill); white-space: nowrap;">Most Popular</div>
+        <!-- Growth System (featured) -->
+        <div class="service-card reveal delay-2" style="display: flex; flex-direction: column; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); position: relative;" role="article" aria-label="Growth System package — most popular">
+          <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 14px; border-radius: var(--radius-pill); white-space: nowrap;">Most Popular — Best for growing businesses</div>
           <div class="service-icon" style="margin-top: 28px;" aria-hidden="true">📈</div>
-          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Growth Website</h3>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px;">If you want something you don't have to think about again.</p>
-          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;" aria-label="Growth package features">
+          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Growth System</h3>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;">A complete website system built to bring in consistent calls so you can focus on running your business.</p>
+          <p style="font-size: 0.88rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 24px;">Most clients invest $1,000–$1,400</p>
+          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;" aria-label="Growth System features">
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Everything in Basic
+              Everything in Starter
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Ongoing website maintenance
+              3–5 page website built to convert (Services, About, Contact)
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              1-year performance guarantee
+              Ongoing maintenance
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Priority support response
+              Conversion-focused structure
+            </li>
+            <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Priority support
             </li>
           </ul>
           <a href="#" class="btn-primary scroll-to-form" style="justify-content: center; width: 100%; box-sizing: border-box;">Start Getting Calls</a>
         </div>
 
-        <!-- Custom Website -->
-        <div class="service-card reveal delay-3" style="display: flex; flex-direction: column;" role="article" aria-label="Custom Website package">
+        <!-- Lead Engine -->
+        <div class="service-card reveal delay-3" style="display: flex; flex-direction: column;" role="article" aria-label="Lead Engine package">
           <div class="service-icon" aria-hidden="true">💎</div>
-          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Custom Website</h3>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px;">If you want it to actually feel like your business.</p>
-          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;" aria-label="Custom package features">
+          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Lead Engine</h3>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;">A fully customized system designed to position your business as the go-to choice in your area.</p>
+          <p style="font-size: 0.88rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 24px;">Custom projects starting at $1,800+</p>
+          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;" aria-label="Lead Engine features">
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               Everything in Growth
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Fully custom design &amp; branding
+              Custom branding &amp; layout
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Unlimited content edits
+              Unlimited content updates
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Focused on getting you more calls
+              Advanced conversion optimization
+            </li>
+            <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Continuous improvements based on performance
             </li>
           </ul>
           <a href="#" class="btn-primary scroll-to-form" style="justify-content: center; width: 100%; box-sizing: border-box;">Start Getting Calls</a>
@@ -1767,9 +1505,9 @@
         <div class="footer-col">
           <h4>Packages</h4>
           <ul>
-            <li><a href="#services">Basic Website</a></li>
-            <li><a href="#services">Growth Website</a></li>
-            <li><a href="#services">Custom Website</a></li>
+            <li><a href="#services">Starter Lead Page</a></li>
+            <li><a href="#services">Growth System</a></li>
+            <li><a href="#services">Lead Engine</a></li>
           </ul>
         </div>
 
@@ -1850,7 +1588,7 @@
     });
   });
 
-  /* ── Navbar scroll — PERF: rAF debounce prevents layout thrashing ── */
+  /* ── Navbar scroll ── */
   var scrollTicking = false;
   window.addEventListener('scroll', function () {
     if (!scrollTicking) {
@@ -1860,7 +1598,7 @@
       });
       scrollTicking = true;
     }
-  }, { passive: true }); // passive: true — never blocks scroll input
+  }, { passive: true });
 
   /* ── Active nav link ────────────────────────────────────────── */
   var navLinks = document.querySelectorAll('.nav-links a');
@@ -1890,34 +1628,21 @@
     document.body.style.overflow = '';
   }
 
-  /*
-   * PERF: Reveal observer — threshold 0.08 (was 0.1) + rootMargin -36px.
-   * Slightly lower threshold means elements start animating a touch earlier,
-   * which hides any decode/paint cost before the element is fully in view.
-   */
+  /* ── Reveal observer ────────────────────────────────────────── */
   var revObs = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        revObs.unobserve(entry.target); // unobserve after trigger — frees observer memory
+        revObs.unobserve(entry.target);
       }
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -36px 0px' });
   document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function (el) { revObs.observe(el); });
 
-  /*
-   * PERF: Dynamic will-change management.
-   * will-change:transform creates a GPU layer — useful during animation,
-   * expensive when left permanently. We enable it on mouseenter, remove on mouseleave.
-   * This is the "level senior" approach from the optimization notes.
-   */
+  /* ── Dynamic will-change ────────────────────────────────────── */
   document.querySelectorAll('.service-card, .testimonial-card, .contact-card').forEach(function (card) {
-    card.addEventListener('mouseenter', function () {
-      this.style.willChange = 'transform';
-    });
-    card.addEventListener('mouseleave', function () {
-      this.style.willChange = 'auto';
-    });
+    card.addEventListener('mouseenter', function () { this.style.willChange = 'transform'; });
+    card.addEventListener('mouseleave', function () { this.style.willChange = 'auto'; });
   });
 
   /* ── Footer year ────────────────────────────────────────────── */
@@ -1939,7 +1664,7 @@
 
   heroForm && heroForm.addEventListener('input', function () {
     heroInlineError && heroInlineError.classList.remove('show');
-  }, { passive: true }); // PERF: passive on input listener
+  }, { passive: true });
 
   function validateHero() {
     var ok = true;
