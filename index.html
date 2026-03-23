@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -541,7 +542,7 @@
       animation: spin 0.6s linear infinite;
     }
     .btn-submit.loading .spinner  { display: block; }
-    .btn-submit.loading .btn-text { display: none;  }
+    .btn-submit.loading .btn-text { display: none; }
 
     .form-inline-error {
       display: none;
@@ -893,7 +894,7 @@
   <!-- Mobile Menu -->
   <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
     <a href="#about"        onclick="closeMobile()">About</a>
-    <a href="#services"     onclick="closeMobile()">Packages</a>
+    <a href="#services"     onclick="closeMobile()">Pricing</a>
     <a href="#testimonials" onclick="closeMobile()">Results</a>
     <a href="#contact"      onclick="closeMobile()">Contact</a>
     <a href="mailto:samuelrinconm@yahoo.com" class="nav-cta">Start Getting Calls</a>
@@ -925,7 +926,7 @@
 
         <nav class="nav-links" aria-label="Primary navigation">
           <a href="#about">About</a>
-          <a href="#services">Packages</a>
+          <a href="#services">Pricing</a>
           <a href="#testimonials">Results</a>
           <a href="#contact">Contact</a>
         </nav>
@@ -977,7 +978,7 @@
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </a>
-            <a href="#services" class="btn-outline">See Packages</a>
+            <a href="#services" class="btn-outline">See Pricing</a>
             <a href="/hvac/" class="btn-outline" style="border-color: var(--teal); color: var(--teal);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
@@ -1221,108 +1222,102 @@
     <div class="container">
 
       <div class="section-header reveal">
-        <span class="section-label">Packages</span>
-        <h2 id="services-heading" class="section-title">Choose Your <span class="accent">Plan</span></h2>
-        <p class="section-sub">Pick what makes sense for your business. Everything is built to help you get calls.</p>
+        <span class="section-label">Pricing</span>
+        <h2 id="services-heading" class="section-title">Simple Pricing</h2>
+        <p class="section-sub">Everything you need to start getting calls - with options to grow.</p>
       </div>
 
       <p class="services-intro reveal">Every site is built around your business. Not a generic template.</p>
 
-      <div class="services-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start;">
+      <div class="services-grid" style="display: grid; grid-template-columns: 1fr; gap: 20px; justify-items: center; align-items: start;">
 
-        <!-- Starter Lead Page -->
-        <div class="service-card reveal delay-1" style="display: flex; flex-direction: column;" role="article" aria-label="Starter Lead Page package">
+        <div class="service-card reveal" style="display: flex; flex-direction: column; width: 100%; max-width: 620px;" role="article" aria-label="Website That Gets You More Calls offer">
           <div class="service-icon" aria-hidden="true">🚀</div>
-          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Starter Lead Page</h3>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;">A simple, high-converting page designed to turn visitors into real calls — without overcomplicating things.</p>
-          <p style="font-size: 0.88rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Starting at $600</p>
-          <p style="font-size: 0.78rem; color: var(--accent); font-weight: 600; margin-bottom: 16px;">Limited availability — only taking a few new clients this month</p>
-          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;" aria-label="Starter Lead Page features">
+
+          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Website That Gets You More Calls</h3>
+
+          <p style="font-size: 1.05rem; font-weight: 900; color: var(--text-secondary); margin-bottom: 6px; line-height: 1.2;">Starting at $600</p>
+          <p style="font-size: 0.78rem; color: var(--text-muted); font-weight: 400; margin-bottom: 10px;">One-time build — no long contracts</p>
+          <p style="font-size: 0.78rem; color: var(--text-muted); font-weight: 400; margin-bottom: 14px;">Most businesses start here and upgrade as they grow</p>
+
+          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.72; font-weight: 300; margin-bottom: 12px;">
+            A simple, high-converting website designed to turn visitors into real calls and customers.
+          </p>
+
+          <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; font-weight: 400; margin-bottom: 18px; text-align: center;">
+            Built for local service businesses that need more calls, not just a website.
+          </p>
+
+          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 0;" aria-label="Included features">
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               1 high-converting landing page
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Call + form lead capture system
+              Call + form system that sends leads directly to you
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Mobile-optimized design
+              Mobile-optimized for all devices
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Fast hosting + SSL
+              Fast, secure hosting + SSL included
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Basic local SEO structure
+              Basic local SEO-ready structure
+            </li>
+            <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Conversion-focused layout designed to get calls
+            </li>
+            <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Built specifically for your business
             </li>
           </ul>
-          <a href="#" class="btn-primary scroll-to-form" style="justify-content: center; width: 100%; box-sizing: border-box;">Start Getting Calls</a>
-        </div>
 
-        <!-- Growth System (featured) -->
-        <div class="service-card reveal delay-2" style="display: flex; flex-direction: column; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); position: relative;" role="article" aria-label="Growth System package — most popular">
-          <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 14px; border-radius: var(--radius-pill); white-space: nowrap;">Most Popular — Best for growing businesses</div>
-          <div class="service-icon" style="margin-top: 28px;" aria-hidden="true">📈</div>
-          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Growth System</h3>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;">A complete website system built to bring in consistent calls so you can focus on running your business.</p>
-          <p style="font-size: 0.88rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 24px;">Most clients invest $1,000–$1,400</p>
-          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;" aria-label="Growth System features">
-            <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Everything in Starter
-            </li>
-            <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              3–5 page website built to convert (Services, About, Contact)
-            </li>
-            <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Ongoing maintenance
-            </li>
-            <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Conversion-focused structure
-            </li>
-            <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Priority support
-            </li>
-          </ul>
-          <a href="#" class="btn-primary scroll-to-form" style="justify-content: center; width: 100%; box-sizing: border-box;">Start Getting Calls</a>
-        </div>
+          <div style="height: 1px; background: var(--border); margin: 26px 0;"></div>
 
-        <!-- Lead Engine -->
-        <div class="service-card reveal delay-3" style="display: flex; flex-direction: column;" role="article" aria-label="Lead Engine package">
-          <div class="service-icon" aria-hidden="true">💎</div>
-          <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px;">Lead Engine</h3>
-          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;">A fully customized system designed to position your business as the go-to choice in your area.</p>
-          <p style="font-size: 0.88rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 24px;">Custom projects starting at $1,800+</p>
-          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; flex: 1;" aria-label="Lead Engine features">
+          <p style="font-size: 0.78rem; color: var(--text-muted); font-weight: 400; text-align: center; margin-bottom: 12px;">
+            Most businesses add these to get better results:
+          </p>
+
+          <h4 style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; line-height: 1.3;">
+            Optional Upgrades
+          </h4>
+
+          <ul style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 0;" aria-label="Optional upgrades">
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Everything in Growth
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Additional pages (services, about, contact) (+$300)
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Custom branding &amp; layout
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Performance optimization (faster load speeds) (+$150)
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Unlimited content updates
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Advanced hosting &amp; security setup (+$150)
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Advanced conversion optimization
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Ongoing maintenance &amp; updates ($75/month)
             </li>
             <li style="display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              Continuous improvements based on performance
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Custom design upgrades (+$400)
             </li>
           </ul>
-          <a href="#" class="btn-primary scroll-to-form" style="justify-content: center; width: 100%; box-sizing: border-box;">Start Getting Calls</a>
+
+          <a href="#" class="btn-primary scroll-to-form" style="justify-content: center; width: 100%; box-sizing: border-box; margin-top: 22px;">
+            Start Getting Calls
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
         </div>
 
       </div>
@@ -1503,7 +1498,7 @@
         </div>
 
         <div class="footer-col">
-          <h4>Packages</h4>
+          <h4>Pricing</h4>
           <ul>
             <li><a href="#services">Starter Lead Page</a></li>
             <li><a href="#services">Growth System</a></li>
@@ -1588,7 +1583,7 @@
     });
   });
 
-  /* ── Navbar scroll ── */
+  /* ── Navbar scroll ──────────────────────────────────────────── */
   var scrollTicking = false;
   window.addEventListener('scroll', function () {
     if (!scrollTicking) {
@@ -1639,7 +1634,7 @@
   }, { threshold: 0.08, rootMargin: '0px 0px -36px 0px' });
   document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function (el) { revObs.observe(el); });
 
-  /* ── Dynamic will-change ────────────────────────────────────── */
+  /* ── Dynamic will-change ───────────────────────────────────── */
   document.querySelectorAll('.service-card, .testimonial-card, .contact-card').forEach(function (card) {
     card.addEventListener('mouseenter', function () { this.style.willChange = 'transform'; });
     card.addEventListener('mouseleave', function () { this.style.willChange = 'auto'; });
