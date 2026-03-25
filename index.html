@@ -1093,29 +1093,33 @@
       :root { --section-pad: 84px; }
     }
 
-  @media (max-width: 768px) {
-    .nav-links { display: none; }
-    .hamburger { display: flex; }
-    .container { padding: 0 20px; }
-    #hero { padding-top: 110px; }
-    .hero-points { grid-template-columns: 1fr; }
-    .contact-cards { grid-template-columns: 1fr; }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .container { padding: 0 20px; }
+  #hero { padding-top: 110px; }
+  .hero-points { grid-template-columns: 1fr; }
+  .contact-cards { grid-template-columns: 1fr; }
 
-    .hero-content {
-      text-align: center;
-      max-width: 100%;
-      margin: 0 auto;
-    }
-
-    .hero-eyebrow,
-    .hero-headline {
-      text-align: left;
-    }
-
-    .hero-eyebrow {
-      justify-content: flex-start;
-    }
+  .hero-content {
+    text-align: center;
+    max-width: 100%;
+    margin: 0 auto;
   }
+
+  .hero-eyebrow {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .hero-headline {
+    text-align: center;
+  }
+
+  .hero-subheadline {
+    text-align: left;
+  }
+}
 
     @media (max-width: 640px) {
       .li-upgrade {
