@@ -184,7 +184,7 @@
     .nav-cta:hover { background: var(--accent-light); transform: translateY(-1px); }
 
     body.mobile-menu-open #navbar .nav-cta { display: none; }
-    body.mobile-menu-open #navbar { z-index: 1002; }
+    body.mobile-menu-open #navbar { z-index: 1000; }
 
     .hamburger {
       display: none;
@@ -210,7 +210,7 @@
       position: fixed;
       inset: 0;
       background: rgba(13, 15, 20, 0.98);
-      z-index: 1001;
+      z-index: 1002;
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -319,6 +319,7 @@
       padding-top: 118px;
       padding-bottom: 90px;
       overflow: hidden;
+      isolation: isolate;
     }
     #hero .hero-bg {
       position: absolute;
@@ -636,7 +637,19 @@
     .band {
       padding: var(--section-pad) 0;
       border-top: 1px solid var(--border);
+      position: relative;
     }
+    .nav-mobile-brand {
+      display: none;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      user-select: none;
+    }
+
     .band.surface { background: var(--bg-surface); }
     .band.base { background: var(--bg-base); }
 
@@ -1101,6 +1114,13 @@
   .hero-points { grid-template-columns: 1fr; }
   .contact-cards { grid-template-columns: 1fr; }
 
+  /* Mobile navbar: swap CTA button for brand text */
+  #navbar .nav-cta { display: none !important; }
+  #navbar .nav-mobile-brand { display: inline-flex; align-items: center; }
+
+  /* Mobile hero: hide the small label above the main headline */
+  #hero .hero-content > *:first-child { display: none !important; }
+
   .hero-content {
     text-align: center;
     max-width: 100%;
@@ -1193,6 +1213,8 @@
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
         </a>
+
+        <span class="nav-mobile-brand">Legatus Systems</span>
 
         <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
           <span></span><span></span><span></span>
