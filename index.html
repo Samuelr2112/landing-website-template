@@ -300,6 +300,12 @@
       border-radius: 2px;
       opacity: 0.9;
     }
+
+    .hero-kicker.section-label {
+      justify-content: flex-start;
+      margin-top: 28px;
+      margin-bottom: 16px;
+    }
     .section-title {
       font-family: var(--font-display);
       font-size: clamp(2.0rem, 3.3vw, 2.8rem);
@@ -382,9 +388,17 @@
       font-family: var(--font-display);
       font-size: clamp(2.6rem, 4.7vw, 4.0rem);
       font-weight: 900;
+      font-style: italic;
       line-height: 1.05;
       letter-spacing: -0.03em;
+      margin-top: 0;
       margin-bottom: 16px;
+      text-shadow:
+        0 2px 0 rgba(0,0,0,0.26),
+        0 18px 42px rgba(0,0,0,0.36),
+        0 0 24px rgba(255,255,255,0.05);
+      text-wrap: balance;
+      position: relative;
     }
     .hero-subheadline {
       font-size: 1.06rem;
@@ -1140,8 +1154,13 @@
       .steps { grid-template-columns: 1fr; }
       .test-grid { grid-template-columns: 1fr; }
       .two-blocks { grid-template-columns: 1fr; }
-      :root { --section-pad: 84px; }
+      :root { --section-pad: 58px; }
     }
+
+    .hero-headline-mobile,
+    .hero-sub-mobile { display: none; }
+    .hero-headline-desktop,
+    .hero-sub-desktop { display: inline; }
 
 @media (max-width: 768px) {
   .nav-links { display: none; }
@@ -1157,6 +1176,52 @@
 
   /* Mobile hero: remove the primary CTA button (keep secondary) */
   #hero .hero-cta-row > a.btn-primary { display: none !important; }
+
+  /* Mobile hero: stronger single CTA (thumb-driven) */
+  #hero .hero-cta-row > a.btn-outline {
+    background: var(--accent);
+    color: #fff;
+    border-color: transparent;
+    font-weight: 800;
+    box-shadow: var(--shadow-accent);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #hero .hero-cta-row > a.btn-outline:hover { color: #fff; border-color: transparent; }
+
+  #hero .hero-kicker.section-label { justify-content: center; margin-top: 6px; margin-bottom: 16px; }
+
+  /* Mobile hero: conversion-optimized spacing */
+  #hero .hero-cta-row { justify-content: center; padding-top: 12px;padding-bottom: 18px;}
+  #hero .hero-headline {
+    margin-top: 0;
+    margin-bottom: 28px;
+    padding-bottom: 10px;
+    text-shadow:
+      0 2px 0 rgba(0,0,0,0.38),
+      0 22px 54px rgba(0,0,0,0.50),
+      0 0 38px rgba(255,255,255,0.10),
+      0 0 54px rgba(232, 98, 42, 0.10);
+  }
+  #hero .hero-headline::after {
+    content: '';
+    display: block;
+    width: 86px;
+    height: 3px;
+    margin: 22px auto 8px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent), var(--teal));
+    box-shadow: 0 10px 26px rgba(232, 98, 42, 0.18);
+    opacity: 0.92;
+  }
+  #hero .hero-subheadline { margin-bottom: 26px; }
+  #hero .hero-points { margin-bottom: 32px; }
+
+  /* Mobile hero: headline/subtitle variants */
+  #hero .hero-headline-desktop { display: none; }
+  #hero .hero-headline-mobile { display: inline; }
+  #hero .hero-sub-desktop { display: none; }
+  #hero .hero-sub-mobile { display: inline; }
 
   .hero-content {
     text-align: center;
@@ -1278,12 +1343,25 @@
       <div class="hero-inner">
 
         <div class="hero-content">
+          <span class="section-label hero-kicker reveal">Start Here</span>
+
           <h1 id="hero-heading" class="hero-headline reveal delay-1">
-            The System Your Business Needs to <span class="accent">Grow Consistently Online</span><span class="hero-headline-suffix"></span>
+            <span class="hero-headline-desktop">
+              The System Your Business Needs to <span class="accent">Grow Consistently Online</span><span class="hero-headline-suffix"></span>
+            </span>
+            <span class="hero-headline-mobile">
+              Grow Your Business<br>
+              <span class="accent">Consistently</span> Online<span class="hero-headline-suffix"></span>
+            </span>
           </h1>
 
           <p class="hero-subheadline reveal delay-2">
-            A clear, structured system that makes it easy for customers to find you and contact you.
+            <span class="hero-sub-desktop">
+              A clear, structured system that makes it easy for customers to find you and contact you.
+            </span>
+            <span class="hero-sub-mobile">
+              A simple system to help customers find and contact you.
+            </span>
           </p>
 
           <div class="hero-points reveal delay-3" aria-label="Quick benefits">
@@ -1541,7 +1619,7 @@
       <div class="section-header reveal">
         <span class="section-label">Investment</span>
         <h2 class="section-title">One system that grows your business.</h2>
-        <p class="section-sub">Most businesses we work with invest between $1,000–$3,000+ depending on their market, competition, and growth goals.</p>
+        <p class="section-sub">Most businesses we work with invest between <strong>$1,000–$3,000+</strong> depending on their market, competition, and growth goals.</p>
       </div>
 
       <div class="pricing-wrap">
