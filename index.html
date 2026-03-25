@@ -197,14 +197,13 @@
       height: 2px;
       background: var(--text-secondary);
       border-radius: 2px;
-      transition: var(--transition);
+      transition: transform 0.25s ease, opacity 0.25s ease;
     }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     .mobile-menu {
-      display: none;
       position: fixed;
       inset: 0;
       background: rgba(13, 15, 20, 0.98);
@@ -212,24 +211,61 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 26px;
-      opacity: 0;
-      transition: opacity 0.25s ease;
       padding: 28px;
       text-align: center;
+
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
-    .mobile-menu.open { display: flex; opacity: 1; }
-    .mobile-menu a {
+    .mobile-menu.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .mobile-links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .mobile-links a {
       font-family: var(--font-display);
       font-size: 1.9rem;
       font-weight: 700;
       color: var(--text-primary);
     }
-    .mobile-menu .nav-cta {
-      font-family: var(--font-body);
-      font-size: 1rem;
-      padding: 14px 28px;
-      margin-top: 6px;
+
+    .mobile-menu a {
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .mobile-menu a:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    .mobile-cta {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .mobile-cta .btn-primary {
+      width: 100%;
+      max-width: 520px;
+      justify-content: center;
     }
 
     .section-header { text-align: center; max-width: 720px; margin: 0 auto 54px; }
@@ -1068,10 +1104,6 @@
       .offer { padding: 28px 18px; }
       .hero-panel { padding: 22px 16px; }
     }
-    @media (max-width: 768px) {
-      .mobile-menu .nav-cta {display: none !important;}
-    }
-
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
@@ -1080,12 +1112,19 @@
 <body>
 
   <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile menu">
-    <a href="#benefits" onclick="closeMobile()">Benefits</a>
-    <a href="#how-it-works" onclick="closeMobile()">How It Works</a>
-    <a href="#pricing" onclick="closeMobile()">Pricing</a>
-    <a href="#faq" onclick="closeMobile()">FAQ</a>
-    <a href="#contact" onclick="closeMobile()">Contact</a>
-    <a href="mailto:samuelrinconm@yahoo.com" class="nav-cta">Get Started</a>
+    <div class="mobile-links">
+      <a href="#benefits" onclick="closeMobile()">Benefits</a>
+      <a href="#how-it-works" onclick="closeMobile()">How It Works</a>
+      <a href="#pricing" onclick="closeMobile()">Pricing</a>
+      <a href="#faq" onclick="closeMobile()">FAQ</a>
+      <a href="#contact" onclick="closeMobile()">Contact</a>
+    </div>
+
+    <div class="mobile-cta">
+      <a href="#" class="btn-primary" onclick="scrollToForm(); closeMobile(); return false;">
+        Get Your Plan
+      </a>
+    </div>
   </nav>
 
   <header id="navbar" role="banner">
@@ -1242,7 +1281,7 @@
                   </svg>
                 </div>
                 <h3>Done!</h3>
-                <p>We'll reply within 24 hours.</p>
+                <p>Sent successfully and we’ll contact you in approximately 24–48 hours.</p>
               </div>
             </form>
           </div>
@@ -1763,11 +1802,18 @@
   }, { threshold: 0.35 });
   document.querySelectorAll('section[id]').forEach(function (s) { secObs.observe(s); });
 
+  function openMobile() {
+    if (!hamburger || !mobileMenu) return;
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
   hamburger && hamburger.addEventListener('click', function () {
-    var open = hamburger.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', String(open));
-    mobileMenu && mobileMenu.classList.toggle('open', open);
-    document.body.style.overflow = open ? 'hidden' : '';
+    var isOpen = mobileMenu && mobileMenu.classList.contains('open');
+    if (isOpen) closeMobile();
+    else openMobile();
   });
 
   function closeMobile() {
@@ -1777,6 +1823,10 @@
     document.body.style.overflow = '';
   }
   window.closeMobile = closeMobile;
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeMobile();
+  });
 
   var revObs = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
@@ -1841,7 +1891,7 @@
       var result = await res.json();
       if (res.ok && result.success) {
         heroForm.reset();
-        heroForm.style.display = 'none';
+        heroInlineError && heroInlineError.classList.remove('show');
         heroSuccess.classList.add('show');
       } else {
         throw new Error(result && result.error ? result.error : 'fail');
@@ -1854,7 +1904,8 @@
     heroSubmit.classList.remove('loading');
     heroSubmit.disabled = false;
   });
-  </script>
+  
+</script>
 
 </body>
 </html>
