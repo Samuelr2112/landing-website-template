@@ -183,6 +183,8 @@
     }
     .nav-cta:hover { background: var(--accent-light); transform: translateY(-1px); }
 
+    body.mobile-menu-open #navbar .nav-cta { display: none; }
+
     .hamburger {
       display: none;
       flex-direction: column;
@@ -219,13 +221,18 @@
       pointer-events: none;
       transition: opacity 0.25s ease, transform 0.25s ease;
 
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+
+      will-change: opacity, transform;
     }
     .mobile-menu.open {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
+
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .mobile-links {
@@ -603,7 +610,7 @@
       cursor: pointer;
     }
 
-    .form-success { display: none; text-align: center; padding: 18px 0 6px; }
+    .form-success { display: none; text-align: center; padding: 18px 0 6px; margin-top: 14px; }
     .form-success.show { display: block; }
     .success-icon {
       width: 56px;
@@ -1273,17 +1280,17 @@
                   Email Directly
                 </button>
               </div>
-
-              <div class="form-success" id="heroSuccess" role="status" aria-live="polite">
-                <div class="success-icon" aria-hidden="true">
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </div>
-                <h3>Done!</h3>
-                <p>Sent successfully and we’ll contact you in approximately 24–48 hours.</p>
-              </div>
             </form>
+
+            <div class="form-success" id="heroSuccess" role="status" aria-live="polite">
+              <div class="success-icon" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <h3>Done!</h3>
+              <p>Sent successfully and we’ll contact you in approximately 24–48 hours.</p>
+            </div>
           </div>
         </aside>
 
@@ -1807,6 +1814,7 @@
     hamburger.classList.add('open');
     hamburger.setAttribute('aria-expanded', 'true');
     mobileMenu.classList.add('open');
+    document.body.classList.add('mobile-menu-open');
     document.body.style.overflow = 'hidden';
   }
 
@@ -1820,6 +1828,7 @@
     hamburger && hamburger.classList.remove('open');
     hamburger && hamburger.setAttribute('aria-expanded', 'false');
     mobileMenu && mobileMenu.classList.remove('open');
+    document.body.classList.remove('mobile-menu-open');
     document.body.style.overflow = '';
   }
   window.closeMobile = closeMobile;
@@ -1881,6 +1890,7 @@
       website: document.getElementById('hf-website').value
     };
     _pending = data;
+    var didSucceed = false;
 
     try {
       var res = await fetch('https://booking-proxy.samuelrincon8.workers.dev', {
@@ -1892,7 +1902,10 @@
       if (res.ok && result.success) {
         heroForm.reset();
         heroInlineError && heroInlineError.classList.remove('show');
+        didSucceed = true;
+        heroForm.style.display = 'none';
         heroSuccess.classList.add('show');
+        heroSubmit.disabled = true;
       } else {
         throw new Error(result && result.error ? result.error : 'fail');
       }
@@ -1902,7 +1915,7 @@
 
     isSubmitting = false;
     heroSubmit.classList.remove('loading');
-    heroSubmit.disabled = false;
+    if (!didSucceed) heroSubmit.disabled = false;
   });
   
 </script>
