@@ -1103,6 +1103,15 @@
         flex-direction: column;
         gap: 4px;
       }
+
+      /* Mobile headline: remove the extra suffix line */
+      .hero-headline-suffix { display: none; }
+
+      /* Mobile subtitle: keep only the strong message */
+      .hero-sub-extended { display: none; }
+
+      /* Slightly smaller headline for tighter layouts */
+      .hero-headline { font-size: 2.3rem; line-height: 1.08; }
     }
 
     @media (max-width: 480px) {
@@ -1183,12 +1192,11 @@
           </div>
 
           <h1 id="hero-heading" class="hero-headline reveal delay-1">
-            The System Your Business Needs to <span class="accent">Grow Consistently Online</span> — Without the Chaos
+            The System Your Business Needs to <span class="accent">Grow Consistently Online</span><span class="hero-headline-suffix"></span>
           </h1>
 
           <p class="hero-subheadline reveal delay-2">
-            We build the complete system behind your growth: website, Google visibility, ways for customers to contact you, and automation.<br><br>
-            <strong>A clear, structured system that makes it easy for customers to find you and contact you.</strong>
+            <span class="hero-sub-extended"><strong>A clear, structured system that makes it easy for customers to find you and contact you.</strong><br><br></span>
           </p>
 
           <div class="hero-points reveal delay-3" aria-label="Quick benefits">
