@@ -10,6 +10,8 @@
   <meta property="og:description" content="Fast HVAC services in Houston, TX. AC repair, heating installation, and maintenance. Same-day service available." />
   <meta property="og:type" content="website" />
   <link rel="canonical" href="https://samuelrincon.com/hvac/" />
+  <!-- FIX 1: Preload hvac5 background image so it loads immediately, no flash -->
+  <link rel="preload" as="image" href="images/hvac5.png" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet" />
@@ -69,17 +71,41 @@
 
     :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: var(--radius); }
 
-    /* REVEAL */
-    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1); }
-    .reveal.visible { opacity: 1; transform: none; }
-    .reveal-left  { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal-right { opacity: 0; transform: translateX( 40px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: none; }
-    .delay-1 { transition-delay: 0.10s !important; }
-    .delay-2 { transition-delay: 0.20s !important; }
-    .delay-3 { transition-delay: 0.30s !important; }
-    .delay-4 { transition-delay: 0.40s !important; }
-    .delay-5 { transition-delay: 0.50s !important; }
+    /* REVEAL — FIXED SMOOTH VERSION */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+
+    .reveal,
+    .reveal-left,
+    .reveal-right {
+      transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.75s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .reveal.visible,
+    .reveal-left.visible,
+    .reveal-right.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .delay-1 { transition-delay: 0.15s !important; }
+    .delay-2 { transition-delay: 0.30s !important; }
+    .delay-3 { transition-delay: 0.45s !important; }
+    .delay-4 { transition-delay: 0.60s !important; }
+    .delay-5 { transition-delay: 0.75s !important; }
 
     .section-label {
       display: inline-flex; align-items: center; gap: 10px;
@@ -384,23 +410,57 @@
     /* ==============================
        TESTIMONIALS
     ============================== */
-    #testimonials { padding: var(--section-pad) 0; background: #ffffff; position: relative; overflow: hidden; }
+    #testimonials { padding: 64px 0; background: #ffffff; position: relative; overflow: hidden; }
     #testimonials::before { content: ''; position: absolute; right: -200px; top: -100px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(21,101,192,0.04) 0%, transparent 65%); pointer-events: none; }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .testimonial-card--featured { grid-column: 1 / -1; }
-    .testimonial-card { background: var(--bg-raised); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 32px 28px; position: relative; transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition); }
-    .testimonial-card--featured { background: linear-gradient(135deg, #e8f0fc 0%, #f0f6ff 100%); border-color: rgba(21,101,192,0.18); padding: 40px 40px; }
+
+    /* FIX 2: overflow-x scroll only, no vertical scroll */
+    .testimonials-grid {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 10px 4px 16px;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+    .testimonials-grid { scrollbar-width: thin; scrollbar-color: rgba(13,31,60,0.35) transparent; }
+    .testimonials-grid::-webkit-scrollbar { height: 10px; }
+    .testimonials-grid::-webkit-scrollbar-track { background: transparent; }
+    .testimonials-grid::-webkit-scrollbar-thumb {
+      background: rgba(13,31,60,0.28);
+      border-radius: 999px;
+      border: 2px solid transparent;
+      background-clip: content-box;
+    }
+    .testimonials-grid::-webkit-scrollbar-thumb:hover { background: rgba(13,31,60,0.38); background-clip: content-box; }
+
+    .testimonial-card {
+      flex: 0 0 clamp(280px, 78vw, 360px);
+      scroll-snap-align: start;
+      background: var(--bg-raised);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+      position: relative;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+    .testimonial-card--featured {
+      flex-basis: clamp(320px, 86vw, 460px);
+      background: linear-gradient(135deg, #e8f0fc 0%, #f0f6ff 100%);
+      border-color: rgba(21,101,192,0.18);
+    }
     .testimonial-card:hover { transform: translateY(-2px); border-color: var(--border-strong); box-shadow: var(--shadow); }
-    .quote-mark { font-family: var(--font-display); font-size: 5rem; color: var(--teal); line-height: 0.6; opacity: 0.25; margin-bottom: 12px; display: block; }
-    .testimonial-text { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.85; margin-bottom: 24px; font-style: italic; }
-    .testimonial-card--featured .testimonial-text { font-size: 1.1rem; line-height: 1.9; margin-bottom: 28px; color: var(--text-primary); }
+    .quote-mark { font-family: var(--font-display); font-size: 3.4rem; color: var(--teal); line-height: 0.6; opacity: 0.22; margin-bottom: 10px; display: block; }
+    .testimonial-text { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 18px; font-style: italic; }
+    .testimonial-card--featured .testimonial-text { font-size: 0.98rem; line-height: 1.8; color: var(--text-primary); }
     .testimonial-author { display: flex; align-items: center; gap: 14px; }
     .author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-highlight); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; border: 2px solid var(--border-strong); }
     .author-name   { font-weight: 700; font-size: 0.9rem; margin-bottom: 2px; color: var(--text-primary); }
     .author-detail { font-size: 0.78rem; color: var(--text-muted); }
     .stars         { margin-left: auto; color: #f59e0b; font-size: 0.9rem; letter-spacing: 2px; }
     .verified-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.68rem; font-weight: 700; color: var(--teal); letter-spacing: 0.05em; margin-top: 5px; }
-    .reviews-footer { display: flex; align-items: center; justify-content: center; margin-top: 44px; }
+    .reviews-footer { display: flex; align-items: center; justify-content: center; margin-top: 20px; }
     .google-badge { display: inline-flex; align-items: center; gap: 10px; background: #fff; border: 1.5px solid var(--border-strong); border-radius: var(--radius-pill); padding: 10px 20px; font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); box-shadow: 0 2px 12px rgba(13,31,60,0.07); }
     .google-g { width: 22px; height: 22px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #4285F4; border: 1px solid #e0e0e0; }
 
@@ -548,7 +608,15 @@
   ============================== -->
   <section id="hero" aria-labelledby="hero-headline">
     <div class="hero-bg-split" aria-hidden="true"></div>
-    <img src="images/hvac5.png" alt="" aria-hidden="true" loading="eager" decoding="async" fetchpriority="high" width="1536" height="1024"
+    <!--
+      FIX 1: fetchpriority="high" + loading="eager" + decoding="sync"
+      The <link rel="preload"> in <head> ensures the browser fetches this
+      image as soon as it parses the HTML, before layout even starts,
+      eliminating the delayed/flash appearance.
+    -->
+    <img src="images/hvac5.png" alt="" aria-hidden="true"
+      loading="eager" decoding="sync" fetchpriority="high"
+      width="1536" height="1024"
       style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.06;z-index:0;pointer-events:none;" />
     <div class="hero-bg-divider" aria-hidden="true"></div>
 
@@ -888,7 +956,7 @@
         <p class="section-sub">Real reviews from Houston homeowners who trust us to keep their homes comfortable year-round.</p>
       </div>
 
-      <div class="testimonials-grid">
+      <div class="testimonials-grid" id="testimonialsTrack" aria-label="Customer reviews carousel">
         <div class="testimonial-card testimonial-card--featured reveal">
           <span class="quote-mark" aria-hidden="true">"</span>
           <p class="testimonial-text">They showed up the same day and fixed my AC in under an hour — house was cool again before dinner. That's the kind of result you want when it's 100 degrees outside.</p>
@@ -931,7 +999,7 @@
           </div>
         </div>
 
-        <div class="testimonial-card reveal delay-3" style="grid-column: 1 / -1;">
+        <div class="testimonial-card reveal delay-3">
           <span class="quote-mark" aria-hidden="true">"</span>
           <p class="testimonial-text">Saturday emergency — same-day visit, no surprise weekend fee, cold air restored fast. Money well spent. I won't call anyone else.</p>
           <div class="testimonial-author">
